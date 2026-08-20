@@ -1,0 +1,173 @@
+# Deploying
+
+One-time setup, then every future change is just "edit the Python and push".
+
+Repository: <https://github.com/my-usg/sizingtool>
+
+---
+
+## 1. Put the code on GitHub
+
+If the repository is empty, from inside the unzipped folder:
+
+```bash
+git init
+git add .
+git commit -m "Sizing tool: Python algorithm, transpiled JS build, website block"
+git branch -M main
+git remote add origin https://github.com/my-usg/sizingtool.git
+git push -u origin main
+```
+
+If the repository already has files in it, clone it first and copy these files
+in, so you keep its history:
+
+```bash
+git clone https://github.com/my-usg/sizingtool.git
+cd sizingtool
+# copy the contents of the unzipped folder in here, then:
+git add .
+git commit -m "Sizing tool: Python algorithm, transpiled JS build, website block"
+git push
+```
+
+## 2. Make the repository public
+
+**Settings → General → Danger Zone → Change repository visibility → Public.**
+
+This is required. jsDelivr serves files to visitors' browsers and cannot read a
+private repository - and neither can the browser. If the repo must stay
+private, this architecture will not work and you would need the server-based
+version instead.
+
+## 3. Let the build commit its output
+
+**Settings → Actions → General → Workflow permissions → "Read and write
+permissions" → Save.**
+
+Without this the build succeeds but cannot push the rebuilt
+`dist/usg-all-models.js`, and the site will keep serving the old version. This
+is the single most common thing to miss.
+
+## 4. Run the build once
+
+**Actions → "Build and verify" → Run workflow → Run.**
+
+Watch it go green. It will:
+
+1. transpile `algorithm/all_models.py` to JavaScript,
+2. run ~10,000 inputs through both Python and the generated JavaScript and
+   compare every field,
+3. drive the website block in a headless browser against expected results,
+4. commit `dist/usg-all-models.js`.
+
+If any step fails, nothing is published. Read the log - the failure message
+names the offending line or input.
+
+## 5. Check the file is live
+
+Open this in a browser:
+
+<https://cdn.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js>
+
+You should see JavaScript beginning with a comment block that includes a
+version, an algorithm hash and a build timestamp. If you get a 404, the build
+has not committed `dist/` yet - go back to step 3.
+
+## 6. Allow the CDN in the site's Content Security Policy
+
+The tool loads two scripts from CDNs, so `script-src` must include both:
+
+```
+script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+```
+
+* `cdn.jsdelivr.net` - the sizing algorithm from your repository.
+* `cdnjs.cloudflare.com` - jsPDF, used by the Download PDF Summary button.
+
+The `frame-src https://*.streamlit.app` entry that was added for the old
+embedded version is no longer needed and can be removed.
+
+If sizing reports "The sizing algorithm could not be loaded", this is almost
+always the cause. Open the browser console (F12) and look for a Content
+Security Policy error naming `cdn.jsdelivr.net`.
+
+## 7. Paste the block into the page
+
+Edit `/resources/regulator-sizing-tools/general`, open the existing HTML block
+and replace its contents with `web/sizing-tool-block.html`.
+
+Keep the "Preliminary selection only" disclaimer paragraph and the Report a Bug
+button from the old block - they are page content, not part of the tool, and
+can sit below it in the same block.
+
+## 8. Test it on the live page
+
+Enter inlet 19 psi, outlet 1 psi, flow 12321 CFH, overpressure protection Yes →
+Monitor regulator, generator/high-efficiency Yes at 50%, override oversize Yes
+at 35%. You should get:
+
+* Model **461-S**, 8" Al diaphragm, 2" ANSI125 body, 1" double orifice
+* Calculated Capacity **23,380** CFH
+* Part numbers `R.461-S.2FLG125.20D.B.13` and `R.461-S.2FLG125.20D.B.14`
+
+Then check it on a phone, and check the Download PDF Summary button.
+
+---
+
+## Publishing a change later
+
+```bash
+# edit algorithm/all_models.py
+git commit -am "Describe the change"
+git push
+```
+
+The build verifies and republishes automatically. The site picks it up within
+12 hours (jsDelivr's cache window for a branch URL). To make it immediate, load
+this once in a browser:
+
+<https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js>
+
+Then hard-refresh the page (Ctrl+F5).
+
+### If you prefer explicit control over when the site changes
+
+Pin a tag instead of tracking `main`:
+
+```bash
+git tag v1.1.0
+git push --tags
+```
+
+and change the block's script tag to `@v1.1.0`. Nothing on the site changes
+until you edit that tag, and tagged URLs never need purging. The cost is a
+manual block edit per release.
+
+---
+
+## Rolling back
+
+The site can be reverted without touching the repository: change the block's
+script tag to a specific commit, which jsDelivr serves permanently.
+
+```
+https://cdn.jsdelivr.net/gh/my-usg/sizingtool@COMMIT_SHA/dist/usg-all-models.js
+```
+
+Take the SHA from the repository's commit history. To roll back properly,
+`git revert` the change and push; the build republishes the previous behaviour.
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause |
+| --- | --- |
+| "The sizing algorithm could not be loaded" | CSP is missing `cdn.jsdelivr.net`, or the `dist/` file 404s (build has not committed yet). |
+| Build is green but the site shows old results | jsDelivr cache - purge the URL, then hard-refresh. |
+| Build fails at "Commit rebuilt bundle" with a permissions error | Step 3: workflow permissions are read-only. |
+| Build fails with `Unsupported stmt ... at line N` | The Python uses a construct the transpiler does not handle. See the supported subset in the README. |
+| Build fails at "Verify JavaScript matches Python" | The generated JavaScript disagrees with the Python. Do not publish; the log prints the exact input and both results. |
+| Build fails at "Check fixtures are current" | The algorithm now produces different results. If intended, run `python3 tests/make_fixtures.py` and commit. |
+| Download PDF does nothing | CSP is missing `cdnjs.cloudflare.com`; the tool falls back to a print view. |
