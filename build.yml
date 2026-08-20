@@ -1,0 +1,84 @@
+name: Build and verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # ------------------------------------------------------------------
+      # 1. Translate the Python algorithm to JavaScript.
+      #    Fails loudly if the Python uses a construct the transpiler does
+      #    not support, rather than emitting anything questionable.
+      # ------------------------------------------------------------------
+      - name: Build dist/usg-all-models.js
+        run: python3 tools/build.py
+
+      # ------------------------------------------------------------------
+      # 2. Prove the JavaScript matches the Python.
+      #    Compares the complete result - selection, capacity, part numbers,
+      #    warnings, adjustments, summary and error wording - across every
+      #    edge case plus thousands of generated inputs. A single difference
+      #    fails the build and nothing is published.
+      # ------------------------------------------------------------------
+      - name: Verify JavaScript matches Python
+        run: python3 tools/difftest.py --cases 2500 --seeds 4
+
+      # ------------------------------------------------------------------
+      # 3. Check the website block renders those results correctly.
+      # ------------------------------------------------------------------
+      - name: Install test dependencies
+        run: npm install jsdom --no-save
+
+      - name: Check fixtures are current
+        run: |
+          python3 tests/make_fixtures.py
+          if ! git diff --quiet tests/fixtures.json; then
+            echo ""
+            echo "tests/fixtures.json is out of date. The algorithm now produces"
+            echo "different results than the committed fixtures:"
+            echo ""
+            git --no-pager diff tests/fixtures.json
+            echo ""
+            echo "If these new values are intended, run:"
+            echo "    python3 tests/make_fixtures.py"
+            echo "and commit tests/fixtures.json with your change."
+            exit 1
+          fi
+
+      - name: Test the website block
+        run: node tests/browser_test.js
+
+      # ------------------------------------------------------------------
+      # 4. Publish. Only reached when everything above passed.
+      # ------------------------------------------------------------------
+      - name: Commit rebuilt bundle
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          if git diff --quiet dist/usg-all-models.js; then
+            echo "dist/ unchanged - nothing to publish."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/usg-all-models.js
+          git commit -m "Rebuild sizing bundle from algorithm [skip ci]"
+          git push
