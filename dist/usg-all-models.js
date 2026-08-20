@@ -8,7 +8,7 @@
  *
  * version:   1.0.0
  * algorithm: sha256:e8daa6eec56d
- * built:     2026-08-20 18:04 UTC
+ * built:     2026-08-20 18:19 UTC
  *
  * Exposes one global:
  *   USGSizing.sizeAllModels(input)  -> result object
@@ -3487,7 +3487,7 @@ function sizeAllModels(rawInput) {
     version: {
       version: '1.0.0',
       algorithm: 'sha256:e8daa6eec56d',
-      built: '2026-08-20 18:04 UTC'
+      built: '2026-08-20 18:19 UTC'
     }
   };
 })(typeof window !== 'undefined' ? window : this);
