@@ -1,48 +1,30 @@
 // ============================================================================
-//  Wrapper around the transpiled Model 243 algorithm.
+//  Wrapper around the transpiled Model 121/122 algorithm.
 //
 //  Everything the Streamlit front end used to do around
-//  run_regulator_selection243(): unit conversion, validation, oversize maths,
-//  the capacity tables and result formatting.
+//  run_regulator_selection121(): unit conversion, validation, oversize maths,
+//  the Standard and V-Port capacity tables and result formatting.
 //
 //  This file is hand-written, NOT generated. Its Python twin is reference.py
 //  in this same folder, and CI proves the two agree on every input it tests,
 //  so this cannot silently drift from the algorithm's expectations.
 //
-//  build/build.py exposes this as USGSizing.sizeModel243(input), per the
+//  build/build.py exposes this as USGSizing.sizeModel121(input), per the
 //  "method" field in tool.json.
 // ============================================================================
 
-var PIPE_OPTIONS = ["N/A", '1-1/4"', '1-1/2"', '2"'];
+var PIPE_OPTIONS = ["N/A", '3/4"', '1"', '1-1/4"', '1-1/2"', '2"', '2-1/2"', '3"'];
 var INLET_UNITS = ["psi", "bar", "kPa"];
 var OUTLET_UNITS = ["psi", "in wc", "oz", "bar", "kPa"];
 var FLOW_UNITS = ["CFH", "CMH", "BTUH"];
 var GAS_TYPES = ["Natural Gas", "Propane", "Other"];
 
-// The 243 tabulates several regulator families. Which set is shown depends on
-// the outlet pressure and the protection type - see the branch chain below.
-// Prefixes identify each family in the algorithm's result map.
-var STD_IRV_BODIES = [
-  ['Model 243-8, 1-1/4" Body', 'R243081Q'],
-  ['Model 243-8, 1-1/2" Body', 'R243081H'],
-  ['Model 243-8, 2" Body', 'R2430802'],
-  ['Model 243-12, 1-1/4" Body', 'R243121Q'],
-  ['Model 243-12, 1-1/2" Body', 'R243121H'],
-  ['Model 243-12, 2" Body', 'R2431202']
-];
-var STD_MON_BODIES = STD_IRV_BODIES.concat([
-  ['Model 243-12-1 with External Control Line', 'R24312EX']
-]);
-var STD_243_8_BODIES = [
-  ['Model 243-8, 1-1/4" Body', 'R243081Q'],
-  ['Model 243-8, 1-1/2" Body', 'R243081H'],
-  ['Model 243-8, 2" Body', 'R2430802']
-];
-var HP_BODIES = [
-  ['Model 243-8HP, 1-1/4" Body', 'R243HP1Q'],
-  ['Model 243-8HP, 1-1/2" Body', 'R243HP1H'],
-  ['Model 243-8HP, 2" Body', 'R243HP02']
-];
+// Registers that have no V-Port variant, so they are dropped from the V-Port
+// tables (matches _VP_EXCLUDE in the Streamlit app).
+var VP_EXCLUDE = ['R1210813', 'R121081Q', 'R1211230', 'R1211630', 'R121HP13', 'R121HP1Q'];
+
+// Models whose selection carries an outlet pipe sizing requirement.
+var PIPE_NOTE_MODELS = ["121-8", "121-12", "121-16", "121-HP"];
 
 function toPsi(val, units) {
   if (units === "in wc") return val * (1 / 28);
@@ -65,14 +47,28 @@ function pyFloatStr(x) {
   return Number.isInteger(n) ? n.toFixed(1) : String(n);
 }
 
+// Python's f"{x:,}" on a FLOAT keeps the decimal: 5000.0 -> "5,000.0". In this
+// tool min_flow is computed after the float conversion, so the original tool
+// prints it that way - unlike flow_rate, which stays an integer.
+function pyFloatCommaStr(x) {
+  var s = pyFloatStr(x);
+  var neg = s.charAt(0) === '-';
+  if (neg) s = s.slice(1);
+  var dot = s.indexOf('.');
+  var whole = dot === -1 ? s : s.slice(0, dot);
+  var rest = dot === -1 ? '' : s.slice(dot);
+  whole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return (neg ? '-' : '') + whole + rest;
+}
+
 function defaulted(input) {
   var d = {
     inlet: 0, inlet_units: "psi",
     outlet: 0, outlet_units: "psi",
-    flow: 0, flow_units: "CFH",
+    flow: 0, min_flow: 0, flow_units: "CFH",
     maop: 0,
     pipe_size: "N/A",
-    opp_required: false, opp_pref: "IRV", irv_pressure: 2.0, partial_irv: false,
+    opp_required: false,
     high_efficiency: false, high_efficiency_pct: 100,
     override_oversize: false, oversize_pct: 25,
     gas_type: "Natural Gas", specific_gravity: 0.6,
@@ -87,27 +83,23 @@ function defaulted(input) {
   return d;
 }
 
-// One capacity table from a result map, or null when no register matches.
-function buildTable(title, prefix, tableOpp, result) {
-  var isIrv = (tableOpp === "IRV");
+// One capacity table, or null when no register matches. Unlike the other
+// tools, the 121's tables list the BODY size per row rather than an orifice,
+// and the V-Port variants drop the excluded registers.
+function buildTable(title, prefix, result, vp) {
   var rows = [];
   result.forEach(function (capacity, reg) {
     if (String(reg).indexOf(prefix) !== 0) return;
-    var orifice = orifice_type243(reg);
+    if (vp && VP_EXCLUDE.indexOf(String(reg)) !== -1) return;
+    var body = body_type121(reg);
     var capStr = (typeof capacity === 'number') ? $format(capacity, ',.0f') : String(capacity);
-    var works = will_work(capacity, reg, orifice_max243(reg));
-    if (isIrv) {
-      rows.push([orifice, capStr, works, will_irv_work243(reg, tableOpp)]);
-    } else {
-      rows.push([orifice, capStr, works]);
-    }
+    var works = will_work_vp(capacity, reg, vp);
+    rows.push([body, capStr, works]);
   });
   if (!rows.length) return null;   // Streamlit skipped empty frames
   return {
     title: title,
-    headers: isIrv
-      ? ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work", "Will IRV Work"]
-      : ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"],
+    headers: ["Body Size", "Calculated Capacity (CFH)", "Will Reg Work"],
     rows: rows
   };
 }
@@ -116,30 +108,18 @@ function sizeTool(rawInput) {
   var p = defaulted(rawInput);
 
   // Match the widget types of the original tool: pressures are floats,
-  // flow and MAIP are whole numbers.
+  // flows and MAIP are whole numbers.
   var inlet_input = Number(p.inlet);
   var outlet_input = Number(p.outlet);
   var flow_rate = Math.trunc(Number(p.flow));
+  var min_flow_raw = Math.trunc(Number(p.min_flow));
   var maop = Math.trunc(Number(p.maop));
 
   var pipesize_raw = p.pipe_size;
   var pipesize_input = (pipesize_raw === "N/A") ? 0 : pipesize_raw;
 
-  // ---- overpressure protection ----
-  var irv_input = 0.0;
-  var opp_type = "None";
-  var opp_pref = "";
-  if (p.opp_required) {
-    opp_pref = p.opp_pref;
-    if (opp_pref === "IRV") {
-      irv_input = Number(p.irv_pressure);
-      opp_type = "IRV";
-    } else {
-      opp_type = "Monitor";
-    }
-  } else if (p.partial_irv) {
-    opp_type = "Partial";
-  }
+  // The 121/122 offers monitor protection only - there is no IRV option.
+  var opp_type = p.opp_required ? "Monitor" : "None";
 
   // ---- oversizing ----
   var pload = 0.0;
@@ -170,11 +150,11 @@ function sizeTool(rawInput) {
 
   // ---- validation (same rules, wording and order as the original tool) ----
   var errors = [];
-  if (inlet_psi > 0 && (inlet_psi > 125 || inlet_psi < 0.5)) {
-    errors.push("Inlet pressure must be between 0.5 and 125 psi.");
+  if (inlet_psi > 0 && (inlet_psi > 60 || inlet_psi < 8 / 28)) {
+    errors.push("Inlet pressure must be between 8\" wc and 60 psi.");
   }
-  if (outlet_psi > 0 && (outlet_psi < 3.5 / 28 || outlet_psi > 10)) {
-    errors.push("Outlet pressure must be between 3.5\" wc and 10 psi.");
+  if (outlet_psi > 0 && (outlet_psi < 1.5 / 28 || outlet_psi > 10)) {
+    errors.push("Outlet pressure must be between 1.5\" wc and 10 psi.");
   }
   if (inlet_psi > 0 && outlet_psi > 0 && outlet_psi >= inlet_psi) {
     errors.push("Outlet pressure must be less than inlet pressure.");
@@ -182,7 +162,10 @@ function sizeTool(rawInput) {
   if (Math.trunc(maop) !== 0 && maop < inlet_psi) errors.push("MAIP must be >= inlet pressure.");
   if (inlet_psi === 0) errors.push("Inlet pressure is required.");
   if (outlet_psi === 0) errors.push("Outlet pressure is required.");
-  if (flow_rate === 0) errors.push("Please enter a gas load / flow rate.");
+  if (flow_rate === 0) errors.push("Please enter a max gas load / flow rate.");
+  if (min_flow_raw > 0 && min_flow_raw > flow_rate) {
+    errors.push("Minimum flow must be \u2264 maximum flow rate.");
+  }
 
   if (errors.length) return { ok: false, errors: errors };
 
@@ -208,15 +191,19 @@ function sizeTool(rawInput) {
 
   // ---- flow unit conversion ----
   var flow_cfh = flow_rate;
+  var min_flow = (min_flow_raw === 0) ? flow_cfh : min_flow_raw;
   var maop_psi = (maop === 0) ? inlet_psi : maop;
 
   if (p.flow_units === "CMH") {
     flow_cfh = flow_cfh * 35.3147;
+    min_flow = min_flow * 35.3147;
   } else if (p.flow_units === "BTUH") {
     if (p.gas_type === "Natural Gas") {
       flow_cfh = flow_cfh / 1000;
+      min_flow = min_flow / 1000;
     } else if (p.gas_type === "Propane") {
       flow_cfh = flow_cfh / 2516;
+      min_flow = min_flow / 2516;
     } else {
       return {
         ok: false,
@@ -233,10 +220,11 @@ function sizeTool(rawInput) {
     inlet_input: inlet_psi,
     outlet_input: outlet_psi,
     flow_rate: flow_cfh,
+    min_flow: min_flow,
     maop: maop_psi,
     pipesize_input: pipesize_input,
     opp_type: opp_type,
-    irv_input: irv_input,
+    irv_input: 0,
     oversizeby: oversizeby,
     oversize_percent: oversize_percent,
     gastypemult: gastypemult,
@@ -244,22 +232,14 @@ function sizeTool(rawInput) {
     Patm: Patm
   });
 
-  var r, table_opp, results_irv, result_mon, result_hp_mon;
+  var r;
   try {
-    r = run_regulator_selection243(inlet_psi, outlet_psi, opp_type);
-
-    // Mirrors the Streamlit app: an IRV request at 2 psi or more outlet needs
-    // the high-pressure data, so the TABLES are drawn as monitor from here on.
-    // The selection above was already made with the original opp_type.
-    table_opp = opp_type;
-    if (table_opp === "IRV" && outlet_psi >= 2) table_opp = "Monitor";
-
-    results_irv = interpolate_capacity(stddata243, inlet_psi, outlet_psi, false, false);
-    result_mon = interpolate_capacity(stddata243, inlet_psi, outlet_psi, true, false);
-    result_hp_mon = interpolate_capacity(hpdata243, inlet_psi, outlet_psi, true, false);
+    // Six return values, unlike the other tools: the standard result map, the
+    // V-Port map, the 122 map, then the selection.
+    r = run_regulator_selection121(inlet_psi, outlet_psi, opp_type);
   } catch (err) {
     if (typeof console !== 'undefined' && console.error) {
-      console.error('USG 243 sizing algorithm error', err, rawInput);
+      console.error('USG 121 sizing algorithm error', err, rawInput);
     }
     return {
       ok: false,
@@ -267,17 +247,19 @@ function sizeTool(rawInput) {
     };
   }
 
-  var result = r[0], match = r[1], apply = r[2], warning = r[3];
+  var result121 = r[0], result121_VP = r[1], result122 = r[2];
+  var match = r[3], apply = r[4], warning = r[5];
 
   var warnings = $truthy(warning) ? [warning] : [];
 
-  if (!$truthy(apply) && (result === null || result === undefined)) {
+  // No result map at all means the algorithm stopped early.
+  if (!$truthy(match) && (result121 === null || result121 === undefined)) {
     return {
       ok: true,
       selected: false,
       errors: [],
       warnings: warnings,
-      message: "Model 243 will not work for this application.",
+      message: "Model 121/122 will not work for this application.",
       stopped: true
     };
   }
@@ -286,15 +268,19 @@ function sizeTool(rawInput) {
     return (match instanceof Map) ? match.get(key) : (match ? match[key] : null);
   }
 
+  // The original keys the selection block off match121 being truthy, not off
+  // apply121 - keep that, because they can differ.
+  var selected = !!$truthy(match);
+
   var out = {
     ok: true,
-    selected: !!$truthy(apply),
+    selected: selected,
     errors: [],
     warnings: warnings,
-    message: $truthy(apply) ? "Regulator selected!" : "Model 243 will not work for this application."
+    message: selected ? "Regulator selected!" : "Model 121/122 will not work for this application."
   };
 
-  if ($truthy(apply)) {
+  if (selected) {
     var monSpring = null;
     if ($truthy(mget('mon_color'))) {
       var mr = mget('mon_range');
@@ -303,7 +289,6 @@ function sizeTool(rawInput) {
     var sc = mget('color'), sr = mget('range');
     var rawFields = [
       ["Model", mget('model')],
-      ["Diaphragm", mget('diap')],
       ["Body Size", mget('body')],
       ["Orifice Size", mget('orifice')],
       ["Seat", mget('seat')],
@@ -324,55 +309,89 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
+    // ---- outlet pipe sizing note ----
+    out.pipe_note = null;
+    var modelName = String(mget('model') === null || mget('model') === undefined ? '' : mget('model'));
+    for (var m = 0; m < PIPE_NOTE_MODELS.length; m++) {
+      if (modelName.indexOf(PIPE_NOTE_MODELS[m]) !== -1) {
+        var pipeReq;
+        try {
+          pipeReq = body_size_min121(inlet_psi, mget('reg'));
+        } catch (err2) {
+          pipeReq = null;
+        }
+        if ($truthy(pipeReq)) {
+          out.pipe_note = "Model 121 regulators have outlet pipe sizing requirements. " +
+            "This regulator was sized for use with " + pipeReq + " outlet pipe. " +
+            "For capacities with smaller outlet piping, see regulator brochure.";
+        }
+        break;
+      }
+    }
+
     var pns = [];
-    var pn = hsc_pnc243(match);
+    var pn = hsc_pnc121(match);
     var pnList = Array.isArray(pn) ? pn : [pn];
     for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
     out.part_numbers = pns;
   }
 
   // ---- capacity tables ----
-  // Which set is shown depends on the outlet pressure and the protection type.
-  // This is the same if/else-if chain the Streamlit app used, in the same
-  // order - order matters, because several of the conditions overlap.
+  // Standard and V-Port sets, with which models appear depending on the outlet
+  // pressure and whether a monitor is used. Same conditions and order as the
+  // Streamlit app.
   //
-  // Guarded like the selection run: will_irv_work243() and the spring lookups
-  // can fault on values outside their tables, and that must produce a readable
-  // message rather than a broken page.
+  // Guarded like the selection run: a body or spring lookup can fault on a
+  // value outside its table, and that must produce a readable message rather
+  // than a broken page.
   var sections = [];
   try {
-    var addSection = function (label, bodies, tableOpp, resultMap) {
+    var addSection = function (label, entries) {
       var tables = [];
-      for (var b = 0; b < bodies.length; b++) {
-        var t = buildTable(bodies[b][0], bodies[b][1], tableOpp, resultMap);
+      for (var b = 0; b < entries.length; b++) {
+        var t = buildTable(entries[b][0], entries[b][1], entries[b][2], entries[b][3]);
         if (t) tables.push(t);
       }
       if (tables.length) sections.push({ label: label, tables: tables });
     };
 
-    if (outlet_psi <= 3 && (table_opp === "None" || table_opp === "Partial")) {
-      // Standard tables - 243-8 and 243-12
-      addSection(null, STD_MON_BODIES, table_opp, result);
-    } else if (outlet_psi <= 5 && (table_opp === "None" || table_opp === "Partial")) {
-      // Standard tables - 243-8 only
-      addSection(null, STD_243_8_BODIES, table_opp, result);
-    } else if (table_opp === "IRV") {
-      addSection("With IRV", STD_IRV_BODIES, "IRV", results_irv);
-      addSection("With Monitor", STD_MON_BODIES, "Monitor", result_mon);
-    } else if (outlet_psi <= 2 && table_opp === "Monitor") {
-      addSection("With Monitor", STD_MON_BODIES, "Monitor", result_mon);
-    } else if (outlet_psi <= 3 && table_opp === "Monitor") {
-      addSection("With Monitor", STD_243_8_BODIES, "Monitor", result_mon);
-    } else if (outlet_psi > 5 && (table_opp === "None" || table_opp === "Partial")) {
-      // High-pressure standard tables
-      addSection(null, HP_BODIES, table_opp, result);
-    } else if (outlet_psi > 3 && table_opp === "Monitor") {
-      // High-pressure monitor tables
-      addSection("With Monitor", HP_BODIES, "Monitor", result_hp_mon);
+    var show122 = (typeof result122 !== 'string') && (
+      (outlet_psi <= 2 && opp_type !== "Monitor") ||
+      (outlet_psi <= 1 && opp_type === "Monitor")
+    );
+
+    if (show122) {
+      // Standard + V-Port + the 122 models
+      addSection("Standard Valves", [
+        ["Model 121-8", "R12108", result121, false],
+        ["Model 121-12", "R12112", result121, false],
+        ["Model 121-16", "R12116", result121, false],
+        ["Model 122-8", "R12208", result122, false],
+        ["Model 122-12", "R12212", result122, false]
+      ]);
+      addSection("V-Port Valves", [
+        ["Model 121-8", "R12108", result121_VP, true],
+        ["Model 121-12", "R12112", result121_VP, true]
+      ]);
+    } else if (outlet_psi <= 3) {
+      // Standard + V-Port, no 122
+      addSection("Standard Valves", [
+        ["Model 121-8", "R12108", result121, false],
+        ["Model 121-12", "R12112", result121, false],
+        ["Model 121-16", "R12116", result121, false]
+      ]);
+      addSection("V-Port Valves", [
+        ["Model 121-8", "R12108", result121_VP, true],
+        ["Model 121-12", "R12112", result121_VP, true]
+      ]);
+    } else {
+      // High-pressure models only
+      addSection("Standard Valves", [["Model 121-8-HP", "R121HP", result121, false]]);
+      addSection("V-Port Valves", [["Model 121-HP", "R121HP", result121_VP, true]]);
     }
   } catch (err) {
     if (typeof console !== 'undefined' && console.error) {
-      console.error('USG 243 table build error', err, rawInput);
+      console.error('USG 121 table build error', err, rawInput);
     }
     return {
       ok: false,
@@ -381,9 +400,12 @@ function sizeTool(rawInput) {
   }
   out.sections = sections;
 
+  // Shown above the tables when a monitor is in play.
+  out.tables_caption = (opp_type !== "None") ? "Capacity reduction due to monitor shown." : null;
+
   // ---- sizing adjustments ----
   var adjustments = [kv("Oversized By", $format(oversize_percent, ".0f") + "%")];
-  if ($truthy(apply) && mget('opp') === "Monitor") adjustments.push(kv("Monitor Capacity Reduction", "30%"));
+  if (selected && mget('opp') === "Monitor") adjustments.push(kv("Monitor Capacity Reduction", "30%"));
   if (gastypemult !== 1) adjustments.push(kv("Gas Type Factor", $format(gastypemult, ".4f")));
   if (Patm < 14.4) adjustments.push(kv("Elevation capacity reduction", $format(elevation_reduction, ".0f") + "%"));
   out.adjustments = adjustments;
@@ -393,25 +415,21 @@ function sizeTool(rawInput) {
     kv("Inlet Pressure (" + p.inlet_units + ")", pyFloatStr(inlet_input)),
     kv("Outlet Pressure (" + p.outlet_units + ")", pyFloatStr(outlet_input)),
     kv("Max Flow Rate (" + p.flow_units + ")", $format(flow_rate, ',')),
+    kv("Min Flow Rate (" + p.flow_units + ")", pyFloatCommaStr(min_flow)),
     kv("Max Allowable Inlet Pressure (psi)", String(Math.trunc(maop))),
     kv("Requested Pipe Size", pipesize_raw),
-    kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No")
+    kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No"),
+    kv("Percent Load Feeding High-Efficiency Appliance", p.high_efficiency ? (pload_pct + "%") : "0"),
+    kv("Override percentage regulator is oversized by",
+      p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"),
+    kv("Gas Type", p.gas_type),
+    kv("Altitude above 3,000 feet or atmospheric pressure below 13 psi", p.high_altitude ? "Yes" : "No")
   ];
-  if (!p.opp_required) {
-    summary.push(kv("Select Regulator with IRV", opp_type === "Partial" ? "Yes" : "No"));
-  } else {
-    summary.push(kv("Protection Type", opp_pref === "IRV" ? "IRV" : "Monitor"));
-    if (opp_pref === "IRV") {
-      summary.push(kv("IRV Protect Downstream Pressure To (psi)", $format(irv_input, ".1f")));
-    }
-  }
-  summary.push(kv("Percent Load Feeding High-Efficiency Appliance", p.high_efficiency ? (pload_pct + "%") : "0"));
-  summary.push(kv("Override percentage regulator is oversized by",
-    p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"));
-  summary.push(kv("Gas Type", p.gas_type));
-  summary.push(kv("Altitude above 3,000 feet or atmospheric pressure below 13 psi", p.high_altitude ? "Yes" : "No"));
   if (p.high_altitude) summary.push(kv("Atmospheric Pressure (psi)", $format(Patm, ".1f")));
   out.summary = summary;
+
+  // The PDF button is keyed off apply121, which can differ from match121.
+  out.can_download = !!$truthy(apply);
 
   return out;
 }

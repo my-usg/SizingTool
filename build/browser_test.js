@@ -80,6 +80,7 @@ function driver(dom) {
             .map(tr => Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim()))
         })),
         sectionLabels: Array.from(out.querySelectorAll('.usg-section-label')).map(e => e.textContent.trim()),
+        caption: (out.querySelector('.usg-caption') || {}).textContent,
         hasError: !!out.querySelector('.usg-error'),
         hasSuccess: !!out.querySelector('.usg-success'),
         hasWarning: !!out.querySelector('.usg-warning'),
@@ -234,7 +235,22 @@ async function testTool(slug) {
       if (got.text.indexOf(w) === -1) problems.push('warning ' + w);
     }
     if (want.pipe_note && got.text.indexOf(want.pipe_note) === -1) problems.push('pipe note');
-    if (!got.hasPdfBtn) problems.push('no PDF button');
+
+    // Caption above the tables (the 121 shows one when a monitor is in play).
+    if (want.tables_caption !== undefined) {
+      const wantCaption = want.tables_caption || null;
+      const gotCaption = got.caption ? got.caption.trim() : null;
+      if (gotCaption !== wantCaption) {
+        problems.push('caption ' + JSON.stringify(gotCaption) + ' vs ' + JSON.stringify(wantCaption));
+      }
+    }
+
+    // Some tools gate the PDF button on a separate flag (the 121's apply121,
+    // which can differ from having a match).
+    const wantPdf = want.can_download === undefined ? true : !!want.can_download;
+    if (got.hasPdfBtn !== wantPdf) {
+      problems.push(wantPdf ? 'no PDF button' : 'PDF button should not render');
+    }
 
     check(fx.name, problems.length === 0, problems.join('; '));
   }

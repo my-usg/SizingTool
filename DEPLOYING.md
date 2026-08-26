@@ -106,6 +106,10 @@ Each tool has its own block and its own page:
 | `/resources/regulator-sizing-tools/model-143` | `tools/model-143/block.html` |
 | `/resources/regulator-sizing-tools/model-046` | `tools/model-046/block.html` |
 | `/resources/regulator-sizing-tools/model-243` | `tools/model-243/block.html` |
+| `/resources/regulator-sizing-tools/model-496` | `tools/model-496/block.html` |
+| `/resources/regulator-sizing-tools/model-121-122` | `tools/model-121/block.html` |
+| `/resources/regulator-sizing-tools/model-243-rpc` | `tools/model-rpc/block.html` |
+| `/resources/regulator-sizing-tools/model-441-461` | `tools/model-461/block.html` |
 
 Open the page, edit its HTML block, and replace the contents with that file.
 Any page that does not exist yet will need creating;
@@ -143,6 +147,31 @@ Model **243-8-1**, 1-1/4" body, capacity **7,500** CFH, part number
 `R.243-8-1.1-1/4SCD.INT.18.STD.12.ALU`, and seven capacity tables. Change the
 outlet to 4 psi and re-run: only the three 243-8 tables appear. Change it to
 8 psi: the 243-8HP tables appear instead.
+
+**Model 496.** Enter inlet 25 psi, outlet 0.5 psi, flow 500 CFH. You should get
+capacity **1,375** CFH, part number `R.496-20.3/4.14.10`, and four capacity
+tables. Set overpressure protection to Yes and re-run: each table gains a
+**Will IRV Work** column.
+
+**Model 121/122.** Enter inlet 10 psi, outlet 0.5 psi, flow 5000 CFH. You
+should get capacity **13,392** CFH, an outlet pipe sizing note, and two table
+groups: **Standard Valves** (five tables, including the 122 models) and
+**V-Port Valves** (two). Raise the outlet to 2.5 psi and the 122 tables drop
+out; to 5 psi and only the high-pressure models remain. Set overpressure
+protection to Yes and a "Capacity reduction due to monitor shown." caption
+appears above the tables.
+
+**Model 243-RPC.** Enter inlet 25 psi, outlet 1 psi, flow 10000 CFH. You should
+get capacity **21,800** CFH, an outlet pipe sizing note, and two capacity
+tables. This tool also has a **Desired RPC model** selector: choose 243-RPC-B
+and the selected model changes accordingly. Set overpressure protection to Yes
+and a "Capacity reduction due to monitor shown." caption appears.
+
+**Model 441/461.** Enter inlet 100 psi, outlet 20 psi, flow 50000 CFH. You
+should get capacity **74,360** CFH and two tables - **Standard Valves** and
+**V-Port Valves** - each with six columns including Qmax and Qmin. Set
+overpressure protection to Yes and a "Capacity reduction due to monitor shown."
+caption appears above them.
 
 Then check each on a phone, and check the Download PDF Summary buttons.
 

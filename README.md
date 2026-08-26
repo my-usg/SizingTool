@@ -17,14 +17,27 @@ Setup instructions: **[DEPLOYING.md](DEPLOYING.md)**.
 | model-143 | `tools/model-143/algorithm.py` | `dist/usg-model-143.js` | `/resources/regulator-sizing-tools/model-143` |
 | model-046 | `tools/model-046/algorithm.py` | `dist/usg-model-046.js` | `/resources/regulator-sizing-tools/model-046` |
 | model-243 | `tools/model-243/algorithm.py` | `dist/usg-model-243.js` | `/resources/regulator-sizing-tools/model-243` |
+| model-496 | `tools/model-496/algorithm.py` | `dist/usg-model-496.js` | `/resources/regulator-sizing-tools/model-496` |
+| model-121 | `tools/model-121/algorithm.py` | `dist/usg-model-121.js` | `/resources/regulator-sizing-tools/model-121-122` |
+| model-rpc | `tools/model-rpc/algorithm.py` | `dist/usg-model-rpc.js` | `/resources/regulator-sizing-tools/model-243-rpc` |
+| model-461 | `tools/model-461/algorithm.py` | `dist/usg-model-461.js` | `/resources/regulator-sizing-tools/model-441-461` |
 
-The 143, 046 and 243 additionally render capacity tables, colour-coded Yes/No
-and horizontally scrollable on a phone. The 143 shows three (one per body size).
+All eight tools are in place. The 441/461 differs most in shape: its entry point
+takes the flows as arguments and returns three values, its two capacity tables
+come from the algorithm's own `build_standard_table()` and
+`build_vport_table()` rather than a shared result map, it has six table columns
+including Qmax and Qmin, and it has no pipe-size input at all.
+
+Every tool except all-models renders capacity tables, colour-coded Yes/No and
+horizontally scrollable on a phone. The 143 shows three and the 496 four, one
+per body size.
 The 046 groups its tables into labelled sections, showing **both** the IRV and
 Monitor families when sizing for IRV. The 243 is the most conditional: which
 family it tabulates depends on the outlet pressure and protection type, across
 standard and high-pressure datasets, and an IRV request at 2 psi or more outlet
-is drawn as monitor tables. Every cell is compared against Python in the tests,
+is drawn as monitor tables. The 121/122 groups its tables into Standard and
+V-Port sets, lists body sizes rather than orifices, drops registers with no
+V-Port variant, and adds an outlet pipe sizing note to the selection. Every cell is compared against Python in the tests,
 like everything else.
 
 ## How it fits together
@@ -149,6 +162,17 @@ That is not a formality. It caught four real bugs during development:
   gave `9.0`.
 * A stray line in `wrapper.js` reported converted psi values instead of the
   pressures the user typed.
+* `f"{x:,}"` keeps the decimal on a Python float (`5000.0` renders as
+  `"5,000.0"`), which matters because the 121 computes its minimum flow after
+  the float conversion while other tools keep it an integer.
+* `$GLOBALS` was hardcoded with the all-models global names, so a tool that
+  did not inject a given global still reported it present via
+  `'name' in globals()` - and the algorithm then referenced an undefined
+  variable. It is now generated per tool from `tool.json`.
+* Computing the elevation reduction before validation made Python raise
+  `ZeroDivisionError` when inlet equals outlet, where JavaScript produced
+  `NaN`. Every tool had it; all now validate first, and the input is pinned as
+  an edge case in all six.
 
 Each was invisible by inspection. Keep this in the pipeline.
 
@@ -161,8 +185,8 @@ The translator understands the subset the algorithms currently use:
   literals, single-generator comprehensions
 * builtins `abs`, `all`, `any`, `float`, `int`, `isinstance`, `len`, `list`,
   `max`, `min`, `round`, `sorted`, `str`, `globals`
-* methods `.append`, `.get`, `.items`, `.join`, `.keys`, `.lower`, `.strip`,
-  `.startswith`, `.endswith`, `.upper`, `.values`
+* methods `.append`, `.get`, `.index`, `.items`, `.join`, `.keys`, `.lower`,
+  `.strip`, `.startswith`, `.endswith`, `.upper`, `.values`
 
 Anything else - `try`/`except`, `while`, classes, `import`, generators, sets -
 stops the build with the offending line number:
@@ -193,39 +217,94 @@ translator is a tool your team owns.
 
 ## Known algorithm defects
 
-Both are carried over from the original scripts and present in the old
-Streamlit tools too. Neither algorithm has been modified; in each case the page
-catches the fault and asks the customer to contact Holland Supply Company
-rather than showing a broken result.
+`build/fault_sweep.py` walks every tool's input ranges on a grid and reports
+inputs the algorithm cannot answer (a spring colour missing from a lookup
+table, an orifice outside its range). Run it after any algorithm change:
 
-### all-models: monitor sizing, 85-100 psi outlet
-
-`run_regulator_selection461()` sets a monitor setpoint of `outlet_input + 15`.
-Above 85 psi outlet that exceeds 100 psi, past the top of the 57S spring table,
-so `spring_57S()` returns the string `'N/A'` and the next line does
-`'N/A'['color']`.
-
-Reproduce: inlet 180 psi, outlet 90 psi, flow 800,000 CFH, monitor protection.
-
-To fix it, decide what a monitor spring above 100 psi should be - most likely
-`spring_X57`, which covers 75-250 psi - and handle the `'N/A'` return.
-
-### model-046: IRV tables at high outlet pressure
-
-`will_irv_work046()` looks up the selected spring in its IRV table:
-
-```python
-irv_table = spring_map[spring]          # tools/model-046/algorithm.py:477
+```bash
+python3 build/fault_sweep.py            # all tools
+python3 build/fault_sweep.py model-046  # one tool
 ```
 
-`spring_046()` returns `Gray` for high outlet pressures, but `spring_map` has no
-`Gray` entry, so building the IRV capacity tables raises `KeyError: 'Gray'`.
+Current state: **six of eight tools are clean.** One defect remains, in the two
+tools that share the 57S spring functions, and it needs an engineering decision
+rather than a code fix.
 
-Reproduce: inlet 520 psi, outlet 164 psi, flow 388,553 CFH, IRV protection.
+### all-models and model-461: monitor sizing, 85-100 psi outlet (OPEN)
 
-To fix it, add the `Gray` spring to `spring_map` (or decide that IRV is not
-offered on that spring and return `"No"`). The tests will confirm nothing else
-moved.
+Both tools share `spring_57S()` / `spring_X57()`, so both carry this. The
+window is identical in each: **outlet above 85 psi and up to 100 psi with
+monitor protection.**
+
+`gen_match` sets a monitor setpoint of `outlet_input + 15` for outlets between
+85 and 100 psi. That exceeds 100 psi, which is the top of the 57S spring table,
+so `spring_57S()` returns the string `'N/A'` and the next line subscripts it:
+
+```python
+mon_color = spring_57S(monset)['color']   # tools/all-models/algorithm.py:3864
+```
+
+Reproduce in either tool: inlet 180 psi, outlet 90 psi, flow 800,000 CFH,
+monitor protection.
+
+The page catches this and asks the customer to contact Holland Supply Company,
+which is safe but unhelpful. It is left open deliberately: the 57S series has
+no spring above 100 psi, so answering it means deciding **what monitor spring a
+57S regulator should use above 100 psi**, and that is a product question. The
+options, in the order we would suggest considering them:
+
+1. **Reject the candidate.** If a 57S cannot do monitor duty at that setpoint,
+   it should not be selected; the selection loop would then fall through to the
+   `461-X57` / `441-X57` models, whose spring table covers 75-250 psi. Safest,
+   and probably what the selection logic intends.
+2. **Borrow the X57 spring** (`spring_X57(monset)`, 75-250 psi) while keeping
+   the 57S body. One line, but it asserts that spring fits that body - only USG
+   can confirm that.
+3. **Leave as is.** The affected window is narrow and the customer is directed
+   to a human.
+
+Whichever you choose, apply it to **both** `tools/all-models/algorithm.py` and
+`tools/model-461/algorithm.py` - they carry separate copies of the same spring
+functions. The input is pinned as an edge case in both, so the fault sweep and
+the differential tests will confirm the fix lands in both places.
+
+Do not simply return `None` for the monitor spring: the tool would then present
+a monitor selection with no monitor spring named, which is worse than declining.
+
+### model-rpc: spring table excluded its own top value (FIXED)
+
+`spring_RPC()` tested `elif op < 35` for its highest spring and had no `else`,
+so it returned `None` at 35 psi and above. The caller subscripts the result, so
+this broke two things: plain sizing at exactly a 35 psi outlet (which the
+validation explicitly permits) and **all** monitor sizing at 32 psi outlet or
+above, because the monitor setpoint is capped at exactly 35.
+
+Three pieces of evidence say 35 belongs inside that branch: the spring's own
+range reads `"(10 - 35 psi)"`, the outlet validation allows up to 35, and the
+setpoint cap is 35. Changed to `elif op <= 35`.
+
+Pinned by the fixtures "outlet at exactly 35 psi (spring table top)" and
+"monitor at 33 psi outlet (setpoint capped at 35)".
+
+### model-046: Gray spring IRV lookup (FIXED)
+
+`will_irv_work046()` looked the selected spring up in its IRV curve map with
+`spring_map[spring]`. `spring_046()` returns `Gray` above 125 psi outlet and
+`None` above 200 psi, neither of which is in that map, so the lookup raised
+`KeyError` - and the tool reported "could not be sized automatically" for
+**every** IRV request with an outlet above roughly 125 psi (568 inputs on the
+sweep grid).
+
+The fix is supported by the algorithm's own data: the Gray spring's range reads
+`"(100 - 200 psi *cannot be used with 046-2)"`, and the 046-2 is the IRV body,
+so an internal relief valve genuinely is not available on that spring. The
+lookup now uses `.get()` and answers `"No"` - the regulator is sized and the
+"Will IRV Work" column correctly says no. (The same file already used
+`spring_map.get()` in `hsc_pnc046`, so the direct subscript looks like an
+oversight.)
+
+Pinned by the fixture "Gray spring: IRV correctly reported as unavailable".
+Worth having a USG engineer confirm the conclusion.
 
 ## Changing an algorithm: what else needs touching
 

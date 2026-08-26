@@ -190,6 +190,7 @@ class Transpiler:
                 if len(args) == 1: return f"$dget({obj}, {args[0]}, null)"
                 return f"$dget({obj}, {args[0]}, {args[1]})"
             if meth == "append":  return f"({obj}).push({', '.join(args)})"
+            if meth == "index":   return f"$index({obj}, {args[0]})"
             if meth == "startswith": return f"({obj}).startsWith({', '.join(args)})"
             if meth == "endswith":   return f"({obj}).endsWith({', '.join(args)})"
             if meth == "join":    return f"$join({obj}, {args[0]})"
@@ -456,6 +457,23 @@ function $pyType(v) {
   if (v instanceof Map) return 'dict';
   return typeof v;
 }
+function $index(o, x) {
+  // Python's list.index()/str.index(): returns the first position, and RAISES
+  // ValueError when absent - it does not return -1 like indexOf. Getting that
+  // wrong would let a "not found" flow onward as a valid index of -1.
+  if (typeof o === 'string') {
+    var si = o.indexOf(x);
+    if (si === -1) throw new Error('ValueError: substring not found');
+    return si;
+  }
+  if (Array.isArray(o)) {
+    for (var i = 0; i < o.length; i++) {
+      if ($eq(o[i], x)) return i;
+    }
+    throw new Error('ValueError: ' + $str(x) + ' is not in list');
+  }
+  throw new TypeError("argument of type '" + $pyType(o) + "' is not iterable");
+}
 function $get(o, k) {
   if (o instanceof Map) {
     if (!o.has(k)) throw new Error('KeyError: ' + k);
@@ -592,7 +610,7 @@ function $format(x, spec) {
   return s;
 }
 // Mirrors the Streamlit runtime where these names are always injected into the exec'd namespace
-var $GLOBALS = new Map([["inlet_input",1],["outlet_input",1],["flow_rate",1],["min_flow",1],["maop",1],["pipesize_input",1],["opp_type",1],["irv_input",1],["oversizeby",1],["gastypemult",1],["pload",1],["combust_pref",1],["Patm",1]]);
+/*__GLOBALS_MAP__*/
 var $printBuf = [];
 function $print(args) { $printBuf.push(args.map($str).join(' ')); }
 """
@@ -611,5 +629,10 @@ if __name__ == "__main__":
     tree = ast.parse(src)
     t = Transpiler(tree)
     body = t.run()
-    print(RUNTIME)
+    # $GLOBALS must list exactly the globals THIS tool injects: the algorithms
+    # use `'name' in globals()` to decide whether a caller supplied a value,
+    # so a hardcoded list makes a tool claim globals it never sets.
+    globals_map = "var $GLOBALS = new Map([" + ",".join(
+        '["%s",1]' % n for n in INJECTED_GLOBALS) + "]);"
+    print(RUNTIME.replace("/*__GLOBALS_MAP__*/", globals_map))
     print(body)

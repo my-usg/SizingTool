@@ -195,6 +195,15 @@
     "outlet": 0.1,
     "flow": 100
    }
+  },
+  {
+   "input": {
+    "inlet": 10,
+    "outlet": 10,
+    "flow": 5000,
+    "high_altitude": true,
+    "atmospheric_pressure": 11.0
+   }
   }
  ],
  "fixtures": [

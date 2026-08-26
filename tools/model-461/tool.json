@@ -1,0 +1,25 @@
+{
+  "slug": "model-461",
+  "title": "Model 441/461 Sizing Tool",
+  "page": "/resources/regulator-sizing-tools/model-441-461",
+  "output": "usg-model-461.js",
+  "method": "sizeModel461",
+  "entry": "run_regulator_selection461",
+  "injected_globals": [
+    "inlet_input",
+    "outlet_input",
+    "flow_rate",
+    "min_flow",
+    "maop",
+    "opp_type",
+    "oversizeby",
+    "oversize_percent",
+    "gastypemult",
+    "pload",
+    "Patm"
+  ],
+  "skip_functions": [
+    "print_regulator_selection",
+    "print_441461_table"
+  ]
+}

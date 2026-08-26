@@ -1,0 +1,27 @@
+{
+  "slug": "model-496",
+  "title": "Model 496 Sizing Tool",
+  "page": "/resources/regulator-sizing-tools/model-496",
+  "output": "usg-model-496.js",
+  "method": "sizeModel496",
+  "entry": "run_regulator_selection496",
+  "injected_globals": [
+    "inlet_input",
+    "outlet_input",
+    "flow_rate",
+    "maop",
+    "pipesize_input",
+    "opp_type",
+    "irv_input",
+    "oversizeby",
+    "oversize_percent",
+    "gastypemult",
+    "pload",
+    "Patm",
+    "result496"
+  ],
+  "skip_functions": [
+    "print_regulator_selection",
+    "print_model_table"
+  ]
+}

@@ -1,0 +1,761 @@
+<!-- ============================================================
+     USG Model 243-RPC Sizing Tool
+     Concrete CMS HTML block
+
+     This block contains NO sizing logic. The algorithm is maintained in
+     Python on GitHub and published as a JavaScript build that the script
+     tag below loads from jsDelivr:
+
+         https://github.com/my-usg/sizingtool
+
+     To publish a change: edit algorithm/all_models.py in that repository
+     and push. CI rebuilds and verifies it; this page picks it up
+     automatically (jsDelivr caches a branch URL for up to 12 hours).
+
+     REQUIRED: the site Content Security Policy must allow
+         script-src ... https://cdn.jsdelivr.net
+     ============================================================ -->
+<!-- Sizing algorithm, generated from the Python source. Pin a release tag
+     (@v1.0.0) for strict change control, or track @main to pick up pushes
+     automatically. -->
+<script src="https://cdn.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-rpc.js"></script>
+
+<div id="usg-sizing-tool">
+  <h1 class="usg-h1">Model 243-RPC Sizing Tool</h1>
+  <p class="usg-sub">Fill in the inputs above and click <strong>Run Sizing</strong>.</p>
+
+  <h2 class="usg-h2">&#128203; Inputs</h2>
+
+  <p class="usg-group-label"><strong>Pressures &amp; Flow</strong></p>
+  <div class="usg-row usg-cols-4">
+    <div class="usg-widget">
+      <label class="usg-label" id="usg-label-inlet">Inlet pressure</label>
+      <div class="usg-numwrap">
+        <input type="number" id="usg-inlet" min="0" max="1000" step="0.1" value="0.0">
+      </div>
+    </div>
+    <div class="usg-widget">
+      <label class="usg-label" id="usg-label-outlet">Outlet pressure</label>
+      <div class="usg-numwrap">
+        <input type="number" id="usg-outlet" min="0" max="1000" step="0.1" value="0.0">
+      </div>
+    </div>
+    <div class="usg-widget">
+      <label class="usg-label" id="usg-label-flow">Gas load / flow rate</label>
+      <div class="usg-numwrap">
+        <input type="number" id="usg-flow" min="0" max="10000000000" step="50" value="0">
+      </div>
+    </div>
+    <div class="usg-widget">
+      <label class="usg-label">Max Allowable Inlet Pressure (psi) <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="Not required: default 0.  Regulator sized based on inlet pressure, however program will ensure configuration can handle this max inlet pressure.">i</span></label>
+      <div class="usg-numwrap">
+        <input type="number" id="usg-maop" min="0" max="1000" step="1" value="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="usg-row usg-cols-4">
+    <div class="usg-widget">
+      <label class="usg-label">Inlet pressure units</label>
+      <select id="usg-inlet-units">
+        <option>psi</option><option>bar</option><option>kPa</option>
+      </select>
+    </div>
+    <div class="usg-widget">
+      <label class="usg-label">Outlet pressure units</label>
+      <select id="usg-outlet-units">
+        <option>psi</option><option>in wc</option><option>oz</option><option>bar</option><option>kPa</option>
+      </select>
+    </div>
+    <div class="usg-widget">
+      <label class="usg-label">Gas load / flow rate units</label>
+      <select id="usg-flow-units">
+        <option>CFH</option><option>CMH</option><option>BTUH</option>
+      </select>
+    </div>
+    <div class="usg-widget"></div>
+  </div>
+
+  <div class="usg-row usg-cols-2 usg-top-gap">
+    <div class="usg-col">
+      <p class="usg-group-label"><strong>Design Parameters</strong></p>
+
+      <div class="usg-widget usg-halfwidth">
+        <label class="usg-label">Desired RPC model</label>
+        <select id="usg-model">
+          <option selected>N/A (any)</option>
+          <option>243-RPC</option>
+          <option>243-RPC-A</option>
+          <option>243-RPC-B</option>
+        </select>
+      </div>
+
+      <div class="usg-widget usg-halfwidth">
+        <label class="usg-label">Desired pipe size</label>
+        <select id="usg-pipesize">
+          <option value="0" selected>N/A</option>
+          <option value="1">1-1/4"</option>
+          <option value="2">1-1/2"</option>
+          <option value="3">2"</option>
+        </select>
+      </div>
+
+      <div class="usg-widget">
+        <label class="usg-label">Overpressure protection required?</label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-opp" value="No" checked><span>No</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-opp" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="usg-col">
+      <p class="usg-group-label"><strong>Load Type &amp; Gas</strong></p>
+
+      <div class="usg-widget">
+        <label class="usg-label">Feeding a generator or high-efficiency boiler? <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="Program will select a regulator that has capacity for double the load feeding high-efficiency equipment">i</span></label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-higheff" value="No" checked><span>No</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-higheff" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+
+      <div class="usg-widget" id="usg-pload-block" style="display:none">
+        <label class="usg-label">% of total load feeding high-efficiency appliances <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="Program will select a regulator that has capacity for double the load feeding high-efficiency equipment">i</span></label>
+        <div class="usg-sliderwrap">
+          <input type="range" id="usg-pload" min="0" max="100" step="1" value="100">
+          <span class="usg-slider-val" id="usg-pload-val">100</span>
+        </div>
+      </div>
+
+      <div class="usg-widget">
+        <label class="usg-label">Override percentage regulator is oversized by? <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="Default is set to 25% or 100% for high-efficiency appliances">i</span></label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-override" value="No" checked><span>No</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-override" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+
+      <div class="usg-widget" id="usg-oversize-block" style="display:none">
+        <label class="usg-label">Oversize regulator by: <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="Recommended to oversize regulator by 20-30%">i</span></label>
+        <div class="usg-sliderwrap">
+          <input type="range" id="usg-oversize" min="0" max="100" step="1" value="25">
+          <span class="usg-slider-val" id="usg-oversize-val">25</span>
+        </div>
+      </div>
+
+      
+
+      <div class="usg-widget usg-halfwidth">
+        <label class="usg-label">Gas type</label>
+        <select id="usg-gastype">
+          <option>Natural Gas</option><option>Propane</option><option>Other</option>
+        </select>
+      </div>
+
+      <div id="usg-sg-block" style="display:none">
+        <div class="usg-widget usg-halfwidth">
+          <label class="usg-label">Specific gravity</label>
+          <div class="usg-numwrap">
+            <input type="number" id="usg-sg" min="0.01" max="10" step="0.01" value="0.60">
+          </div>
+        </div>
+        <div class="usg-alert usg-info">Contact USG for regulator compatibility with gases other than methane or propane.</div>
+      </div>
+
+      <div class="usg-widget">
+        <label class="usg-label">Altitude above 3,000 feet or atmospheric pressure below 13 psi</label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-elevation" value="No" checked><span>No</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-elevation" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+
+      <div class="usg-widget usg-halfwidth" id="usg-patm-block" style="display:none">
+        <label class="usg-label">Atmospheric Pressure (psi)</label>
+        <div class="usg-numwrap">
+          <input type="number" id="usg-patm" min="8.80" max="14.73" step="0.01" value="14.40">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="usg-btn usg-btn-primary" id="usg-run-btn">&#9654;&nbsp; Run Sizing</button>
+  <hr class="usg-hr">
+
+  <div id="usg-output">
+    <div class="usg-alert usg-info">&#11014;&#65039;&nbsp; Fill in the inputs above and click <strong>Run Sizing</strong>.</div>
+  </div>
+</div>
+
+<style>
+/* All sizes in px on purpose: the site theme sets a non-16px root font size,
+   so rem-based sizing shrinks. !important guards beat theme heading/link rules. */
+#usg-sizing-tool {
+  font-family: "Source Sans Pro", "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: rgb(49, 51, 63);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 16px 64px;
+  font-size: 16px;
+  line-height: 1.6;
+  box-sizing: border-box;
+  position: relative;
+}
+#usg-sizing-tool *, #usg-sizing-tool *::before, #usg-sizing-tool *::after { box-sizing: border-box; }
+#usg-sizing-tool h1.usg-h1 {
+  font-size: 36px !important; font-weight: 700 !important; color: rgb(49, 51, 63) !important;
+  font-family: inherit !important; text-transform: none !important; letter-spacing: normal !important;
+  padding: 20px 0 16px !important; margin: 0 !important; line-height: 1.2 !important;
+}
+#usg-sizing-tool h2.usg-h2, #usg-sizing-tool h3.usg-h3 {
+  font-size: 28px !important; font-weight: 600 !important; color: rgb(49, 51, 63) !important;
+  font-family: inherit !important; text-transform: none !important; letter-spacing: normal !important;
+  padding: 16px 0 8px !important; margin: 0 !important; line-height: 1.25 !important;
+}
+#usg-sizing-tool .usg-sub { font-size: 16px !important; color: rgb(49, 51, 63) !important; margin: 0 0 16px !important; }
+#usg-sizing-tool .usg-group-label { font-size: 17px !important; color: rgb(49, 51, 63) !important; margin: 0 0 10px !important; }
+#usg-sizing-tool .usg-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+#usg-sizing-tool .usg-cols-4 > .usg-widget { flex: 1 1 0; min-width: 190px; }
+#usg-sizing-tool .usg-cols-2 > .usg-col { flex: 1 1 0; min-width: 320px; }
+#usg-sizing-tool .usg-top-gap { margin-top: 8px; }
+#usg-sizing-tool .usg-widget { margin-bottom: 16px; }
+#usg-sizing-tool .usg-halfwidth { max-width: 50%; min-width: 170px; }
+#usg-sizing-tool .usg-label {
+  display: block; font-size: 15px !important; font-weight: 400 !important;
+  color: rgb(49, 51, 63) !important; margin: 0 0 6px !important; min-height: 22px;
+}
+#usg-sizing-tool .usg-req { color: rgb(255, 43, 43) !important; }
+#usg-sizing-tool .usg-req::after { content: " \2757"; }
+#usg-sizing-tool .usg-help {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; border-radius: 50%;
+  border: 1px solid rgba(49, 51, 63, 0.45); color: rgba(49, 51, 63, 0.65);
+  font-size: 11px !important; font-weight: 700; font-style: normal;
+  font-family: Georgia, "Times New Roman", serif;
+  cursor: pointer; vertical-align: middle; margin-left: 4px;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+#usg-sizing-tool .usg-help:hover,
+#usg-sizing-tool .usg-help:focus,
+#usg-sizing-tool .usg-help.usg-tip-on {
+  border-color: rgb(255, 75, 75); color: rgb(255, 75, 75);
+  outline: none;
+}
+#usg-sizing-tool .usg-tipbox {
+  display: none; position: absolute; z-index: 99999;
+  background: rgb(38, 39, 48); color: #fff !important;
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 14px !important; line-height: 1.5; font-weight: 400;
+  max-width: 320px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+#usg-sizing-tool .usg-tipbox.usg-show { display: block; }
+#usg-sizing-tool .usg-numwrap { display: flex; align-items: stretch; }
+#usg-sizing-tool input[type="number"] {
+  flex: 1 1 auto; width: 100%; height: 44px;
+  background: rgb(240, 242, 246); color: rgb(49, 51, 63);
+  border: 1px solid rgb(240, 242, 246); border-radius: 8px;
+  padding: 8px 12px; font-size: 16px !important; font-family: inherit;
+  min-width: 0; -moz-appearance: textfield; appearance: textfield;
+}
+#usg-sizing-tool input[type="number"]::-webkit-outer-spin-button,
+#usg-sizing-tool input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+#usg-sizing-tool input[type="number"]:focus { outline: none; border-color: rgb(255, 75, 75); }
+#usg-sizing-tool select {
+  width: 100%; height: 44px; background: rgb(240, 242, 246); color: rgb(49, 51, 63);
+  border: 1px solid rgb(240, 242, 246); border-radius: 8px;
+  padding: 8px 12px; font-size: 16px !important; font-family: inherit; cursor: pointer;
+}
+#usg-sizing-tool select:focus { outline: none; border-color: rgb(255, 75, 75); }
+#usg-sizing-tool .usg-radio-group { display: flex; flex-direction: column; gap: 7px; }
+#usg-sizing-tool .usg-radio { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 16px !important; color: rgb(49, 51, 63) !important; font-weight: 400 !important; margin: 0 !important; }
+#usg-sizing-tool .usg-radio input { accent-color: rgb(255, 75, 75); width: 18px; height: 18px; margin: 0; cursor: pointer; flex: 0 0 auto; }
+#usg-sizing-tool .usg-sliderwrap { display: flex; align-items: center; gap: 12px; padding-top: 6px; }
+#usg-sizing-tool input[type="range"] { flex: 1 1 auto; accent-color: rgb(255, 75, 75); cursor: pointer; height: auto; }
+#usg-sizing-tool .usg-slider-val { color: rgb(255, 75, 75) !important; font-size: 15px !important; min-width: 34px; text-align: right; }
+#usg-sizing-tool .usg-btn {
+  font-family: inherit !important; font-size: 16px !important; font-weight: 400 !important;
+  padding: 8px 16px !important; border-radius: 8px !important; text-transform: none !important;
+  border: 1px solid rgba(49, 51, 63, 0.2); background: #fff; color: rgb(49, 51, 63) !important;
+  cursor: pointer; line-height: 1.6 !important; letter-spacing: normal !important;
+}
+#usg-sizing-tool .usg-btn:hover { border-color: rgb(255, 75, 75); color: rgb(255, 75, 75) !important; background: #fff; }
+#usg-sizing-tool .usg-btn-primary { background: rgb(255, 75, 75) !important; border-color: rgb(255, 75, 75) !important; color: #fff !important; }
+#usg-sizing-tool .usg-btn-primary:hover { background: rgb(255, 51, 51) !important; border-color: rgb(255, 51, 51) !important; color: #fff !important; }
+#usg-sizing-tool .usg-hr { border: none; border-top: 1px solid rgba(49, 51, 63, 0.2); margin: 24px 0; }
+#usg-sizing-tool .usg-alert { border-radius: 8px; padding: 16px; margin: 8px 0 16px; font-size: 16px !important; line-height: 1.6; }
+#usg-sizing-tool .usg-error { background: rgba(255, 43, 43, 0.09); color: rgb(125, 53, 59) !important; }
+#usg-sizing-tool .usg-warning { background: rgba(255, 227, 18, 0.1); color: rgb(146, 108, 5) !important; }
+#usg-sizing-tool .usg-success { background: rgba(33, 195, 84, 0.1); color: rgb(23, 114, 51) !important; }
+#usg-sizing-tool .usg-info { background: rgba(28, 131, 225, 0.1); color: rgb(0, 66, 128) !important; }
+#usg-sizing-tool .usg-field { font-size: 16px !important; color: rgb(49, 51, 63) !important; margin: 0 0 12px !important; }
+#usg-sizing-tool .usg-field strong { color: rgb(49, 51, 63) !important; font-weight: 600; }
+#usg-sizing-tool .usg-code {
+  background: rgb(240, 242, 246); border-radius: 8px; padding: 12px 16px;
+  font-family: "Source Code Pro", Menlo, Consolas, monospace !important; font-size: 15px !important;
+  color: rgb(9, 171, 59) !important; overflow-x: auto; margin: 0 0 8px;
+}
+#usg-sizing-tool .usg-code code {
+  font-family: inherit !important; font-size: inherit !important;
+  color: inherit !important; background: none !important; padding: 0 !important; border: 0 !important;
+}
+#usg-sizing-tool .usg-table { border-collapse: collapse; margin: 8px 0 16px; min-width: 50%; font-size: 15px !important; }
+#usg-sizing-tool .usg-table th, #usg-sizing-tool .usg-table td {
+  border: 1px solid rgba(49, 51, 63, 0.1); padding: 8px 16px; text-align: left;
+  color: rgb(49, 51, 63) !important; font-size: 15px !important;
+}
+#usg-sizing-tool .usg-table th { background: rgb(240, 242, 246); font-weight: 600; }
+#usg-sizing-tool .usg-h3-orange { color: #CC5500 !important; }
+#usg-sizing-tool .usg-caption {
+  font-size: 14px !important; color: rgba(49, 51, 63, 0.6) !important; margin: 0 0 10px !important;
+}
+#usg-sizing-tool .usg-section-label {
+  font-size: 20px !important; font-weight: 400 !important; color: #00008B !important;
+  margin: 8px 0 4px !important;
+}
+#usg-sizing-tool .usg-dfwrap { overflow-x: auto; margin: 8px 0 20px; border: 1px solid rgba(49, 51, 63, 0.15); border-radius: 8px; }
+#usg-sizing-tool table.usg-df { border-collapse: collapse; width: 100%; font-size: 15px !important; margin: 0; background: #fff; }
+#usg-sizing-tool table.usg-df th {
+  background: rgb(240, 242, 246); color: rgba(49, 51, 63, 0.75) !important;
+  font-weight: 600; text-align: left; white-space: nowrap;
+  padding: 10px 14px; border-bottom: 1px solid rgba(49, 51, 63, 0.15);
+  font-size: 14px !important;
+}
+#usg-sizing-tool table.usg-df td {
+  padding: 9px 14px; color: rgb(49, 51, 63) !important;
+  border-bottom: 1px solid rgba(49, 51, 63, 0.08);
+  font-size: 15px !important; white-space: nowrap;
+}
+#usg-sizing-tool table.usg-df tbody tr:last-child td { border-bottom: none; }
+#usg-sizing-tool table.usg-df tbody tr:hover td { background: rgba(240, 242, 246, 0.55); }
+#usg-sizing-tool table.usg-df td.usg-yes { color: rgb(23, 114, 51) !important; font-weight: 600; }
+#usg-sizing-tool table.usg-df td.usg-no { color: rgb(125, 53, 59) !important; }
+#usg-sizing-tool .usg-df-title { font-size: 16px !important; font-weight: 600; color: rgb(49, 51, 63) !important; margin: 14px 0 6px; }
+#usg-sizing-tool .usg-spinner { display: flex; align-items: center; gap: 10px; padding: 16px 0; font-size: 16px; }
+#usg-sizing-tool .usg-spin {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid rgba(49, 51, 63, 0.2); border-top-color: rgb(255, 75, 75);
+  animation: usg-rotate 0.8s linear infinite;
+}
+@keyframes usg-rotate { to { transform: rotate(360deg); } }
+@media (max-width: 720px) {
+  #usg-sizing-tool .usg-cols-4 > .usg-widget { flex-basis: 46%; }
+  #usg-sizing-tool .usg-halfwidth { max-width: 100%; }
+  #usg-sizing-tool h1.usg-h1 { font-size: 30px !important; }
+  #usg-sizing-tool h2.usg-h2, #usg-sizing-tool h3.usg-h3 { font-size: 24px !important; }
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function () {
+"use strict";
+
+/* ==============================================================
+   UI LAYER — mirrors allmodels.py (the Streamlit app)
+   ============================================================== */
+// ---- UI layer: collects the form and calls the sizing algorithm ----
+// The algorithm itself is not in this file. It is loaded from GitHub via
+// jsDelivr (see the <script> tag above) and exposed as window.USGSizing.
+
+var $root = document.getElementById('usg-sizing-tool');
+function $(id) { return document.getElementById('usg-' + id); }
+
+var PIPE_OPTIONS = ["N/A", '1-1/4"', '1-1/2"', '2"'];
+
+// ---- widget state readers ----
+function numVal(id) {
+  var v = parseFloat($(id).value);
+  return isNaN(v) ? 0 : v;
+}
+function intVal(id) {
+  var v = parseInt($(id).value, 10);
+  return isNaN(v) ? 0 : v;
+}
+function radioVal(name) {
+  var els = $root.querySelectorAll('input[name="usg-' + name + '"]');
+  for (var i = 0; i < els.length; i++) if (els[i].checked) return els[i].value;
+  return null;
+}
+
+// ---- conditional visibility (mirrors the Streamlit widget tree) ----
+function refreshConditionals() {
+  $('pload-block').style.display = (radioVal('higheff') === "Yes") ? '' : 'none';
+  $('oversize-block').style.display = (radioVal('override') === "Yes") ? '' : 'none';
+  $('sg-block').style.display = ($('gastype').value === "Other") ? '' : 'none';
+  $('patm-block').style.display = (radioVal('elevation') === "Yes") ? '' : 'none';
+
+  $('pload-val').textContent = $('pload').value;
+  $('oversize-val').textContent = $('oversize').value;
+
+  reqLabel('inlet', numVal('inlet'));
+  reqLabel('outlet', numVal('outlet'));
+  reqLabel('flow', intVal('flow'));
+}
+function reqLabel(id, val) {
+  var el = $('label-' + id);
+  if (!val) el.classList.add('usg-req'); else el.classList.remove('usg-req');
+}
+function clampInput(el) {
+  if (el.value === '') return;
+  var v = parseFloat(el.value); if (isNaN(v)) return;
+  var min = el.hasAttribute('min') ? parseFloat(el.getAttribute('min')) : -Infinity;
+  var max = el.hasAttribute('max') ? parseFloat(el.getAttribute('max')) : Infinity;
+  if (v < min) el.value = String(min);
+  if (v > max) el.value = String(max);
+}
+
+// ---- rendering helpers ----
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function alertBox(kind, html) { return '<div class="usg-alert usg-' + kind + '">' + html + '</div>'; }
+
+// ---- collect the form ----
+function buildInput() {
+  return {
+    inlet: numVal('inlet'),
+    inlet_units: $('inlet-units').value,
+    outlet: numVal('outlet'),
+    outlet_units: $('outlet-units').value,
+    flow: intVal('flow'),
+    flow_units: $('flow-units').value,
+    maop: intVal('maop'),
+    model: $('model').value,
+    pipe_size: PIPE_OPTIONS[parseInt($('pipesize').value, 10)],
+    // The 121/122 offers monitor protection only - a plain Yes/No.
+    opp_required: radioVal('opp') === "Yes",
+    high_efficiency: radioVal('higheff') === "Yes",
+    high_efficiency_pct: parseInt($('pload').value, 10),
+    override_oversize: radioVal('override') === "Yes",
+    oversize_pct: parseInt($('oversize').value, 10),
+    gas_type: $('gastype').value,
+    specific_gravity: numVal('sg'),
+    high_altitude: radioVal('elevation') === "Yes",
+    atmospheric_pressure: numVal('patm')
+  };
+}
+
+var lastRun = null; // stored for the PDF download
+
+// ---- main run handler ----
+function runSizing() {
+  var out = $('output');
+
+  if (!window.USGSizing || typeof window.USGSizing.sizeModelRPC !== 'function') {
+    out.innerHTML = alertBox('error',
+      'The sizing algorithm could not be loaded. Please refresh the page, and if the problem persists contact Holland Supply Company.');
+    return;
+  }
+
+  out.innerHTML = '<div class="usg-spinner"><span class="usg-spin"></span>Sizing regulator\u2026</div>';
+
+  // Yield once so the spinner paints before the calculation runs.
+  setTimeout(function () {
+    var result;
+    try {
+      result = window.USGSizing.sizeModelRPC(buildInput());
+    } catch (err) {
+      if (window.console && console.error) console.error('USG sizing failed', err);
+      out.innerHTML = alertBox('error', 'Something went wrong while sizing. Please try again.');
+      return;
+    }
+    render(result);
+  }, 30);
+}
+
+// ---- render the result ----
+function render(body) {
+  var out = $('output');
+  var html = '';
+  lastRun = null;
+
+  if (!body || body.ok !== true) {
+    var errs = (body && body.errors) ? body.errors : ["Unexpected result from the sizing algorithm."];
+    for (var e = 0; e < errs.length; e++) html += alertBox('error', esc(errs[e]));
+    out.innerHTML = html;
+    return;
+  }
+
+  var warnings = body.warnings || [];
+  for (var w = 0; w < warnings.length; w++) html += alertBox('warning', esc(warnings[w]));
+
+  if (body.selected) {
+    html += alertBox('success', '\u2705&nbsp; ' + esc(body.message || "Regulator selected!"));
+
+    html += '<h3 class="usg-h3">Regulator Selection</h3>';
+    var sel = body.selection || [];
+    for (var i = 0; i < sel.length; i++) {
+      html += '<p class="usg-field"><strong>' + esc(sel[i].label) + ':</strong> ' + esc(sel[i].value) + '</p>';
+    }
+    if (body.capacity) {
+      html += '<p class="usg-field"><strong>Calculated Capacity (CFH):</strong> ' + esc(body.capacity) + '</p>';
+    }
+
+    if (body.pipe_note) {
+      html += alertBox('info', '\u2139\uFE0F&nbsp; ' + esc(body.pipe_note));
+    }
+
+    var pns = body.part_numbers || [];
+    if (pns.length) {
+      html += '<h3 class="usg-h3">HSC Part Number(s)</h3>';
+      for (var p = 0; p < pns.length; p++) {
+        html += '<pre class="usg-code"><code>' + esc(pns[p]) + '</code></pre>';
+      }
+    }
+  } else {
+    html += alertBox('error', '\u274C&nbsp; ' + esc(body.message || "Model 121 will not work for this application."));
+    // The algorithm stopped before producing capacities, so there is nothing
+    // further to show.
+    if (body.stopped) {
+      out.innerHTML = html;
+      return;
+    }
+  }
+
+  // ---- capacity tables ----
+  var tables = body.tables || [];
+  if (tables.length) {
+    html += '<hr class="usg-hr">';
+    html += '<h3 class="usg-h3 usg-h3-orange">Regulator Sizing Tables</h3>';
+    if (body.tables_caption) {
+      html += '<p class="usg-caption">' + esc(body.tables_caption) + '</p>';
+    }
+    for (var t = 0; t < tables.length; t++) html += renderTable(tables[t]);
+  }
+
+  // ---- sizing adjustments ----
+  var adj = body.adjustments || [];
+  if (adj.length) {
+    html += '<hr class="usg-hr">';
+    html += '<h3 class="usg-h3">Sizing Adjustments</h3>';
+    html += '<div class="usg-dfwrap"><table class="usg-df"><thead><tr><th>Adjustment</th><th>Value</th></tr></thead><tbody>';
+    for (var a = 0; a < adj.length; a++) {
+      html += '<tr><td>' + esc(adj[a].label) + '</td><td>' + esc(adj[a].value) + '</td></tr>';
+    }
+    html += '</tbody></table></div>';
+  }
+
+  if (body.selected) {
+    lastRun = {
+      summary: body.summary || [],
+      selection: body.selection || [],
+      capacity: body.capacity || '',
+      pns: body.part_numbers || [],
+      msgs: warnings,
+      adjustments: adj
+    };
+    html += '<hr class="usg-hr">';
+    html += '<h3 class="usg-h3">Download PDF Summary</h3>';
+    html += '<button type="button" class="usg-btn" id="usg-pdf-btn">\u2B07\uFE0F&nbsp; Download PDF Summary</button>';
+  }
+
+  out.innerHTML = html;
+  var pdfBtn = $('pdf-btn');
+  if (pdfBtn) pdfBtn.addEventListener('click', downloadPdf);
+}
+
+// One capacity table. The Yes/No columns are colour-coded so a column can be
+// scanned at a glance, and the wrapper scrolls sideways on a narrow phone
+// rather than squashing the columns.
+function renderTable(table) {
+  var h = '<p class="usg-df-title">' + esc(table.title) + '</p>';
+  h += '<div class="usg-dfwrap"><table class="usg-df"><thead><tr>';
+  for (var c = 0; c < table.headers.length; c++) h += '<th>' + esc(table.headers[c]) + '</th>';
+  h += '</tr></thead><tbody>';
+  for (var r = 0; r < table.rows.length; r++) {
+    h += '<tr>';
+    for (var k = 0; k < table.rows[r].length; k++) {
+      var cell = table.rows[r][k];
+      var cls = '';
+      if (k >= 2) {
+        if (cell === 'Yes') cls = ' class="usg-yes"';
+        else if (cell === 'No') cls = ' class="usg-no"';
+      }
+      h += '<td' + cls + '>' + esc(cell) + '</td>';
+    }
+    h += '</tr>';
+  }
+  return h + '</tbody></table></div>';
+}
+
+// ---- PDF summary (same layout as the Streamlit build_summary_pdf) ----
+function downloadPdf() {
+  if (!lastRun) return;
+  try {
+    var JsPDF = (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : null;
+    if (!JsPDF) { printFallback(); return; }
+    var ORANGE = [232, 93, 38], DARK = [17, 24, 39], DARK_BLUE = [31, 56, 100], GREY = [107, 114, 128], LINE = [229, 231, 235];
+    var doc = new JsPDF({ unit: 'pt', format: 'letter' });
+    var pageW = doc.internal.pageSize.getWidth();
+    var marginX = 0.7 * 72, y = 0.5 * 72 + 14;
+    var availW = pageW - 2 * marginX;
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
+    doc.setTextColor(DARK_BLUE[0], DARK_BLUE[1], DARK_BLUE[2]);
+    doc.text('USG Sizing Tool', marginX, y); y += 16;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+    doc.setTextColor(DARK[0], DARK[1], DARK[2]);
+    doc.text('Model 121 Sizing Tool', marginX, y); y += 12;
+    doc.setFontSize(7.5); doc.setTextColor(GREY[0], GREY[1], GREY[2]);
+    var now = new Date();
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var hh = now.getHours(); var ampm = hh >= 12 ? 'PM' : 'AM'; hh = hh % 12; if (hh === 0) hh = 12;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    doc.text('Generated ' + months[now.getMonth()] + ' ' + pad(now.getDate()) + ', ' + now.getFullYear() + '  ' + pad(hh) + ':' + pad(now.getMinutes()) + ' ' + ampm, marginX, y);
+    y += 14;
+
+    function checkPage(rh) {
+      if (y + rh > doc.internal.pageSize.getHeight() - 0.5 * 72) { doc.addPage(); y = 0.5 * 72 + 6; }
+    }
+    function section(title) {
+      y += 8;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
+      doc.setTextColor(ORANGE[0], ORANGE[1], ORANGE[2]);
+      checkPage(14);
+      doc.text(title, marginX, y);
+      y += 6;
+    }
+    function kvRows(pairs) {
+      doc.setFontSize(8);
+      var labelW = availW * 0.4, valW = availW * 0.6;
+      for (var i = 0; i < pairs.length; i++) {
+        var lLines = doc.splitTextToSize(String(pairs[i].label), labelW - 6);
+        var vLines = doc.splitTextToSize(String(pairs[i].value), valW - 6);
+        var rh = Math.max(lLines.length, vLines.length) * 9.5 + 4.4;
+        checkPage(rh);
+        doc.setFont('helvetica', 'bold'); doc.setTextColor(DARK[0], DARK[1], DARK[2]);
+        doc.text(lLines, marginX, y + 8);
+        doc.setFont('helvetica', 'normal');
+        doc.text(vLines, marginX + labelW, y + 8);
+        y += rh;
+        doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.4);
+        doc.line(marginX, y, marginX + availW, y);
+      }
+    }
+    function listRows(items) {
+      doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+      doc.setTextColor(DARK[0], DARK[1], DARK[2]);
+      for (var i = 0; i < items.length; i++) {
+        var lines = doc.splitTextToSize(String(items[i]), availW - 6);
+        var rh = lines.length * 9.5 + 4.4;
+        checkPage(rh);
+        doc.text(lines, marginX, y + 8);
+        y += rh;
+        doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.4);
+        doc.line(marginX, y, marginX + availW, y);
+      }
+    }
+    function noneText(t) {
+      doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+      doc.setTextColor(DARK[0], DARK[1], DARK[2]);
+      checkPage(12); doc.text(t, marginX, y + 8); y += 12;
+    }
+
+    section('Inputs');
+    kvRows(lastRun.summary);
+
+    section('Regulator Selection');
+    var sel = lastRun.selection.slice();
+    if (lastRun.capacity) sel.push({ label: "Calculated Capacity (CFH)", value: lastRun.capacity });
+    if (sel.length) kvRows(sel); else noneText('No regulator selected.');
+
+    section('Part Number(s)');
+    if (lastRun.pns.length) listRows(lastRun.pns); else noneText('None');
+
+    section('Warnings');
+    if (lastRun.msgs.length) listRows(lastRun.msgs); else noneText('None');
+
+    section('Sizing Adjustments');
+    if (lastRun.adjustments.length) kvRows(lastRun.adjustments); else noneText('None');
+
+    doc.save('USG_Sizing_Tool_Output.pdf');
+  } catch (e) {
+    printFallback();
+  }
+}
+
+function printFallback() {
+  if (!lastRun) return;
+  var w = window.open('', '_blank');
+  if (!w) { window.alert('Could not generate PDF: please allow pop-ups or check that the PDF library can load.'); return; }
+  var h = '<html><head><title>USG Sizing Tool</title><style>body{font-family:Helvetica,Arial,sans-serif;margin:40px;color:#111827}h1{color:#1F3864;font-size:20px;margin:0}h2{color:#e85d26;font-size:12px;margin:14px 0 4px}table{width:100%;border-collapse:collapse;font-size:9px}td{border-bottom:0.5px solid #e5e7eb;padding:3px 0;vertical-align:top}td:first-child{font-weight:bold;width:40%}.gen{color:#6b7280;font-size:8px}</style></head><body>';
+  h += '<h1>USG Sizing Tool</h1><div>Model 121 Sizing Tool</div><div class="gen">Generated ' + new Date().toLocaleString() + '</div>';
+  var kv = function (pairs) { var t = '<table>'; for (var i = 0; i < pairs.length; i++) t += '<tr><td>' + esc(pairs[i].label) + '</td><td>' + esc(pairs[i].value) + '</td></tr>'; return t + '</table>'; };
+  var li = function (items) { var t = '<table>'; for (var i = 0; i < items.length; i++) t += '<tr><td style="font-weight:normal;width:auto">' + esc(items[i]) + '</td></tr>'; return t + '</table>'; };
+  var sel = lastRun.selection.slice();
+  if (lastRun.capacity) sel.push({ label: "Calculated Capacity (CFH)", value: lastRun.capacity });
+  h += '<h2>Inputs</h2>' + kv(lastRun.summary);
+  h += '<h2>Regulator Selection</h2>' + (sel.length ? kv(sel) : 'No regulator selected.');
+  h += '<h2>Part Number(s)</h2>' + (lastRun.pns.length ? li(lastRun.pns) : 'None');
+  h += '<h2>Warnings</h2>' + (lastRun.msgs.length ? li(lastRun.msgs) : 'None');
+  h += '<h2>Sizing Adjustments</h2>' + kv(lastRun.adjustments);
+  h += '</body></html>';
+  w.document.write(h);
+  w.document.close();
+  w.focus();
+  w.print();
+}
+
+// ---- info tooltips (hover on desktop, tap on mobile, keyboard accessible) ----
+var tipBox = document.createElement('div');
+tipBox.className = 'usg-tipbox';
+tipBox.setAttribute('role', 'tooltip');
+$root.appendChild(tipBox);
+var tipPinnedTo = null;
+var tipShownFor = null;
+
+function showTip(icon) {
+  tipBox.textContent = icon.getAttribute('data-tip') || '';
+  tipBox.classList.add('usg-show');
+  tipShownFor = icon;
+  var rootRect = $root.getBoundingClientRect();
+  var iconRect = icon.getBoundingClientRect();
+  var left = iconRect.left - rootRect.left + iconRect.width / 2 - tipBox.offsetWidth / 2;
+  left = Math.max(8, Math.min(left, $root.clientWidth - tipBox.offsetWidth - 8));
+  tipBox.style.left = left + 'px';
+  tipBox.style.top = (iconRect.bottom - rootRect.top + 8) + 'px';
+  icon.classList.add('usg-tip-on');
+}
+function hideTip() {
+  tipBox.classList.remove('usg-show');
+  if (tipShownFor) tipShownFor.classList.remove('usg-tip-on');
+  tipShownFor = null;
+  tipPinnedTo = null;
+}
+
+// ---- wire up events ----
+(function init() {
+  var inputs = $root.querySelectorAll('input, select');
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('change', function () { clampInput(this); refreshConditionals(); });
+    inputs[i].addEventListener('input', function () { refreshConditionals(); });
+  }
+  var helps = $root.querySelectorAll('.usg-help');
+  for (var h = 0; h < helps.length; h++) {
+    (function (icon) {
+      icon.addEventListener('mouseenter', function () { if (!tipPinnedTo) showTip(icon); });
+      icon.addEventListener('mouseleave', function () { if (!tipPinnedTo) hideTip(); });
+      icon.addEventListener('focus', function () { if (!tipPinnedTo) showTip(icon); });
+      icon.addEventListener('blur', function () { if (!tipPinnedTo) hideTip(); });
+      icon.addEventListener('click', function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        if (tipPinnedTo === icon) { hideTip(); return; }
+        hideTip(); tipPinnedTo = icon; showTip(icon);
+      });
+      icon.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); icon.click(); }
+        else if (ev.key === 'Escape') { hideTip(); }
+      });
+    })(helps[h]);
+  }
+  document.addEventListener('click', function () { if (tipPinnedTo) hideTip(); });
+  window.addEventListener('scroll', function () { if (tipShownFor && !tipPinnedTo) hideTip(); }, true);
+  window.addEventListener('resize', function () { hideTip(); });
+  $('run-btn').addEventListener('click', runSizing);
+  refreshConditionals();
+})();
+
+})();
+</script>

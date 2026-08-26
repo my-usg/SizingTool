@@ -3937,5 +3937,334 @@
     }
    ]
   }
+ },
+ {
+  "name": "Gray spring: IRV correctly reported as unavailable",
+  "input": {
+   "inlet": 520,
+   "outlet": 164,
+   "flow": 388553,
+   "opp_required": true,
+   "opp_pref": "IRV",
+   "irv_pressure": 25
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 046 will not work for this application.",
+   "sections": [
+    {
+     "label": "With IRV",
+     "tables": [
+      {
+       "title": "Model 046-2, 3/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1/8\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "3/16\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "5/16\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "N/A",
+         "No",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 046-2, 1\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1/8\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "3/16\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "5/16\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "N/A",
+         "No",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 046-2, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1/8\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "3/16\"",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "N/A",
+         "No",
+         "No"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "label": "With Monitor",
+     "tables": [
+      {
+       "title": "Model 046, 046-M or 046-2M, 3/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1/8\"",
+         "5,337",
+         "No"
+        ],
+        [
+         "3/16\"",
+         "11,427",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "5/16\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 046, 046-M or 046-2M, 1\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1/8\"",
+         "5,337",
+         "No"
+        ],
+        [
+         "3/16\"",
+         "11,427",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "5/16\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 046, 046-M or 046-2M, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1/8\"",
+         "5,337",
+         "No"
+        ],
+        [
+         "3/16\"",
+         "11,427",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "5/16\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "520.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "164.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "388,553"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "IRV"
+    },
+    {
+     "label": "IRV Protect Downstream Pressure To (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
  }
 ]

@@ -8,8 +8,8 @@
  *
  * tool:      model-046
  * version:   1.0.0
- * algorithm: sha256:24d7738866c7
- * sources:   sha256:d607fd7eb926
+ * algorithm: sha256:1286a0456880
+ * sources:   sha256:4b8ff1154302
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel046(input)  -> result object
@@ -56,6 +56,23 @@ function $pyType(v) {
   if (Array.isArray(v)) return 'list';
   if (v instanceof Map) return 'dict';
   return typeof v;
+}
+function $index(o, x) {
+  // Python's list.index()/str.index(): returns the first position, and RAISES
+  // ValueError when absent - it does not return -1 like indexOf. Getting that
+  // wrong would let a "not found" flow onward as a valid index of -1.
+  if (typeof o === 'string') {
+    var si = o.indexOf(x);
+    if (si === -1) throw new Error('ValueError: substring not found');
+    return si;
+  }
+  if (Array.isArray(o)) {
+    for (var i = 0; i < o.length; i++) {
+      if ($eq(o[i], x)) return i;
+    }
+    throw new Error('ValueError: ' + $str(x) + ' is not in list');
+  }
+  throw new TypeError("argument of type '" + $pyType(o) + "' is not iterable");
 }
 function $get(o, k) {
   if (o instanceof Map) {
@@ -193,7 +210,7 @@ function $format(x, spec) {
   return s;
 }
 // Mirrors the Streamlit runtime where these names are always injected into the exec'd namespace
-var $GLOBALS = new Map([["inlet_input",1],["outlet_input",1],["flow_rate",1],["min_flow",1],["maop",1],["pipesize_input",1],["opp_type",1],["irv_input",1],["oversizeby",1],["gastypemult",1],["pload",1],["combust_pref",1],["Patm",1]]);
+var $GLOBALS = new Map([["inlet_input",1],["outlet_input",1],["flow_rate",1],["maop",1],["pipesize_input",1],["opp_type",1],["irv_input",1],["oversizeby",1],["oversize_percent",1],["gastypemult",1],["pload",1],["Patm",1]]);
 var $printBuf = [];
 function $print(args) { $printBuf.push(args.map($str).join(' ')); }
 
@@ -425,7 +442,10 @@ function will_irv_work046(reg, opp) {
   green_curves = new Map([[60, new Map([["1/2\"", (-5)], ["3/8\"", (-10)], ["5/16\"", (-12)], ["1/4\"", (-15)], ["3/16\"", (-18)], ["1/8\"", (-20)]])], [75, new Map([["1/2\"", 2], ["3/8\"", (-5)], ["5/16\"", (-10)], ["1/4\"", (-15)], ["3/16\"", (-17)], ["1/8\"", (-19)]])], [100, new Map([["1/2\"", 18], ["3/8\"", 2], ["5/16\"", (-4)], ["1/4\"", (-14)], ["3/16\"", (-14)], ["1/8\"", (-19)]])], [125, new Map([["1/2\"", null], ["3/8\"", 10], ["5/16\"", 0], ["1/4\"", (-12)], ["3/16\"", (-12)], ["1/8\"", (-18)]])], [150, new Map([["1/2\"", null], ["3/8\"", 19], ["5/16\"", 6], ["1/4\"", (-9)], ["3/16\"", (-11)], ["1/8\"", (-17)]])], [175, new Map([["1/2\"", null], ["3/8\"", 28], ["5/16\"", 10], ["1/4\"", (-5)], ["3/16\"", (-10)], ["1/8\"", (-17)]])], [200, new Map([["1/2\"", null], ["3/8\"", 36], ["5/16\"", 16], ["1/4\"", (-2)], ["3/16\"", (-8)], ["1/8\"", (-16)]])], [225, new Map([["1/2\"", null], ["3/8\"", 46], ["5/16\"", 21], ["1/4\"", 0], ["3/16\"", (-7)], ["1/8\"", (-15)]])], [250, new Map([["1/2\"", null], ["3/8\"", 56], ["5/16\"", 28], ["1/4\"", 4], ["3/16\"", (-4)], ["1/8\"", (-15)]])], [275, new Map([["1/2\"", null], ["3/8\"", 68], ["5/16\"", 36], ["1/4\"", 9], ["3/16\"", (-2)], ["1/8\"", (-14)]])], [300, new Map([["1/2\"", null], ["3/8\"", 78], ["5/16\"", 42], ["1/4\"", 11], ["3/16\"", (-1)], ["1/8\"", (-13)]])]]);
   tan_curves = new Map([[80, new Map([["1/2\"", (-5)], ["3/8\"", (-13)], ["5/16\"", (-15)], ["1/4\"", (-25)], ["3/16\"", (-30)], ["1/8\"", (-30)]])], [100, new Map([["1/2\"", 5], ["3/8\"", (-4)], ["5/16\"", (-9)], ["1/4\"", (-23)], ["3/16\"", (-27)], ["1/8\"", (-28)]])], [125, new Map([["1/2\"", null], ["3/8\"", 6], ["5/16\"", (-1)], ["1/4\"", (-17)], ["3/16\"", (-26)], ["1/8\"", (-27)]])], [150, new Map([["1/2\"", null], ["3/8\"", 17], ["5/16\"", 6], ["1/4\"", (-13)], ["3/16\"", (-25)], ["1/8\"", (-26)]])], [175, new Map([["1/2\"", null], ["3/8\"", 31], ["5/16\"", 15], ["1/4\"", (-7)], ["3/16\"", (-23)], ["1/8\"", (-26)]])], [200, new Map([["1/2\"", null], ["3/8\"", 43], ["5/16\"", 21], ["1/4\"", (-4)], ["3/16\"", (-19)], ["1/8\"", (-25)]])], [225, new Map([["1/2\"", null], ["3/8\"", 55], ["5/16\"", 30], ["1/4\"", 3], ["3/16\"", (-16)], ["1/8\"", (-25)]])], [250, new Map([["1/2\"", null], ["3/8\"", 65], ["5/16\"", 37], ["1/4\"", 6], ["3/16\"", (-15)], ["1/8\"", (-24)]])], [275, new Map([["1/2\"", null], ["3/8\"", 75], ["5/16\"", 45], ["1/4\"", 11], ["3/16\"", (-12)], ["1/8\"", (-24)]])], [300, new Map([["1/2\"", null], ["3/8\"", 86], ["5/16\"", 54], ["1/4\"", 16], ["3/16\"", (-10)], ["1/8\"", (-24)]])]]);
   spring_map = new Map([["Yellow", yellow_curves], ["Aluminum", aluminum_curves], ["White", white_curves], ["Green", green_curves], ["Tan", tan_curves]]);
-  irv_table = $get(spring_map, spring);
+  irv_table = $dget(spring_map, spring, null);
+  if ($truthy(((irv_table === null)))) {
+    return "No";
+  }
   orifice_key = orif;
   inlet_keys = $sorted($keys(irv_table));
   if ($truthy(((inlet_input <= $get(inlet_keys, 0))))) {
@@ -791,20 +811,6 @@ function sizeTool(rawInput) {
   var inlet_psi = toPsi(inlet_input, p.inlet_units);
   var outlet_psi = toPsi(outlet_input, p.outlet_units);
 
-  // ---- elevation capacity reduction ----
-  var elevation_reduction;
-  if (Patm < 14.4) {
-    var ratio = (inlet_psi + Patm) / (outlet_psi + Patm);
-    if (ratio < 1.894) {
-      elevation_reduction = 100 * (1 - Math.pow((outlet_psi + Patm) * ((inlet_psi + Patm) - (outlet_psi + Patm)), 0.5) /
-        Math.pow((outlet_psi + 14.65) * ((inlet_psi + 14.65) - (outlet_psi + 14.65)), 0.5));
-    } else {
-      elevation_reduction = 100 * (1 - (inlet_psi + Patm) / (inlet_psi + 14.65));
-    }
-  } else {
-    elevation_reduction = 0;
-  }
-
   // ---- validation (same rules, wording and order as the original tool) ----
   var errors = [];
   if (inlet_psi > 0 && (inlet_psi > 1000 || inlet_psi < 10)) {
@@ -822,6 +828,26 @@ function sizeTool(rawInput) {
   if (flow_rate === 0) errors.push("Please enter a gas load / flow rate.");
 
   if (errors.length) return { ok: false, errors: errors };
+
+  // ---- elevation capacity reduction ----
+  // Computed AFTER validation on purpose: when inlet equals outlet this
+  // formula divides by zero (both the numerator and denominator collapse).
+  // That input is always rejected above, so the figure is never needed - but
+  // computing it first made Python raise ZeroDivisionError while JavaScript
+  // quietly produced NaN. Same reason in reference.py.
+  var elevation_reduction;
+  if (Patm < 14.4) {
+    var ratio = (inlet_psi + Patm) / (outlet_psi + Patm);
+    if (ratio < 1.894) {
+      elevation_reduction = 100 * (1 - Math.pow((outlet_psi + Patm) * ((inlet_psi + Patm) - (outlet_psi + Patm)), 0.5) /
+        Math.pow((outlet_psi + 14.65) * ((inlet_psi + 14.65) - (outlet_psi + 14.65)), 0.5));
+    } else {
+      elevation_reduction = 100 * (1 - (inlet_psi + Patm) / (inlet_psi + 14.65));
+    }
+  } else {
+    elevation_reduction = 0;
+  }
+
 
   // ---- flow unit conversion ----
   var flow_cfh = flow_rate;
@@ -1069,7 +1095,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-046'] = {
     version: '1.0.0',
-    algorithm: 'sha256:24d7738866c7',
-    sources: 'sha256:d607fd7eb926'
+    algorithm: 'sha256:1286a0456880',
+    sources: 'sha256:4b8ff1154302'
   };
 })(typeof window !== 'undefined' ? window : this);

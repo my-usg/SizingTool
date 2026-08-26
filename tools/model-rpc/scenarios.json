@@ -2,9 +2,9 @@
  "_comment": [
   "Test inputs for this tool.",
   "'edge_cases' feed the differential test (build/difftest.py) alongside",
-  "randomised inputs from 'random'. They deliberately cover every branch of",
-  "the table chain and its boundaries (2, 3 and 5 psi outlet), plus the",
-  "IRV-becomes-monitor reassignment at 2 psi.",
+  "randomised inputs from 'random'. Every model-selector value is covered,",
+  "with and without a monitor, plus the outlet thresholds body_size_minRPC",
+  "switches on (7/28, 14/28 and 1 psi).",
   "'fixtures' are named cases whose exact rendered output is pinned in",
   "fixtures.json and checked in the browser test."
  ],
@@ -16,204 +16,193 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 3000
+    "flow": 10000
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
+    "flow": 10000,
+    "opp_required": true
+   }
+  },
+  {
+   "input": {
+    "inlet": 50,
+    "outlet": 5,
+    "flow": 30000
+   }
+  },
+  {
+   "input": {
+    "inlet": 50,
+    "outlet": 5,
+    "flow": 30000,
+    "opp_required": true
+   }
+  },
+  {
+   "input": {
+    "inlet": 150,
+    "outlet": 34,
+    "flow": 100000
+   }
+  },
+  {
+   "input": {
+    "inlet": 2,
+    "outlet": 0.13,
+    "flow": 1000
+   }
+  },
+  {
+   "input": {
+    "inlet": 10,
+    "outlet": 0.24,
     "flow": 8000
    }
   },
   {
    "input": {
     "inlet": 10,
-    "outlet": 0.5,
-    "flow": 5000
-   }
-  },
-  {
-   "input": {
-    "inlet": 20,
-    "outlet": 1.5,
-    "flow": 10000
-   }
-  },
-  {
-   "input": {
-    "inlet": 50,
-    "outlet": 2,
+    "outlet": 0.49,
     "flow": 8000
    }
   },
   {
    "input": {
-    "inlet": 40,
-    "outlet": 3,
+    "inlet": 10,
+    "outlet": 0.99,
     "flow": 8000
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 4,
-    "flow": 6000
-   }
-  },
-  {
-   "input": {
-    "inlet": 80,
-    "outlet": 6,
-    "flow": 12000
-   }
-  },
-  {
-   "input": {
-    "inlet": 60,
-    "outlet": 8,
-    "flow": 10000
-   }
-  },
-  {
-   "input": {
-    "inlet": 125,
-    "outlet": 9.9,
-    "flow": 20000
+    "outlet": 1,
+    "flow": 10000,
+    "model": "N/A (any)"
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 20000
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 4,
-    "flow": 20000
-   }
-  },
-  {
-   "input": {
-    "inlet": 60,
-    "outlet": 8,
-    "flow": 30000
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 4,
-    "flow": 20000,
-    "partial_irv": true
+    "flow": 10000,
+    "model": "N/A (any)",
+    "opp_required": true
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 20000,
-    "partial_irv": true
-   }
-  },
-  {
-   "input": {
-    "inlet": 60,
-    "outlet": 8,
-    "flow": 30000,
-    "partial_irv": true
+    "flow": 10000,
+    "model": "243-RPC"
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "IRV",
-    "irv_pressure": 2
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 5,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "IRV",
-    "irv_pressure": 6
+    "flow": 10000,
+    "model": "243-RPC",
+    "opp_required": true
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "flow": 10000,
+    "model": "243-RPC-A"
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 2.5,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
-   }
-  },
-  {
-   "input": {
-    "inlet": 60,
-    "outlet": 8,
-    "flow": 30000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "outlet": 1,
+    "flow": 10000,
+    "model": "243-RPC-A",
+    "opp_required": true
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 2,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "outlet": 1,
+    "flow": 10000,
+    "model": "243-RPC-B"
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 3,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "outlet": 1,
+    "flow": 10000,
+    "model": "243-RPC-B",
+    "opp_required": true
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 3,
-    "flow": 20000
+    "outlet": 1,
+    "flow": 10000,
+    "pipe_size": "1-1/4\""
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 5,
-    "flow": 20000
+    "outlet": 1,
+    "flow": 10000,
+    "pipe_size": "2\""
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 1.99,
+    "outlet": 1,
+    "flow": 12000,
+    "high_efficiency": true,
+    "high_efficiency_pct": 50
+   }
+  },
+  {
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 12000,
+    "override_oversize": true,
+    "oversize_pct": 40
+   }
+  },
+  {
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
     "flow": 9000,
-    "opp_required": true,
-    "opp_pref": "IRV",
-    "irv_pressure": 2
+    "gas_type": "Propane"
+   }
+  },
+  {
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 9000,
+    "gas_type": "Other",
+    "specific_gravity": 1.2
+   }
+  },
+  {
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 9000,
+    "high_altitude": true,
+    "atmospheric_pressure": 11.0
    }
   },
   {
@@ -222,7 +211,7 @@
     "outlet": 0.07,
     "inlet_units": "bar",
     "outlet_units": "bar",
-    "flow": 8000
+    "flow": 9000
    }
   },
   {
@@ -231,7 +220,7 @@
     "outlet": 7,
     "inlet_units": "kPa",
     "outlet_units": "kPa",
-    "flow": 8000
+    "flow": 9000
    }
   },
   {
@@ -239,22 +228,22 @@
     "inlet": 25,
     "outlet": 16,
     "outlet_units": "oz",
-    "flow": 8000
+    "flow": 9000
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 25,
+    "outlet": 28,
     "outlet_units": "in wc",
-    "flow": 8000
+    "flow": 9000
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 8000000,
+    "flow": 9000000,
     "flow_units": "BTUH",
     "gas_type": "Natural Gas"
    }
@@ -263,7 +252,7 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 20000000,
+    "flow": 22000000,
     "flow_units": "BTUH",
     "gas_type": "Propane"
    }
@@ -272,7 +261,7 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 8000000,
+    "flow": 9000000,
     "flow_units": "BTUH",
     "gas_type": "Other",
     "specific_gravity": 0.9
@@ -282,102 +271,50 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 250,
+    "flow": 280,
     "flow_units": "CMH"
    }
   },
   {
    "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 6000,
-    "gas_type": "Propane"
+    "inlet": 1,
+    "outlet": 0.5,
+    "flow": 9000
+   }
+  },
+  {
+   "input": {
+    "inlet": 160,
+    "outlet": 10,
+    "flow": 9000
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 1,
-    "flow": 6000,
-    "gas_type": "Other",
-    "specific_gravity": 1.2
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 6000,
-    "high_altitude": true,
-    "atmospheric_pressure": 11.0
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 6000,
-    "high_efficiency": true,
-    "high_efficiency_pct": 50
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 6000,
-    "override_oversize": true,
-    "oversize_pct": 40
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 6000,
-    "pipe_size": "2\""
-   }
-  },
-  {
-   "input": {
-    "inlet": 0.3,
-    "outlet": 0.2,
-    "flow": 5000
-   }
-  },
-  {
-   "input": {
-    "inlet": 130,
-    "outlet": 5,
-    "flow": 5000
-   }
-  },
-  {
-   "input": {
-    "inlet": 25,
-    "outlet": 11,
-    "flow": 5000
+    "outlet": 36,
+    "flow": 9000
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 0.1,
-    "flow": 5000
+    "flow": 9000
    }
   },
   {
    "input": {
     "inlet": 5,
     "outlet": 6,
-    "flow": 5000
+    "flow": 9000
    }
   },
   {
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 5000,
+    "flow": 9000,
     "maop": 10
    }
   },
@@ -390,143 +327,89 @@
   },
   {
    "input": {
-    "inlet": 5,
-    "outlet": 5,
-    "flow": 5000,
+    "inlet": 25,
+    "outlet": 25,
+    "flow": 9000,
     "high_altitude": true,
     "atmospheric_pressure": 11.0
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 35,
+    "flow": 500
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 33,
+    "flow": 500,
+    "opp_required": true
    }
   }
  ],
  "fixtures": [
   {
-   "name": "basic sizing (standard tables)",
+   "name": "basic sizing",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 3000
-   }
-  },
-  {
-   "name": "larger flow",
-   "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 8000
-   }
-  },
-  {
-   "name": "outlet in 3-5 psi band (243-8 only)",
-   "input": {
-    "inlet": 25,
-    "outlet": 4,
-    "flow": 6000
-   }
-  },
-  {
-   "name": "high pressure band (HP bodies)",
-   "input": {
-    "inlet": 60,
-    "outlet": 8,
     "flow": 10000
    }
   },
   {
-   "name": "HP at 6 psi",
-   "input": {
-    "inlet": 80,
-    "outlet": 6,
-    "flow": 12000
-   }
-  },
-  {
-   "name": "IRV protection (two sections)",
+   "name": "monitor protection (caption shown)",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
-    "opp_required": true,
-    "opp_pref": "IRV",
-    "irv_pressure": 2
+    "flow": 10000,
+    "opp_required": true
    }
   },
   {
-   "name": "IRV above 2 psi becomes monitor tables",
+   "name": "higher pressures",
    "input": {
-    "inlet": 25,
+    "inlet": 50,
     "outlet": 5,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "IRV",
-    "irv_pressure": 6
+    "flow": 30000
    }
   },
   {
-   "name": "monitor protection",
+   "name": "model pinned to 243-RPC",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "flow": 10000,
+    "model": "243-RPC"
    }
   },
   {
-   "name": "monitor in 2-3 psi band",
-   "input": {
-    "inlet": 25,
-    "outlet": 2.5,
-    "flow": 20000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
-   }
-  },
-  {
-   "name": "HP monitor",
-   "input": {
-    "inlet": 60,
-    "outlet": 8,
-    "flow": 30000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
-   }
-  },
-  {
-   "name": "partial IRV",
-   "input": {
-    "inlet": 25,
-    "outlet": 1.5,
-    "flow": 6000,
-    "partial_irv": true
-   }
-  },
-  {
-   "name": "propane",
+   "name": "model pinned to 243-RPC-A",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
-    "gas_type": "Propane"
+    "flow": 10000,
+    "model": "243-RPC-A"
    }
   },
   {
-   "name": "other gas",
+   "name": "model pinned to 243-RPC-B",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
-    "gas_type": "Other",
-    "specific_gravity": 1.2
+    "flow": 10000,
+    "model": "243-RPC-B"
    }
   },
   {
-   "name": "high altitude",
+   "name": "requested pipe size",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
-    "high_altitude": true,
-    "atmospheric_pressure": 11.0
+    "flow": 10000,
+    "pipe_size": "2\""
    }
   },
   {
@@ -534,7 +417,7 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
+    "flow": 12000,
     "high_efficiency": true,
     "high_efficiency_pct": 50
    }
@@ -544,18 +427,38 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
+    "flow": 12000,
     "override_oversize": true,
     "oversize_pct": 40
    }
   },
   {
-   "name": "requested pipe size",
+   "name": "propane",
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 6000,
-    "pipe_size": "2\""
+    "flow": 9000,
+    "gas_type": "Propane"
+   }
+  },
+  {
+   "name": "other gas",
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 9000,
+    "gas_type": "Other",
+    "specific_gravity": 1.2
+   }
+  },
+  {
+   "name": "high altitude",
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 9000,
+    "high_altitude": true,
+    "atmospheric_pressure": 11.0
    }
   },
   {
@@ -565,16 +468,25 @@
     "outlet": 0.07,
     "inlet_units": "bar",
     "outlet_units": "bar",
-    "flow": 8000
+    "flow": 9000
    }
   },
   {
    "name": "in wc outlet",
    "input": {
     "inlet": 25,
-    "outlet": 25,
+    "outlet": 28,
     "outlet_units": "in wc",
-    "flow": 8000
+    "flow": 9000
+   }
+  },
+  {
+   "name": "CMH flow",
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 280,
+    "flow_units": "CMH"
    }
   },
   {
@@ -582,7 +494,7 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 8000000,
+    "flow": 9000000,
     "flow_units": "BTUH",
     "gas_type": "Natural Gas"
    }
@@ -592,7 +504,7 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 8000000,
+    "flow": 9000000,
     "flow_units": "BTUH",
     "gas_type": "Other",
     "specific_gravity": 0.9
@@ -605,17 +517,17 @@
   {
    "name": "inlet below range",
    "input": {
-    "inlet": 0.3,
-    "outlet": 0.2,
-    "flow": 5000
+    "inlet": 1,
+    "outlet": 0.5,
+    "flow": 9000
    }
   },
   {
    "name": "outlet above range",
    "input": {
     "inlet": 25,
-    "outlet": 11,
-    "flow": 5000
+    "outlet": 36,
+    "flow": 9000
    }
   },
   {
@@ -623,7 +535,7 @@
    "input": {
     "inlet": 25,
     "outlet": 1,
-    "flow": 5000,
+    "flow": 9000,
     "maop": 10
    }
   },
@@ -633,6 +545,23 @@
     "inlet": 25,
     "outlet": 1,
     "flow": 900000
+   }
+  },
+  {
+   "name": "outlet at exactly 35 psi (spring table top)",
+   "input": {
+    "inlet": 100,
+    "outlet": 35,
+    "flow": 500
+   }
+  },
+  {
+   "name": "monitor at 33 psi outlet (setpoint capped at 35)",
+   "input": {
+    "inlet": 100,
+    "outlet": 33,
+    "flow": 500,
+    "opp_required": true
    }
   }
  ],
@@ -649,16 +578,16 @@
     "key": "inlet_units",
     "ranges": {
      "psi": [
-      0.3,
-      140
+      1,
+      160
      ],
      "bar": [
-      0.02,
-      9.5
+      0.07,
+      11
      ],
      "kPa": [
-      2,
-      950
+      7,
+      1000
      ]
     }
    },
@@ -684,23 +613,23 @@
     "ranges": {
      "psi": [
       0.05,
-      11
+      37
      ],
      "in wc": [
       1.0,
-      290
+      990
      ],
      "oz": [
       0.5,
-      180
+      590
      ],
      "bar": [
       0.003,
-      0.8
+      2.5
      ],
      "kPa": [
-      0.3,
-      75
+      0.2,
+      250
      ]
     }
    },
@@ -714,7 +643,7 @@
   "flow": {
    "int": [
     0,
-    120000
+    200000
    ]
   },
   "flow_units": {
@@ -730,9 +659,17 @@
     0,
     0,
     1,
-    25,
-    125,
+    50,
+    150,
     1000
+   ]
+  },
+  "model": {
+   "choices": [
+    "N/A (any)",
+    "243-RPC",
+    "243-RPC-A",
+    "243-RPC-B"
    ]
   },
   "pipe_size": {
@@ -745,24 +682,6 @@
   },
   "opp_required": {
    "bool": 0.5
-  },
-  "opp_pref": {
-   "choices": [
-    "IRV",
-    "Monitor"
-   ]
-  },
-  "irv_pressure": {
-   "float": [
-    0,
-    15
-   ],
-   "decimals": [
-    1
-   ]
-  },
-  "partial_irv": {
-   "bool": 0.3
   },
   "high_efficiency": {
    "bool": 0.4

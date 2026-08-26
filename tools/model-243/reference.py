@@ -153,20 +153,6 @@ def run(payload) -> Dict[str, Any]:
     inlet_psi = to_psi(inlet_input, payload.inlet_units)
     outlet_psi = to_psi(outlet_input, payload.outlet_units)
 
-    # ---- elevation capacity reduction ----
-    if patm < 14.4:
-        ratio = (inlet_psi + patm) / (outlet_psi + patm)
-        if ratio < 1.894:
-            elevation_reduction = 100 * (
-                1
-                - (((outlet_psi + patm) * ((inlet_psi + patm) - (outlet_psi + patm))) ** 0.5)
-                / (((outlet_psi + 14.65) * ((inlet_psi + 14.65) - (outlet_psi + 14.65))) ** 0.5)
-            )
-        else:
-            elevation_reduction = 100 * (1 - (inlet_psi + patm) / (inlet_psi + 14.65))
-    else:
-        elevation_reduction = 0
-
     # ---- validation (same rules, wording and order as the original tool) ----
     errors: List[str] = []
     if inlet_psi > 0 and (inlet_psi > 125 or inlet_psi < 0.5):
@@ -186,6 +172,26 @@ def run(payload) -> Dict[str, Any]:
 
     if errors:
         return {"ok": False, "errors": errors}
+
+    # ---- elevation capacity reduction ----
+    # Computed AFTER validation on purpose: when inlet equals outlet this
+    # formula divides by zero (both the numerator and denominator collapse).
+    # That input is always rejected above, so the figure is never needed - but
+    # computing it first made Python raise ZeroDivisionError while JavaScript
+    # quietly produced NaN. Same reason in wrapper.js.
+    if patm < 14.4:
+        ratio = (inlet_psi + patm) / (outlet_psi + patm)
+        if ratio < 1.894:
+            elevation_reduction = 100 * (
+                1
+                - (((outlet_psi + patm) * ((inlet_psi + patm) - (outlet_psi + patm))) ** 0.5)
+                / (((outlet_psi + 14.65) * ((inlet_psi + 14.65) - (outlet_psi + 14.65))) ** 0.5)
+            )
+        else:
+            elevation_reduction = 100 * (1 - (inlet_psi + patm) / (inlet_psi + 14.65))
+    else:
+        elevation_reduction = 0
+
 
     # ---- flow unit conversion ----
     flow_cfh = float(flow_rate)

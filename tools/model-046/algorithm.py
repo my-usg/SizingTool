@@ -474,7 +474,19 @@ def will_irv_work046(reg, opp):
     }
 
 # Linear Interpolaton Algorithm to determine the outlet pressure buildup for a given inlet pressure and orifice
-    irv_table = spring_map[spring]
+    # Not every spring has an IRV curve. The Gray spring is documented in
+    # spring_046() as "cannot be used with 046-2", and the 046-2 is the IRV
+    # body, so an internal relief valve is simply not available on that spring.
+    # Above 200 psi outlet spring_046() has no spring at all.
+    #
+    # Looking the spring up directly raised KeyError here, which the web tool
+    # reported to the customer as "could not be sized automatically" for every
+    # IRV request with an outlet above roughly 125 psi. Answer "No" instead:
+    # the regulator is sized, and the IRV column correctly says it will not
+    # work. (Note the same file already uses spring_map.get() in hsc_pnc046.)
+    irv_table = spring_map.get(spring)
+    if irv_table is None:
+        return "No"
     orifice_key = orif
     inlet_keys = sorted(irv_table.keys())
     if inlet_input <= inlet_keys[0]:

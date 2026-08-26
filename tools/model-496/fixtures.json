@@ -1,0 +1,4387 @@
+[
+ {
+  "name": "basic sizing",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 500
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "500"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "lower inlet",
+  "input": {
+   "inlet": 10,
+   "outlet": 0.25,
+   "flow": 800
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1/2\""
+    },
+    {
+     "label": "Spring",
+     "value": "Blue (6\" - 8\" wc)"
+    }
+   ],
+   "capacity": "1,175",
+   "part_numbers": [
+    "R.496-20.3/4.15.11"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "280",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "270",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "220",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "190",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "480",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "420",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "350",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "290",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "1,175",
+       "Yes"
+      ],
+      [
+       "3/8\"",
+       "1,000",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "950",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "900",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "650",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "400",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "1,700",
+       "Yes"
+      ],
+      [
+       "3/8\"",
+       "1,250",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,200",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "900",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "750",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "375",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "10.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.25"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "800"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "IRV protection (adds Will IRV Work column)",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 500,
+   "opp_required": true,
+   "irv_pressure": 2
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [
+    "Sized for IRV"
+   ],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "5/16\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,350",
+   "part_numbers": [
+    "R.496-20.3/4.13.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work",
+      "Will IRV Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work",
+      "Will IRV Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work",
+      "Will IRV Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work",
+      "Will IRV Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes",
+       "Yes"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "500"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "IRV Protect Downstream Pressure To (psi)",
+     "value": "2.0"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "partial IRV",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 500,
+   "partial_irv": true
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "500"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "Yes"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "requested pipe size",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 500,
+   "pipe_size": "1\""
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "1\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,650",
+   "part_numbers": [
+    "R.496-20.1.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "Yes"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "500"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "1\""
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "high efficiency 50%",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 700,
+   "high_efficiency": true,
+   "high_efficiency_pct": 50
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "62%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "700"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "50%"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "oversize override 40%",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 700,
+   "override_oversize": true,
+   "oversize_pct": 40
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "40%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "700"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "40%"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "propane",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 600,
+   "gas_type": "Propane"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "866",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "189",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "183",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "164",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "145",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "365",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "346",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "315",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "271",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "866",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "850",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "772",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "693",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "425",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,040",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,040",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,008",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "850",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "425",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Gas Type Factor",
+     "value": "0.6300"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Propane"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "other gas",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 600,
+   "gas_type": "Other",
+   "specific_gravity": 1.1
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,016",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "222",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "214",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "192",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "170",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "428",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "406",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "369",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "318",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,016",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "997",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "905",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "812",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "499",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,219",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,219",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,182",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "997",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "499",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Gas Type Factor",
+     "value": "0.7385"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Other"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "high altitude",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 600,
+   "high_altitude": true,
+   "atmospheric_pressure": 11.5
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,266",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "276",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "267",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "239",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "212",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "534",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "506",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "460",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "396",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,266",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,243",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,128",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,013",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "621",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,519",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,519",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,473",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,243",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "621",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Elevation capacity reduction",
+     "value": "8%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "Yes"
+    },
+    {
+     "label": "Atmospheric Pressure (psi)",
+     "value": "11.5"
+    }
+   ]
+  }
+ },
+ {
+  "name": "bar units",
+  "input": {
+   "inlet": 1.7,
+   "outlet": 0.03,
+   "inlet_units": "bar",
+   "outlet_units": "bar",
+   "flow": 600
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Green (6\" - 14\" wc)"
+    }
+   ],
+   "capacity": "1,370",
+   "part_numbers": [
+    "R.496-20.3/4.14.12"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "229",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "579",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "546",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "499",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "429",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,370",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,343",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,222",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,093",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "670",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,646",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,646",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,582",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,340",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "670",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (bar)",
+     "value": "1.7"
+    },
+    {
+     "label": "Outlet Pressure (bar)",
+     "value": "0.03"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "kPa units",
+  "input": {
+   "inlet": 170,
+   "outlet": 3.5,
+   "inlet_units": "kPa",
+   "outlet_units": "kPa",
+   "flow": 600
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "5/16\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,342",
+   "part_numbers": [
+    "R.496-20.3/4.13.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "301",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "291",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "261",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "579",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "547",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "428",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "1,342",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,220",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,092",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "669",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,645",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,645",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,580",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,336",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "669",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (kPa)",
+     "value": "170.0"
+    },
+    {
+     "label": "Outlet Pressure (kPa)",
+     "value": "3.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "oz outlet",
+  "input": {
+   "inlet": 25,
+   "outlet": 8,
+   "outlet_units": "oz",
+   "flow": 600
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (oz)",
+     "value": "8.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "in wc outlet",
+  "input": {
+   "inlet": 25,
+   "outlet": 14,
+   "outlet_units": "in wc",
+   "flow": 600
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (in wc)",
+     "value": "14.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "600"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "CMH flow",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 20,
+   "flow_units": "CMH"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CMH)",
+     "value": "20"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "BTUH natural gas",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 600000,
+   "flow_units": "BTUH",
+   "gas_type": "Natural Gas"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "496"
+    },
+    {
+     "label": "Body Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/8\""
+    },
+    {
+     "label": "Spring",
+     "value": "Red (12\" - 28\" wc)"
+    }
+   ],
+   "capacity": "1,375",
+   "part_numbers": [
+    "R.496-20.3/4.14.10"
+   ],
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "Yes"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "Yes"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "Yes"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (BTUH)",
+     "value": "600,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "BTUH with other gas (error)",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 600000,
+   "flow_units": "BTUH",
+   "gas_type": "Other",
+   "specific_gravity": 0.9
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "BTUH conversion only supported for Natural Gas or Propane. Use CFH or CMH."
+   ]
+  }
+ },
+ {
+  "name": "nothing entered",
+  "input": {},
+  "expected": {
+   "ok": false,
+   "errors": [
+    "Inlet pressure is required.",
+    "Outlet pressure is required.",
+    "Please enter a gas load / flow rate."
+   ]
+  }
+ },
+ {
+  "name": "inlet below range",
+  "input": {
+   "inlet": 0.5,
+   "outlet": 0.2,
+   "flow": 500
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "Inlet pressure must be between 1 and 125 psi."
+   ]
+  }
+ },
+ {
+  "name": "outlet above range",
+  "input": {
+   "inlet": 25,
+   "outlet": 2.5,
+   "flow": 500
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "Outlet pressure must be between 3.5\" wc and 2 psi."
+   ]
+  }
+ },
+ {
+  "name": "MAIP below inlet",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 500,
+   "maop": 10
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "MAIP must be >= inlet pressure."
+   ]
+  }
+ },
+ {
+  "name": "no regulator fits",
+  "input": {
+   "inlet": 25,
+   "outlet": 0.5,
+   "flow": 200000
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 496 will not work for this application.",
+   "tables": [
+    {
+     "title": "Model 496, 3/8\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "300",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "290",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "260",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "230",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1/2\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "580",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "550",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "500",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "430",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 3/4\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,375",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "1,350",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "1,225",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "1,100",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "Model 496, 1\" Body",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1/2\"",
+       "N/A",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "1,650",
+       "No"
+      ],
+      [
+       "5/16\"",
+       "1,650",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "1,600",
+       "No"
+      ],
+      [
+       "3/16\"",
+       "1,350",
+       "No"
+      ],
+      [
+       "1/8\"",
+       "675",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "0.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "200,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ }
+]

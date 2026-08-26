@@ -231,6 +231,15 @@
     "outlet_units": "in wc",
     "flow": 200
    }
+  },
+  {
+   "input": {
+    "inlet": 5,
+    "outlet": 5,
+    "flow": 5000,
+    "high_altitude": true,
+    "atmospheric_pressure": 11.0
+   }
   }
  ],
  "fixtures": [

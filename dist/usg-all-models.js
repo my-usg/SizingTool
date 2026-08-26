@@ -9,7 +9,7 @@
  * tool:      all-models
  * version:   1.0.0
  * algorithm: sha256:e8daa6eec56d
- * sources:   sha256:72112b85f998
+ * sources:   sha256:3ed64d9a1aa5
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeAllModels(input)  -> result object
@@ -56,6 +56,23 @@ function $pyType(v) {
   if (Array.isArray(v)) return 'list';
   if (v instanceof Map) return 'dict';
   return typeof v;
+}
+function $index(o, x) {
+  // Python's list.index()/str.index(): returns the first position, and RAISES
+  // ValueError when absent - it does not return -1 like indexOf. Getting that
+  // wrong would let a "not found" flow onward as a valid index of -1.
+  if (typeof o === 'string') {
+    var si = o.indexOf(x);
+    if (si === -1) throw new Error('ValueError: substring not found');
+    return si;
+  }
+  if (Array.isArray(o)) {
+    for (var i = 0; i < o.length; i++) {
+      if ($eq(o[i], x)) return i;
+    }
+    throw new Error('ValueError: ' + $str(x) + ' is not in list');
+  }
+  throw new TypeError("argument of type '" + $pyType(o) + "' is not iterable");
 }
 function $get(o, k) {
   if (o instanceof Map) {
@@ -3261,20 +3278,6 @@ function sizeTool(rawInput) {
   var inlet_psi = toPsi(inlet_input, p.inlet_units);
   var outlet_psi = toPsi(outlet_input, p.outlet_units);
 
-  // ---- elevation capacity reduction ----
-  var elevation_reduction;
-  if (Patm < 14.4) {
-    var ratio = (inlet_psi + Patm) / (outlet_psi + Patm);
-    if (ratio < 1.894) {
-      elevation_reduction = 100 * (1 - Math.pow((outlet_psi + Patm) * ((inlet_psi + Patm) - (outlet_psi + Patm)), 0.5) /
-        Math.pow((outlet_psi + 14.65) * ((inlet_psi + 14.65) - (outlet_psi + 14.65)), 0.5));
-    } else {
-      elevation_reduction = 100 * (1 - (inlet_psi + Patm) / (inlet_psi + 14.65));
-    }
-  } else {
-    elevation_reduction = 0;
-  }
-
   // ---- validation (same rules, wording and order as the original tool) ----
   var errors = [];
   if (inlet_psi === 0) errors.push("Inlet pressure is required.");
@@ -3296,6 +3299,26 @@ function sizeTool(rawInput) {
   }
 
   if (errors.length) return { ok: false, errors: errors };
+
+  // ---- elevation capacity reduction ----
+  // Computed AFTER validation on purpose: when inlet equals outlet this
+  // formula divides by zero (both the numerator and denominator collapse).
+  // That input is always rejected above, so the figure is never needed - but
+  // computing it first made Python raise ZeroDivisionError while JavaScript
+  // quietly produced NaN. Same reason in reference.py.
+  var elevation_reduction;
+  if (Patm < 14.4) {
+    var ratio = (inlet_psi + Patm) / (outlet_psi + Patm);
+    if (ratio < 1.894) {
+      elevation_reduction = 100 * (1 - Math.pow((outlet_psi + Patm) * ((inlet_psi + Patm) - (outlet_psi + Patm)), 0.5) /
+        Math.pow((outlet_psi + 14.65) * ((inlet_psi + 14.65) - (outlet_psi + 14.65)), 0.5));
+    } else {
+      elevation_reduction = 100 * (1 - (inlet_psi + Patm) / (inlet_psi + 14.65));
+    }
+  } else {
+    elevation_reduction = 0;
+  }
+
 
   // ---- flow unit conversion ----
   var flow_cfh = flow_rate;
@@ -3510,6 +3533,6 @@ function sizeTool(rawInput) {
   ns.versions['all-models'] = {
     version: '1.0.0',
     algorithm: 'sha256:e8daa6eec56d',
-    sources: 'sha256:72112b85f998'
+    sources: 'sha256:3ed64d9a1aa5'
   };
 })(typeof window !== 'undefined' ? window : this);
