@@ -634,12 +634,16 @@ function downloadPdf() {
       if (y + rh > doc.internal.pageSize.getHeight() - 0.5 * 72) { doc.addPage(); y = 0.5 * 72 + 6; }
     }
     function section(title) {
-      y += 8;
+      // Generous gap above each heading and a little breathing room below, so
+      // the sections read as separate blocks rather than one continuous table.
+      y += 20;
       doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
       doc.setTextColor(ORANGE[0], ORANGE[1], ORANGE[2]);
-      checkPage(14);
+      // Reserve the heading plus its first row, so a heading never strands at
+      // the bottom of a page with its content overleaf.
+      checkPage(32);
       doc.text(title, marginX, y);
-      y += 6;
+      y += 9;
     }
     function kvRows(pairs) {
       doc.setFontSize(8);
@@ -704,7 +708,7 @@ function printFallback() {
   if (!lastRun) return;
   var w = window.open('', '_blank');
   if (!w) { window.alert('Could not generate PDF: please allow pop-ups or check that the PDF library can load.'); return; }
-  var h = '<html><head><title>USG Sizing Tool</title><style>body{font-family:Helvetica,Arial,sans-serif;margin:40px;color:#111827}h1{color:#1F3864;font-size:20px;margin:0}h2{color:#e85d26;font-size:12px;margin:14px 0 4px}table{width:100%;border-collapse:collapse;font-size:9px}td{border-bottom:0.5px solid #e5e7eb;padding:3px 0;vertical-align:top}td:first-child{font-weight:bold;width:40%}.gen{color:#6b7280;font-size:8px}</style></head><body>';
+  var h = '<html><head><title>USG Sizing Tool</title><style>body{font-family:Helvetica,Arial,sans-serif;margin:40px;color:#111827}h1{color:#1F3864;font-size:20px;margin:0}h2{color:#e85d26;font-size:12px;margin:26px 0 6px}table{width:100%;border-collapse:collapse;font-size:9px}td{border-bottom:0.5px solid #e5e7eb;padding:3px 0;vertical-align:top}td:first-child{font-weight:bold;width:40%}.gen{color:#6b7280;font-size:8px}</style></head><body>';
   h += '<h1>USG Sizing Tool</h1><div>Model 046 Sizing Tool</div><div class="gen">Generated ' + new Date().toLocaleString() + '</div>';
   var kv = function (pairs) { var t = '<table>'; for (var i = 0; i < pairs.length; i++) t += '<tr><td>' + esc(pairs[i].label) + '</td><td>' + esc(pairs[i].value) + '</td></tr>'; return t + '</table>'; };
   var li = function (items) { var t = '<table>'; for (var i = 0; i < items.length; i++) t += '<tr><td style="font-weight:normal;width:auto">' + esc(items[i]) + '</td></tr>'; return t + '</table>'; };

@@ -306,6 +306,27 @@ oversight.)
 Pinned by the fixture "Gray spring: IRV correctly reported as unavailable".
 Worth having a USG engineer confirm the conclusion.
 
+## The PDF summary
+
+Each block builds its own PDF client-side with jsPDF (loaded from
+cdnjs.cloudflare.com), from the `summary`, `selection`, `part_numbers`,
+`warnings` and `adjustments` the wrapper returns. If the CDN is blocked it
+falls back to a print view of the same content.
+
+Two things worth knowing when editing it:
+
+* **Section spacing** lives in the `section()` helper inside each block:
+  20pt above a heading, 9pt below, and a `checkPage(32)` reserve so a heading
+  never strands at the foot of a page with its rows overleaf.
+* **What appears in the Inputs table** comes from the wrapper's `summary`, not
+  from the block. Adding a line means editing `wrapper.js` **and**
+  `reference.py` together - they are compared field for field, so changing one
+  alone fails the differential test. Then regenerate fixtures.
+
+jsPDF cannot initialise under jsdom, so the browser tests verify that the
+Download button appears and that the data behind it is correct, but not the
+rendered page. Check a real download after changing PDF layout.
+
 ## Changing an algorithm: what else needs touching
 
 | Change | What else |

@@ -9,7 +9,7 @@
  * tool:      model-046
  * version:   1.0.0
  * algorithm: sha256:1286a0456880
- * sources:   sha256:4b8ff1154302
+ * sources:   sha256:a5ecbc8ede16
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel046(input)  -> result object
@@ -1039,6 +1039,11 @@ function sizeTool(rawInput) {
   summary.push(kv("Override percentage regulator is oversized by",
     p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"));
   summary.push(kv("Gas Type", p.gas_type));
+  // Only meaningful for "Other" - the factor is derived from it, so the PDF
+  // should record what was entered.
+  if (p.gas_type === "Other") {
+    summary.push(kv("Specific Gravity", $format(p.specific_gravity, ".2f")));
+  }
   summary.push(kv("Altitude above 3,000 feet or atmospheric pressure below 13 psi", p.high_altitude ? "Yes" : "No"));
   if (p.high_altitude) summary.push(kv("Atmospheric Pressure (psi)", $format(Patm, ".1f")));
   out.summary = summary;
@@ -1096,6 +1101,6 @@ function sizeTool(rawInput) {
   ns.versions['model-046'] = {
     version: '1.0.0',
     algorithm: 'sha256:1286a0456880',
-    sources: 'sha256:4b8ff1154302'
+    sources: 'sha256:a5ecbc8ede16'
   };
 })(typeof window !== 'undefined' ? window : this);

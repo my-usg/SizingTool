@@ -9,7 +9,7 @@
  * tool:      all-models
  * version:   1.0.0
  * algorithm: sha256:e8daa6eec56d
- * sources:   sha256:3ed64d9a1aa5
+ * sources:   sha256:b0b4140e635b
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeAllModels(input)  -> result object
@@ -3463,6 +3463,11 @@ function sizeTool(rawInput) {
     p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"));
   summary.push(kv("Combustion Regulator Preferred", combust_pref ? "Yes" : "No"));
   summary.push(kv("Gas Type", p.gas_type));
+  // Only meaningful for "Other" - the factor is derived from it, so the PDF
+  // should record what was entered.
+  if (p.gas_type === "Other") {
+    summary.push(kv("Specific Gravity", $format(p.specific_gravity, ".2f")));
+  }
   summary.push(kv("Altitude above 3,000 feet or atmospheric pressure below 13 psi", p.high_altitude ? "Yes" : "No"));
   if (p.high_altitude) summary.push(kv("Atmospheric Pressure (psi)", $format(Patm, ".1f")));
 
@@ -3533,6 +3538,6 @@ function sizeTool(rawInput) {
   ns.versions['all-models'] = {
     version: '1.0.0',
     algorithm: 'sha256:e8daa6eec56d',
-    sources: 'sha256:3ed64d9a1aa5'
+    sources: 'sha256:b0b4140e635b'
   };
 })(typeof window !== 'undefined' ? window : this);

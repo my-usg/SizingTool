@@ -423,6 +423,11 @@ def run(payload) -> Dict[str, Any]:
         )
     )
     summary.append(_kv("Gas Type", payload.gas_type))
+    # Only meaningful for "Other" - the factor is derived from it, so the PDF
+    # should record what was entered. Sits directly after Gas Type, as in every
+    # other tool.
+    if payload.gas_type == "Other":
+        summary.append(_kv("Specific Gravity", f"{payload.specific_gravity:.2f}"))
     summary.append(
         _kv(
             "Altitude above 3,000 feet or atmospheric pressure below 13 psi",

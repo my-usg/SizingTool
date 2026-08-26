@@ -1047,6 +1047,10 @@
      "value": "Other"
     },
     {
+     "label": "Specific Gravity",
+     "value": "1.20"
+    },
+    {
      "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
      "value": "No"
     }

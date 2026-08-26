@@ -9,7 +9,7 @@
  * tool:      model-rpc
  * version:   1.0.0
  * algorithm: sha256:a7567f7f3adf
- * sources:   sha256:8e18f3d14d8d
+ * sources:   sha256:0137d0b36f05
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModelRPC(input)  -> result object
@@ -889,6 +889,11 @@ function sizeTool(rawInput) {
   summary.push(kv("Override percentage regulator is oversized by",
     p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"));
   summary.push(kv("Gas Type", p.gas_type));
+  // Only meaningful for "Other" - the factor is derived from it, so the PDF
+  // should record what was entered.
+  if (p.gas_type === "Other") {
+    summary.push(kv("Specific Gravity", $format(p.specific_gravity, ".2f")));
+  }
   summary.push(kv("Altitude above 3,000 feet or atmospheric pressure below 13 psi", p.high_altitude ? "Yes" : "No"));
   if (p.high_altitude) summary.push(kv("Atmospheric Pressure (psi)", $format(Patm, ".1f")));
   out.summary = summary;
@@ -948,6 +953,6 @@ function sizeTool(rawInput) {
   ns.versions['model-rpc'] = {
     version: '1.0.0',
     algorithm: 'sha256:a7567f7f3adf',
-    sources: 'sha256:8e18f3d14d8d'
+    sources: 'sha256:0137d0b36f05'
   };
 })(typeof window !== 'undefined' ? window : this);
