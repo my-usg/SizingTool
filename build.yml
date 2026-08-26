@@ -1,0 +1,113 @@
+name: Build and verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One in-flight run at a time, so two quick pushes cannot both try to commit
+# rebuilt bundles and collide.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Verify every tool independently. A failure in one tool fails the build, so
+  # nothing is published - but the matrix still reports on the others, which
+  # makes it obvious whether a problem is tool-specific or in shared machinery.
+  # ---------------------------------------------------------------------------
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Add each new tool's slug here.
+        tool: [all-models]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 1. Translate the Python algorithm to JavaScript. Fails loudly if the
+      #    Python uses a construct the transpiler does not support, rather than
+      #    emitting anything questionable.
+      - name: Build ${{ matrix.tool }}
+        run: python3 build/build.py ${{ matrix.tool }}
+
+      # 2. Prove the JavaScript matches the Python. Compares the complete
+      #    result - selection, capacity, part numbers, warnings, adjustments,
+      #    summary and error wording - across every edge case plus thousands of
+      #    generated inputs. One difference fails the build.
+      - name: Verify JavaScript matches Python
+        run: python3 build/difftest.py ${{ matrix.tool }} --cases 2500 --seeds 4
+
+      - name: Install test dependencies
+        run: npm install jsdom --no-save
+
+      # 3. Confirm the pinned expected results are still current. If the
+      #    algorithm changed on purpose, regenerate and commit fixtures.json.
+      - name: Check fixtures are current
+        run: |
+          python3 build/make_fixtures.py ${{ matrix.tool }}
+          if ! git diff --quiet tools/${{ matrix.tool }}/fixtures.json; then
+            echo ""
+            echo "tools/${{ matrix.tool }}/fixtures.json is out of date - the algorithm"
+            echo "now produces different results than the committed fixtures:"
+            echo ""
+            git --no-pager diff tools/${{ matrix.tool }}/fixtures.json
+            echo ""
+            echo "If these new values are intended, run:"
+            echo "    python3 build/make_fixtures.py ${{ matrix.tool }}"
+            echo "and commit fixtures.json with your change."
+            exit 1
+          fi
+
+      # 4. Check the website block renders those results correctly.
+      - name: Test the website block
+        run: node build/browser_test.js ${{ matrix.tool }}
+
+  # ---------------------------------------------------------------------------
+  # Publish. Only runs when every tool above passed. Rebuilds all bundles and
+  # commits whichever actually changed - the build is reproducible, so an
+  # unrelated push (a README edit, say) produces no commit and no cache churn.
+  # ---------------------------------------------------------------------------
+  publish:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build all tools
+        run: python3 build/build.py
+
+      - name: Commit changed bundles
+        run: |
+          if git diff --quiet dist/; then
+            echo "No bundle changed - nothing to publish."
+            exit 0
+          fi
+          echo "Changed bundles:"
+          git --no-pager diff --stat dist/
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/
+          git commit -m "Rebuild sizing bundles from algorithms [skip ci]"
+          git push
