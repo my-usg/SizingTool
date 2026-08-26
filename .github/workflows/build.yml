@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add each new tool's slug here.
-        tool: [all-models, model-143]
+        tool: [all-models, model-143, model-046]
 
     steps:
       - uses: actions/checkout@v4
