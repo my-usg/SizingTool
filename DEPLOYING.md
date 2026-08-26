@@ -6,6 +6,10 @@ Repository: <https://github.com/my-usg/sizingtool>
 
 ---
 
+> **Already deployed once?** The repository has been reorganised to hold
+> multiple tools. Skip to [Updating an existing repository](#updating-an-existing-repository)
+> at the bottom - your live page needs no changes.
+
 ## 1. Put the code on GitHub
 
 If the repository is empty, from inside the unzipped folder:
@@ -55,11 +59,11 @@ is the single most common thing to miss.
 
 Watch it go green. It will:
 
-1. transpile `algorithm/all_models.py` to JavaScript,
+1. transpile each tool's `algorithm.py` to JavaScript,
 2. run ~10,000 inputs through both Python and the generated JavaScript and
    compare every field,
 3. drive the website block in a headless browser against expected results,
-4. commit `dist/usg-all-models.js`.
+4. commit any bundle in `dist/` that changed.
 
 If any step fails, nothing is published. Read the log - the failure message
 names the offending line or input.
@@ -95,7 +99,7 @@ Security Policy error naming `cdn.jsdelivr.net`.
 ## 7. Paste the block into the page
 
 Edit `/resources/regulator-sizing-tools/general`, open the existing HTML block
-and replace its contents with `web/sizing-tool-block.html`.
+and replace its contents with `tools/all-models/block.html`.
 
 Keep the "Preliminary selection only" disclaimer paragraph and the Report a Bug
 button from the old block - they are page content, not part of the tool, and
@@ -118,7 +122,7 @@ Then check it on a phone, and check the Download PDF Summary button.
 ## Publishing a change later
 
 ```bash
-# edit algorithm/all_models.py
+# edit tools/all-models/algorithm.py
 git commit -am "Describe the change"
 git push
 ```
@@ -168,6 +172,52 @@ Take the SHA from the repository's commit history. To roll back properly,
 | Build is green but the site shows old results | jsDelivr cache - purge the URL, then hard-refresh. |
 | Build fails at "Commit rebuilt bundle" with a permissions error | Step 3: workflow permissions are read-only. |
 | Build fails with `Unsupported stmt ... at line N` | The Python uses a construct the transpiler does not handle. See the supported subset in the README. |
+| A new tool builds locally but CI ignores it | Its slug is missing from `matrix.tool` in `.github/workflows/build.yml`. |
 | Build fails at "Verify JavaScript matches Python" | The generated JavaScript disagrees with the Python. Do not publish; the log prints the exact input and both results. |
-| Build fails at "Check fixtures are current" | The algorithm now produces different results. If intended, run `python3 tests/make_fixtures.py` and commit. |
+| Build fails at "Check fixtures are current" | The algorithm now produces different results. If intended, run `python3 build/make_fixtures.py <tool>` and commit. |
 | Download PDF does nothing | CSP is missing `cdnjs.cloudflare.com`; the tool falls back to a print view. |
+
+---
+
+## Updating an existing repository
+
+The repository now holds several tools, so files moved. The all-models tool
+behaves identically - **your live page needs no edit, and no CSP change.** The
+bundle keeps its filename (`dist/usg-all-models.js`), so the deployed block
+still points at the right file.
+
+What moved:
+
+| Before | Now |
+| --- | --- |
+| `algorithm/all_models.py` | `tools/all-models/algorithm.py` |
+| `src/wrapper.js` | `tools/all-models/wrapper.js` |
+| `tools/sizing_reference.py` | `tools/all-models/reference.py` |
+| `web/sizing-tool-block.html` | `tools/all-models/block.html` |
+| `tests/fixtures.json` | `tools/all-models/fixtures.json` |
+| `tools/transpile.py`, `tools/build.py`, `tools/difftest.py`, `tools/run_js.js` | `build/` |
+| `tests/make_fixtures.py`, `tests/browser_test.js` | `build/` |
+
+The simplest way to apply it, since old folders must disappear rather than
+merge:
+
+```bash
+git clone https://github.com/my-usg/sizingtool.git
+cd sizingtool
+git rm -r --cached algorithm src tests web tools dist
+rm -rf algorithm src tests web tools dist
+# copy the contents of the new zip in here, then:
+git add -A
+git commit -m "Reorganise for multiple tools"
+git push
+```
+
+If you upload through the browser instead, **delete the old `algorithm/`,
+`src/`, `tests/`, `web/` and `tools/` folders first** - otherwise the old build
+scripts linger in `tools/` alongside the new tool folders and CI may pick up
+stale copies.
+
+One expected side effect: the first build after this commits `usg-all-models.js`
+once more. The content is identical apart from the header (the build no longer
+embeds a timestamp), so nothing about sizing changes. From then on, a bundle is
+only republished when its sources genuinely change.
