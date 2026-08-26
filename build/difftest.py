@@ -66,53 +66,41 @@ def discover(slugs):
         sys.exit("no tools found")
     return found
 
-PIPE_OPTIONS = ["N/A", '3/8"', '1/2"', '3/4"', '1"', '1-1/4"', '1-1/2"', '2"', '2-1/2"', '3"']
+def random_case(rng: random.Random, spec: dict) -> dict:
+    """Generate one input from the tool's "random" spec in scenarios.json.
 
+    Keeping the spec with the tool (rather than in this file) means each tool
+    fuzzes only inputs its own form can actually produce - no 3/8" pipe on a
+    tool whose smallest body is 3/4".
 
-def random_case(rng: random.Random) -> dict:
-    inlet_units = rng.choice(["psi", "bar", "kPa"])
-    outlet_units = rng.choice(["psi", "in wc", "oz", "bar", "kPa"])
-
-    if inlet_units == "bar":
-        inlet = round(rng.uniform(0.02, 69), 3)
-    elif inlet_units == "kPa":
-        inlet = round(rng.uniform(2, 1000), 1)
-    else:
-        inlet = round(rng.uniform(0.2, 1000), 2)
-
-    if outlet_units == "in wc":
-        outlet = round(rng.uniform(1.0, 200), 1)
-    elif outlet_units == "oz":
-        outlet = round(rng.uniform(0.5, 500), 1)
-    elif outlet_units == "bar":
-        outlet = round(rng.uniform(0.003, 18), 4)
-    elif outlet_units == "kPa":
-        outlet = round(rng.uniform(0.3, 1000), 1)
-    else:
-        outlet = round(rng.uniform(0.05, 260), 2)
-
-    return {
-        "inlet": inlet, "inlet_units": inlet_units,
-        "outlet": outlet, "outlet_units": outlet_units,
-        "flow": rng.randint(0, 900000),
-        "min_flow": rng.choice([0, 0, 0, rng.randint(1, 5000)]),
-        "flow_units": rng.choice(["CFH", "CFH", "CMH", "BTUH"]),
-        "maop": rng.choice([0, 0, rng.randint(1, 1000)]),
-        "pipe_size": rng.choice(PIPE_OPTIONS),
-        "opp_required": rng.random() < 0.5,
-        "opp_pref": rng.choice(["IRV", "Monitor"]),
-        "irv_pressure": round(rng.uniform(0, 10), 1),
-        "partial_irv": rng.random() < 0.3,
-        "high_efficiency": rng.random() < 0.4,
-        "high_efficiency_pct": rng.randint(0, 100),
-        "override_oversize": rng.random() < 0.3,
-        "oversize_pct": rng.randint(0, 100),
-        "prefer_combustion": rng.random() < 0.3,
-        "gas_type": rng.choice(["Natural Gas", "Natural Gas", "Propane", "Other"]),
-        "specific_gravity": round(rng.uniform(0.2, 3.0), 2),
-        "high_altitude": rng.random() < 0.3,
-        "atmospheric_pressure": round(rng.uniform(8.8, 14.73), 2),
-    }
+    Field kinds:
+      {"choices": [...]}                          pick one
+      {"int": [lo, hi]}                           random integer
+      {"bool": 0.4}                               true with that probability
+      {"float": [lo, hi], "decimals": [0, 1, 2]}  random float, rounded
+      {"float_by": {"key": "inlet_units",         range depends on another
+                    "ranges": {"psi": [..], ...}},   field already generated
+       "decimals": [1, 2]}
+    """
+    case = {}
+    for name, rule in spec.items():
+        if "choices" in rule:
+            case[name] = rng.choice(rule["choices"])
+        elif "int" in rule:
+            lo, hi = rule["int"]
+            case[name] = rng.randint(lo, hi)
+        elif "bool" in rule:
+            case[name] = rng.random() < rule["bool"]
+        elif "float" in rule or "float_by" in rule:
+            if "float_by" in rule:
+                key = rule["float_by"]["key"]
+                lo, hi = rule["float_by"]["ranges"][case[key]]
+            else:
+                lo, hi = rule["float"]
+            case[name] = round(rng.uniform(lo, hi), rng.choice(rule.get("decimals", [2])))
+        else:
+            raise SystemExit(f"unknown random rule for {name}: {rule}")
+    return case
 
 
 def py_run(reference, case: dict) -> dict:
@@ -140,6 +128,7 @@ def check_tool(tool_dir: Path, cases_per_seed: int, seeds: int) -> int:
     reference = load_reference(tool_dir)
     scenarios = json.loads((tool_dir / "scenarios.json").read_text(encoding="utf-8"))
     edge_cases = [s["input"] for s in scenarios["edge_cases"]]
+    random_spec = scenarios.get("random", {})
 
     print(f"\n=== {slug} ===")
     total = 0
@@ -147,7 +136,7 @@ def check_tool(tool_dir: Path, cases_per_seed: int, seeds: int) -> int:
 
     for seed in range(1, seeds + 1):
         rng = random.Random(seed)
-        cases = list(edge_cases) + [random_case(rng) for _ in range(cases_per_seed)]
+        cases = list(edge_cases) + [random_case(rng, random_spec) for _ in range(cases_per_seed)]
 
         proc = subprocess.run(
             ["node", str(ROOT / "build" / "run_js.js"), str(bundle), cfg["method"]],

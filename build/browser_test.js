@@ -139,8 +139,21 @@ async function testTool(slug) {
       continue;
     }
     if (!want.selected) {
-      check(fx.name + ' - reports no match',
-        got.hasError && got.text.indexOf(want.message) !== -1, got.text.slice(0, 200));
+      const problems = [];
+      if (!got.hasError || got.text.indexOf(want.message) === -1) problems.push('no-match message');
+      // The 143 still lists every body size's capacities when nothing fits,
+      // unless the algorithm stopped before producing them.
+      if (want.tables) {
+        const gotTables = got.tables.filter(t => t.title !== null);
+        if (gotTables.length !== want.tables.length) {
+          problems.push('table count ' + gotTables.length + ' vs ' + want.tables.length);
+        }
+      }
+      if (want.stopped && got.tables.filter(t => t.title !== null).length) {
+        problems.push('tables should not render when the algorithm stopped');
+      }
+      check(fx.name + ' - reports no match', problems.length === 0,
+        problems.join('; ') + ' | ' + got.text.slice(0, 150));
       continue;
     }
 
@@ -155,9 +168,35 @@ async function testTool(slug) {
     if (JSON.stringify(got.codes) !== JSON.stringify(want.part_numbers || [])) {
       problems.push('part numbers ' + JSON.stringify(got.codes) + ' vs ' + JSON.stringify(want.part_numbers));
     }
+    // Adjustments render in a plain .usg-table for tools without capacity
+    // tables, and in a .usg-dfwrap alongside them for tools that have them.
     const wantAdj = (want.adjustments || []).map(a => [a.label, a.value]);
-    if (JSON.stringify(got.adjustments) !== JSON.stringify(wantAdj)) {
-      problems.push('adjustments ' + JSON.stringify(got.adjustments) + ' vs ' + JSON.stringify(wantAdj));
+    const gotAdj = got.adjustments.length
+      ? got.adjustments
+      : (got.tables.filter(t => t.title === null).pop() || { rows: [] }).rows;
+    if (JSON.stringify(gotAdj) !== JSON.stringify(wantAdj)) {
+      problems.push('adjustments ' + JSON.stringify(gotAdj) + ' vs ' + JSON.stringify(wantAdj));
+    }
+
+    // Capacity tables, for tools that produce them (the 143's three body
+    // sizes). Compared cell for cell against what Python computed.
+    if (want.tables) {
+      const gotTables = got.tables.filter(t => t.title !== null);
+      if (gotTables.length !== want.tables.length) {
+        problems.push('table count ' + gotTables.length + ' vs ' + want.tables.length);
+      } else {
+        for (let t = 0; t < want.tables.length; t++) {
+          if (gotTables[t].title !== want.tables[t].title) {
+            problems.push('table title ' + gotTables[t].title + ' vs ' + want.tables[t].title);
+          }
+          if (JSON.stringify(gotTables[t].headers) !== JSON.stringify(want.tables[t].headers)) {
+            problems.push('table headers ' + JSON.stringify(gotTables[t].headers));
+          }
+          if (JSON.stringify(gotTables[t].rows) !== JSON.stringify(want.tables[t].rows)) {
+            problems.push('rows differ in "' + want.tables[t].title + '"');
+          }
+        }
+      }
     }
     for (const w of (want.warnings || [])) {
       if (got.text.indexOf(w) === -1) problems.push('warning ' + w);

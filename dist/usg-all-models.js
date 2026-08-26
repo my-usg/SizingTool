@@ -3475,6 +3475,25 @@ function sizeTool(rawInput) {
     Patm = values.Patm;
   }
 
+  function $setGlobal(name, value) {
+    switch (name) {
+      case 'inlet_input': inlet_input = value; return;
+      case 'outlet_input': outlet_input = value; return;
+      case 'flow_rate': flow_rate = value; return;
+      case 'min_flow': min_flow = value; return;
+      case 'maop': maop = value; return;
+      case 'pipesize_input': pipesize_input = value; return;
+      case 'opp_type': opp_type = value; return;
+      case 'irv_input': irv_input = value; return;
+      case 'oversizeby': oversizeby = value; return;
+      case 'gastypemult': gastypemult = value; return;
+      case 'pload': pload = value; return;
+      case 'combust_pref': combust_pref = value; return;
+      case 'Patm': Patm = value; return;
+    }
+    throw new Error('not an injected global: ' + name);
+  }
+
   // Join the shared namespace rather than replacing it, so several tools can
   // coexist on one page without clobbering each other.
   var ns = root.USGSizing = root.USGSizing || {};

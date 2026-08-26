@@ -14,6 +14,11 @@ Setup instructions: **[DEPLOYING.md](DEPLOYING.md)**.
 | Tool | Algorithm | Bundle | Website page |
 | --- | --- | --- | --- |
 | all-models | `tools/all-models/algorithm.py` | `dist/usg-all-models.js` | `/resources/regulator-sizing-tools/general` |
+| model-143 | `tools/model-143/algorithm.py` | `dist/usg-model-143.js` | `/resources/regulator-sizing-tools/model-143` |
+
+The Model 143 tool additionally renders three capacity tables (one per body
+size), colour-coded Yes/No and horizontally scrollable on a phone. Those tables
+are compared cell for cell against Python in the tests, like everything else.
 
 ## How it fits together
 
@@ -49,7 +54,7 @@ tools/<tool>/              one folder per sizing tool
 ├─ algorithm.py            THE PYTHON YOU EDIT
 ├─ wrapper.js                units, validation, result shaping
 ├─ reference.py              Python twin of wrapper.js, for the tests
-├─ scenarios.json            test inputs (edge cases + named fixtures)
+├─ scenarios.json            test inputs (edge cases, fixtures, fuzz ranges)
 ├─ fixtures.json             expected page output - generated, but committed
 ├─ block.html                the Concrete CMS block for this page
 └─ form-map.js               how the browser test drives this form
@@ -116,7 +121,8 @@ script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
 for the Download PDF Summary button.
 
 Bundles join a shared `window.USGSizing` namespace rather than replacing it
-(`USGSizing.sizeAllModels`, and so on), so several tools can coexist on one page.
+(`USGSizing.sizeAllModels`, `USGSizing.sizeModel143`, ...), so several tools can
+coexist on one page.
 
 ## Confidence: how we know the JavaScript is right
 
@@ -169,6 +175,8 @@ translator is a tool your team owns.
 2. Put the Python (CLI input/print section removed) in `algorithm.py`.
 3. Fill in `tool.json`: the entry function name, the globals the algorithm
    expects the caller to set, the output filename, and the namespace method.
+   Add a `"random"` block to `scenarios.json` describing the ranges the fuzz
+   test should use, so it only generates inputs the form can produce.
 4. Adapt `wrapper.js` and `reference.py` to that tool's inputs, validation and
    outputs - keeping them equivalent, since the tests compare them.
 5. Adapt `block.html` for the tool's form, pointing its `<script src>` at the

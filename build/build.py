@@ -93,6 +93,12 @@ def build_one(tool_dir: Path) -> Path:
     set_globals = "\n".join(
         f"    {name} = values.{name};" for name in cfg["injected_globals"]
     )
+    # Some algorithms read a global back after the entry call (the 143 builds its
+    # capacity tables from result143, exactly as the Streamlit app did), so a
+    # single-global setter is generated too.
+    set_one = "\n".join(
+        f"      case '{name}': {name} = value; return;" for name in cfg["injected_globals"]
+    )
 
     header = f"""/*!
  * {cfg['title']}
@@ -122,6 +128,13 @@ def build_one(tool_dir: Path) -> Path:
 
   function $setGlobals(values) {{
 {set_globals}
+  }}
+
+  function $setGlobal(name, value) {{
+    switch (name) {{
+{set_one}
+    }}
+    throw new Error('not an injected global: ' + name);
   }}
 
   // Join the shared namespace rather than replacing it, so several tools can

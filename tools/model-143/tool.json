@@ -1,0 +1,27 @@
+{
+  "slug": "model-143",
+  "title": "Model 143 Sizing Tool",
+  "page": "/resources/regulator-sizing-tools/model-143",
+  "output": "usg-model-143.js",
+  "method": "sizeModel143",
+  "entry": "run_regulator_selection143",
+  "injected_globals": [
+    "inlet_input",
+    "outlet_input",
+    "flow_rate",
+    "maop",
+    "pipesize_input",
+    "opp_type",
+    "irv_input",
+    "oversizeby",
+    "oversize_percent",
+    "gastypemult",
+    "pload",
+    "Patm",
+    "result143"
+  ],
+  "skip_functions": [
+    "print_regulator_selection",
+    "print_model_table"
+  ]
+}

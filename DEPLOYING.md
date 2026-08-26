@@ -96,18 +96,27 @@ If sizing reports "The sizing algorithm could not be loaded", this is almost
 always the cause. Open the browser console (F12) and look for a Content
 Security Policy error naming `cdn.jsdelivr.net`.
 
-## 7. Paste the block into the page
+## 7. Paste the blocks into their pages
 
-Edit `/resources/regulator-sizing-tools/general`, open the existing HTML block
-and replace its contents with `tools/all-models/block.html`.
+Each tool has its own block and its own page:
+
+| Page | Block file |
+| --- | --- |
+| `/resources/regulator-sizing-tools/general` | `tools/all-models/block.html` |
+| `/resources/regulator-sizing-tools/model-143` | `tools/model-143/block.html` |
+
+Open the page, edit its HTML block, and replace the contents with that file.
+The Model 143 page will need creating if it does not exist yet; if you use a
+different URL, update `"page"` in `tools/model-143/tool.json` so the tests
+mirror reality.
 
 Keep the "Preliminary selection only" disclaimer paragraph and the Report a Bug
 button from the old block - they are page content, not part of the tool, and
 can sit below it in the same block.
 
-## 8. Test it on the live page
+## 8. Test it on the live pages
 
-Enter inlet 19 psi, outlet 1 psi, flow 12321 CFH, overpressure protection Yes →
+**All models.** Enter inlet 19 psi, outlet 1 psi, flow 12321 CFH, overpressure protection Yes →
 Monitor regulator, generator/high-efficiency Yes at 50%, override oversize Yes
 at 35%. You should get:
 
@@ -115,7 +124,13 @@ at 35%. You should get:
 * Calculated Capacity **23,380** CFH
 * Part numbers `R.461-S.2FLG125.20D.B.13` and `R.461-S.2FLG125.20D.B.14`
 
-Then check it on a phone, and check the Download PDF Summary button.
+**Model 143.** Enter inlet 25 psi, outlet 0.25 psi, flow 500 CFH. You should get
+Model **143-1**, 3/4" body, capacity **1,300** CFH, part number
+`R.143-1.3/4.14.11`, and three capacity tables below it. Set overpressure
+protection to Yes and re-run: each table gains a **Will IRV Work** column and a
+"Sized for IRV" notice appears.
+
+Then check both on a phone, and check the Download PDF Summary buttons.
 
 ---
 

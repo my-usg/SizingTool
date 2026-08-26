@@ -12,23 +12,9 @@
   },
   {
    "input": {
-    "inlet": 10,
-    "outlet": 7,
-    "outlet_units": "in wc",
+    "inlet": 25,
+    "outlet": 0.25,
     "flow": 500
-   }
-  },
-  {
-   "input": {
-    "inlet": 19,
-    "outlet": 1,
-    "flow": 12321,
-    "opp_required": true,
-    "opp_pref": "Monitor",
-    "high_efficiency": true,
-    "high_efficiency_pct": 50,
-    "override_oversize": true,
-    "oversize_pct": 35
    }
   },
   {
@@ -38,59 +24,119 @@
     "outlet_units": "in wc",
     "flow": 300,
     "opp_required": true,
-    "opp_pref": "IRV",
     "irv_pressure": 2.0
    }
   },
   {
    "input": {
-    "inlet": 8,
-    "outlet": 6.5,
-    "outlet_units": "in wc",
-    "flow": 350,
+    "inlet": 10,
+    "outlet": 1,
+    "flow": 800,
     "partial_irv": true
    }
   },
   {
    "input": {
-    "inlet": 2,
+    "inlet": 5,
+    "outlet": 4,
+    "outlet_units": "in wc",
+    "flow": 400,
+    "pipe_size": "1\""
+   }
+  },
+  {
+   "input": {
+    "inlet": 60,
+    "outlet": 2,
+    "flow": 1000,
+    "opp_required": true,
+    "irv_pressure": 4.0
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 1.5,
+    "flow": 900,
+    "high_efficiency": true,
+    "high_efficiency_pct": 50
+   }
+  },
+  {
+   "input": {
+    "inlet": 40,
+    "outlet": 0.5,
+    "flow": 700,
+    "override_oversize": true,
+    "oversize_pct": 40
+   }
+  },
+  {
+   "input": {
+    "inlet": 20,
+    "outlet": 0.3,
+    "flow": 600,
+    "gas_type": "Propane"
+   }
+  },
+  {
+   "input": {
+    "inlet": 30,
+    "outlet": 0.25,
+    "flow": 450,
+    "gas_type": "Other",
+    "specific_gravity": 1.1
+   }
+  },
+  {
+   "input": {
+    "inlet": 15,
+    "outlet": 0.25,
+    "flow": 500,
+    "high_altitude": true,
+    "atmospheric_pressure": 11.5
+   }
+  },
+  {
+   "input": {
+    "inlet": 1,
     "outlet": 0.05,
     "inlet_units": "bar",
     "outlet_units": "bar",
-    "flow": 3000
+    "flow": 550
    }
   },
   {
    "input": {
-    "inlet": 350,
-    "outlet": 60,
+    "inlet": 100,
+    "outlet": 10,
     "inlet_units": "kPa",
     "outlet_units": "kPa",
-    "flow": 1500
+    "flow": 300
    }
   },
   {
    "input": {
-    "inlet": 4,
-    "outlet": 28,
+    "inlet": 10,
+    "outlet": 6,
     "outlet_units": "oz",
-    "flow": 100,
+    "flow": 15,
     "flow_units": "CMH"
    }
   },
   {
    "input": {
-    "inlet": 1.5,
-    "outlet": 11,
-    "outlet_units": "in wc",
-    "flow": 2500000,
-    "flow_units": "BTUH"
+    "inlet": 25,
+    "outlet": 0.25,
+    "flow": 500000,
+    "flow_units": "BTUH",
+    "gas_type": "Natural Gas"
    }
   },
   {
    "input": {
     "inlet": 25,
-    "outlet": 1,
+    "outlet": 0.25,
     "flow": 1200000,
     "flow_units": "BTUH",
     "gas_type": "Propane"
@@ -98,8 +144,8 @@
   },
   {
    "input": {
-    "inlet": 10,
-    "outlet": 2,
+    "inlet": 25,
+    "outlet": 0.25,
     "flow": 500000,
     "flow_units": "BTUH",
     "gas_type": "Other",
@@ -108,68 +154,58 @@
   },
   {
    "input": {
-    "inlet": 5,
-    "outlet": 2,
-    "flow": 5000,
-    "gas_type": "Other",
-    "specific_gravity": 1.2
+    "inlet": 25,
+    "outlet": 3,
+    "flow": 500,
+    "opp_required": true,
+    "irv_pressure": 2.0
    }
   },
   {
    "input": {
-    "inlet": 10,
-    "outlet": 1,
-    "flow": 800,
+    "inlet": 120,
+    "outlet": 5.9,
+    "flow": 6000
+   }
+  },
+  {
+   "input": {
+    "inlet": 125,
+    "outlet": 0.125,
+    "flow": 100,
+    "maop": 125
+   }
+  },
+  {
+   "input": {
+    "inlet": 8,
+    "outlet": 0.25,
+    "flow": 1200,
+    "opp_required": true,
+    "irv_pressure": 1.0,
     "high_altitude": true,
-    "atmospheric_pressure": 12.0
-   }
-  },
-  {
-   "input": {
-    "inlet": 100,
-    "outlet": 30,
-    "flow": 50000,
-    "opp_required": true,
-    "opp_pref": "Monitor",
-    "prefer_combustion": true
-   }
-  },
-  {
-   "input": {
-    "inlet": 750,
-    "outlet": 100,
-    "flow": 400000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
-   }
-  },
-  {
-   "input": {
-    "inlet": 999,
-    "outlet": 250,
-    "flow": 10000000
-   }
-  },
-  {
-   "input": {
-    "inlet": 180,
-    "outlet": 90,
-    "flow": 800000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "atmospheric_pressure": 10.0,
+    "pipe_size": "1-1/4\""
    }
   },
   {
    "input": {
     "inlet": 200,
-    "outlet": 2,
+    "outlet": 1,
+    "flow": 500
+   }
+  },
+  {
+   "input": {
+    "inlet": 0.4,
+    "outlet": 0.2,
     "flow": 500
    }
   },
   {
    "input": {
     "inlet": 10,
-    "outlet": 20,
+    "outlet": 7,
     "flow": 500
    }
   },
@@ -184,164 +220,166 @@
   {
    "input": {
     "inlet": 10,
-    "outlet": 2,
-    "flow": 500,
-    "min_flow": 900
+    "outlet": 20,
+    "flow": 500
    }
   },
   {
    "input": {
-    "inlet": 0.2,
-    "outlet": 0.1,
-    "flow": 100
+    "inlet": 3,
+    "outlet": 3.4,
+    "outlet_units": "in wc",
+    "flow": 200
    }
   }
  ],
  "fixtures": [
   {
-   "name": "basic in-wc sizing",
+   "name": "basic sizing",
    "input": {
-    "inlet": 10,
-    "outlet": 7,
-    "outlet_units": "in wc",
+    "inlet": 25,
+    "outlet": 0.25,
     "flow": 500
    }
   },
   {
-   "name": "monitor + high efficiency + override",
-   "input": {
-    "inlet": 19,
-    "outlet": 1,
-    "flow": 12321,
-    "opp_required": true,
-    "opp_pref": "Monitor",
-    "high_efficiency": true,
-    "high_efficiency_pct": 50,
-    "override_oversize": true,
-    "oversize_pct": 35
-   }
-  },
-  {
-   "name": "IRV protection",
+   "name": "IRV protection (adds Will IRV Work column)",
    "input": {
     "inlet": 25,
     "outlet": 7,
     "outlet_units": "in wc",
     "flow": 300,
     "opp_required": true,
-    "opp_pref": "IRV",
     "irv_pressure": 2.0
    }
   },
   {
    "name": "partial IRV",
    "input": {
-    "inlet": 8,
-    "outlet": 6.5,
-    "outlet_units": "in wc",
-    "flow": 350,
+    "inlet": 10,
+    "outlet": 1,
+    "flow": 800,
     "partial_irv": true
    }
   },
   {
-   "name": "bar units",
+   "name": "requested pipe size",
    "input": {
-    "inlet": 2,
-    "outlet": 0.05,
-    "inlet_units": "bar",
-    "outlet_units": "bar",
-    "flow": 3000
-   }
-  },
-  {
-   "name": "kPa units",
-   "input": {
-    "inlet": 350,
-    "outlet": 60,
-    "inlet_units": "kPa",
-    "outlet_units": "kPa",
-    "flow": 1500
-   }
-  },
-  {
-   "name": "oz outlet + CMH flow",
-   "input": {
-    "inlet": 4,
-    "outlet": 28,
-    "outlet_units": "oz",
-    "flow": 100,
-    "flow_units": "CMH"
-   }
-  },
-  {
-   "name": "BTUH natural gas",
-   "input": {
-    "inlet": 1.5,
-    "outlet": 11,
+    "inlet": 5,
+    "outlet": 4,
     "outlet_units": "in wc",
-    "flow": 2500000,
-    "flow_units": "BTUH"
+    "flow": 400,
+    "pipe_size": "1\""
    }
   },
   {
-   "name": "BTUH propane",
+   "name": "high efficiency 50%",
    "input": {
-    "inlet": 25,
-    "outlet": 1,
-    "flow": 1200000,
-    "flow_units": "BTUH",
+    "inlet": 100,
+    "outlet": 1.5,
+    "flow": 900,
+    "high_efficiency": true,
+    "high_efficiency_pct": 50
+   }
+  },
+  {
+   "name": "oversize override 40%",
+   "input": {
+    "inlet": 40,
+    "outlet": 0.5,
+    "flow": 700,
+    "override_oversize": true,
+    "oversize_pct": 40
+   }
+  },
+  {
+   "name": "propane",
+   "input": {
+    "inlet": 20,
+    "outlet": 0.3,
+    "flow": 600,
     "gas_type": "Propane"
    }
   },
   {
    "name": "other gas",
    "input": {
-    "inlet": 5,
-    "outlet": 2,
-    "flow": 5000,
+    "inlet": 30,
+    "outlet": 0.25,
+    "flow": 450,
     "gas_type": "Other",
-    "specific_gravity": 1.2
+    "specific_gravity": 1.1
    }
   },
   {
    "name": "high altitude",
    "input": {
-    "inlet": 10,
-    "outlet": 1,
-    "flow": 800,
+    "inlet": 15,
+    "outlet": 0.25,
+    "flow": 500,
     "high_altitude": true,
-    "atmospheric_pressure": 12.0
+    "atmospheric_pressure": 11.5
    }
   },
   {
-   "name": "combustion preference (121 pipe note)",
+   "name": "bar units",
+   "input": {
+    "inlet": 1,
+    "outlet": 0.05,
+    "inlet_units": "bar",
+    "outlet_units": "bar",
+    "flow": 550
+   }
+  },
+  {
+   "name": "kPa units",
    "input": {
     "inlet": 100,
-    "outlet": 30,
-    "flow": 50000,
-    "opp_required": true,
-    "opp_pref": "Monitor",
-    "prefer_combustion": true
+    "outlet": 10,
+    "inlet_units": "kPa",
+    "outlet_units": "kPa",
+    "flow": 300
    }
   },
   {
-   "name": "requested pipe size",
+   "name": "oz outlet + CMH flow",
    "input": {
-    "inlet": 2,
-    "outlet": 8,
-    "outlet_units": "in wc",
-    "flow": 900,
-    "pipe_size": "3/4\""
+    "inlet": 10,
+    "outlet": 6,
+    "outlet_units": "oz",
+    "flow": 15,
+    "flow_units": "CMH"
    }
   },
   {
-   "name": "large monitor selection",
+   "name": "BTUH natural gas",
    "input": {
-    "inlet": 750,
-    "outlet": 100,
-    "flow": 400000,
-    "opp_required": true,
-    "opp_pref": "Monitor"
+    "inlet": 25,
+    "outlet": 0.25,
+    "flow": 500000,
+    "flow_units": "BTUH",
+    "gas_type": "Natural Gas"
+   }
+  },
+  {
+   "name": "BTUH propane",
+   "input": {
+    "inlet": 25,
+    "outlet": 0.25,
+    "flow": 1200000,
+    "flow_units": "BTUH",
+    "gas_type": "Propane"
+   }
+  },
+  {
+   "name": "BTUH with other gas (error)",
+   "input": {
+    "inlet": 25,
+    "outlet": 0.25,
+    "flow": 500000,
+    "flow_units": "BTUH",
+    "gas_type": "Other",
+    "specific_gravity": 0.9
    }
   },
   {
@@ -349,10 +387,18 @@
    "input": {}
   },
   {
-   "name": "outlet above inlet",
+   "name": "inlet out of range",
+   "input": {
+    "inlet": 200,
+    "outlet": 1,
+    "flow": 500
+   }
+  },
+  {
+   "name": "outlet out of range",
    "input": {
     "inlet": 10,
-    "outlet": 20,
+    "outlet": 7,
     "flow": 500
    }
   },
@@ -366,40 +412,21 @@
    }
   },
   {
-   "name": "two pressure cuts",
-   "input": {
-    "inlet": 200,
-    "outlet": 2,
-    "flow": 500
-   }
-  },
-  {
-   "name": "BTUH with other gas",
-   "input": {
-    "inlet": 10,
-    "outlet": 2,
-    "flow": 500000,
-    "flow_units": "BTUH",
-    "gas_type": "Other",
-    "specific_gravity": 0.9
-   }
-  },
-  {
    "name": "no regulator fits",
    "input": {
-    "inlet": 999,
-    "outlet": 250,
-    "flow": 10000000
+    "inlet": 120,
+    "outlet": 5.9,
+    "flow": 6000
    }
   },
   {
-   "name": "known algorithm defect",
+   "name": "IRV above 2 psi outlet (stops)",
    "input": {
-    "inlet": 180,
-    "outlet": 90,
-    "flow": 800000,
+    "inlet": 25,
+    "outlet": 3,
+    "flow": 500,
     "opp_required": true,
-    "opp_pref": "Monitor"
+    "irv_pressure": 2.0
    }
   }
  ],
@@ -417,15 +444,15 @@
     "ranges": {
      "psi": [
       0.2,
-      1000
+      140
      ],
      "bar": [
       0.02,
-      69
+      9.5
      ],
      "kPa": [
       2,
-      1000
+      950
      ]
     }
    },
@@ -451,23 +478,23 @@
     "ranges": {
      "psi": [
       0.05,
-      260
+      7
      ],
      "in wc": [
       1.0,
-      200
+      180
      ],
      "oz": [
       0.5,
-      500
+      110
      ],
      "bar": [
       0.003,
-      18
+      0.5
      ],
      "kPa": [
       0.3,
-      1000
+      45
      ]
     }
    },
@@ -481,16 +508,7 @@
   "flow": {
    "int": [
     0,
-    900000
-   ]
-  },
-  "min_flow": {
-   "choices": [
-    0,
-    0,
-    0,
-    500,
-    5000
+    8000
    ]
   },
   "flow_units": {
@@ -506,38 +524,26 @@
     0,
     0,
     1,
-    50,
-    200,
+    25,
+    125,
     1000
    ]
   },
   "pipe_size": {
    "choices": [
     "N/A",
-    "3/8\"",
-    "1/2\"",
     "3/4\"",
     "1\"",
-    "1-1/4\"",
-    "1-1/2\"",
-    "2\"",
-    "2-1/2\"",
-    "3\""
+    "1-1/4\""
    ]
   },
   "opp_required": {
    "bool": 0.5
   },
-  "opp_pref": {
-   "choices": [
-    "IRV",
-    "Monitor"
-   ]
-  },
   "irv_pressure": {
    "float": [
     0,
-    10
+    8
    ],
    "decimals": [
     1
@@ -563,9 +569,6 @@
     0,
     100
    ]
-  },
-  "prefer_combustion": {
-   "bool": 0.3
   },
   "gas_type": {
    "choices": [
