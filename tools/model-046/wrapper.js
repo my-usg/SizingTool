@@ -1,15 +1,15 @@
 // ============================================================================
-//  Wrapper around the transpiled Model 143 algorithm.
+//  Wrapper around the transpiled Model 046 algorithm.
 //
 //  Everything the Streamlit front end used to do around
-//  run_regulator_selection143(): unit conversion, validation, oversize maths,
-//  the three capacity tables and result formatting.
+//  run_regulator_selection046(): unit conversion, validation, oversize maths,
+//  the capacity tables and result formatting.
 //
 //  This file is hand-written, NOT generated. Its Python twin is reference.py
 //  in this same folder, and CI proves the two agree on every input it tests,
 //  so this cannot silently drift from the algorithm's expectations.
 //
-//  build/build.py exposes this as USGSizing.sizeModel143(input), per the
+//  build/build.py exposes this as USGSizing.sizeModel046(input), per the
 //  "method" field in tool.json.
 // ============================================================================
 
@@ -19,12 +19,17 @@ var OUTLET_UNITS = ["psi", "in wc", "oz", "bar", "kPa"];
 var FLOW_UNITS = ["CFH", "CMH", "BTUH"];
 var GAS_TYPES = ["Natural Gas", "Propane", "Other"];
 
-// The three body sizes, and the register prefix that identifies each in the
-// algorithm's result map.
-var BODY_SIZES = [
-  ['Model 143, 3/4" Body', 'R14334'],
-  ['Model 143, 1" Body', 'R14310'],
-  ['Model 143, 1-1/4" Body', 'R1431Q']
+// The 046 tabulates two different regulator families, identified by the
+// register prefix in the algorithm's result map.
+var IRV_BODIES = [
+  ['Model 046-2, 3/4" Body', 'R046234'],
+  ['Model 046-2, 1" Body', 'R046210'],
+  ['Model 046-2, 1-1/4" Body', 'R04621Q']
+];
+var MONITOR_BODIES = [
+  ['Model 046, 046-M or 046-2M, 3/4" Body', 'R046134'],
+  ['Model 046, 046-M or 046-2M, 1" Body', 'R046110'],
+  ['Model 046, 046-M or 046-2M, 1-1/4" Body', 'R04611Q']
 ];
 
 function toPsi(val, units) {
@@ -55,7 +60,7 @@ function defaulted(input) {
     flow: 0, flow_units: "CFH",
     maop: 0,
     pipe_size: "N/A",
-    opp_required: false, irv_pressure: 2.0, partial_irv: false,
+    opp_required: false, opp_pref: "IRV", irv_pressure: 2.0, partial_irv: false,
     high_efficiency: false, high_efficiency_pct: 100,
     override_oversize: false, oversize_pct: 25,
     gas_type: "Natural Gas", specific_gravity: 0.6,
@@ -68,6 +73,31 @@ function defaulted(input) {
     }
   }
   return d;
+}
+
+// One capacity table from a result map, or null when no register matches.
+function buildTable(title, prefix, tableOpp, result) {
+  var isIrv = (tableOpp === "IRV");
+  var rows = [];
+  result.forEach(function (capacity, reg) {
+    if (String(reg).indexOf(prefix) !== 0) return;
+    var orifice = orifice_type046(reg);
+    var capStr = (typeof capacity === 'number') ? $format(capacity, ',.0f') : String(capacity);
+    var works = will_work(capacity, reg, orifice_max046(reg));
+    if (isIrv) {
+      rows.push([orifice, capStr, works, will_irv_work046(reg, tableOpp)]);
+    } else {
+      rows.push([orifice, capStr, works]);
+    }
+  });
+  if (!rows.length) return null;   // Streamlit skipped empty frames
+  return {
+    title: title,
+    headers: isIrv
+      ? ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work", "Will IRV Work"]
+      : ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"],
+    rows: rows
+  };
 }
 
 function sizeTool(rawInput) {
@@ -84,13 +114,17 @@ function sizeTool(rawInput) {
   var pipesize_input = (pipesize_raw === "N/A") ? 0 : pipesize_raw;
 
   // ---- overpressure protection ----
-  // The 143 only offers an internal relief valve, so "Yes" means IRV directly;
-  // there is no monitor option to choose between.
   var irv_input = 0.0;
   var opp_type = "None";
+  var opp_pref = "";
   if (p.opp_required) {
-    irv_input = Number(p.irv_pressure);
-    opp_type = "IRV";
+    opp_pref = p.opp_pref;
+    if (opp_pref === "IRV") {
+      irv_input = Number(p.irv_pressure);
+      opp_type = "IRV";
+    } else {
+      opp_type = "Monitor";
+    }
   } else if (p.partial_irv) {
     opp_type = "Partial";
   }
@@ -138,11 +172,11 @@ function sizeTool(rawInput) {
 
   // ---- validation (same rules, wording and order as the original tool) ----
   var errors = [];
-  if (inlet_psi > 0 && (inlet_psi > 125 || inlet_psi < 0.5)) {
-    errors.push("Inlet pressure must be between 0.5 and 125 psi.");
+  if (inlet_psi > 0 && (inlet_psi > 1000 || inlet_psi < 10)) {
+    errors.push("Inlet pressure must be between 10 and 1,000 psi.");
   }
-  if (outlet_psi > 0 && (outlet_psi < 3.5 / 28 || outlet_psi > 6)) {
-    errors.push("Outlet pressure must be between 3.5\" wc and 6 psi.");
+  if (outlet_psi > 0 && (outlet_psi < 3 || outlet_psi > 200)) {
+    errors.push("Outlet pressure must be between 3 and 200 psi.");
   }
   if (inlet_psi > 0 && outlet_psi > 0 && outlet_psi >= inlet_psi) {
     errors.push("Outlet pressure must be less than inlet pressure.");
@@ -189,16 +223,25 @@ function sizeTool(rawInput) {
     oversize_percent: oversize_percent,
     gastypemult: gastypemult,
     pload: pload,
-    Patm: Patm,
-    result143: new Map()
+    Patm: Patm
   });
 
-  var r;
+  var r, result_irv, result_mon;
   try {
-    r = run_regulator_selection143(inlet_psi, outlet_psi, opp_type);
+    r = run_regulator_selection046(inlet_psi, outlet_psi, opp_type);
+
+    // For IRV sizing the Streamlit app tabulated both families, recomputing
+    // each with its own monitor flag rather than reusing the selection run.
+    if (opp_type === "IRV") {
+      result_irv = interpolate_capacity(data046, inlet_psi, outlet_psi, false, false);
+      result_mon = interpolate_capacity(data046, inlet_psi, outlet_psi, true, false);
+    } else {
+      result_irv = r[0];
+      result_mon = r[0];
+    }
   } catch (err) {
     if (typeof console !== 'undefined' && console.error) {
-      console.error('USG 143 sizing algorithm error', err, rawInput);
+      console.error('USG 046 sizing algorithm error', err, rawInput);
     }
     return {
       ok: false,
@@ -208,21 +251,15 @@ function sizeTool(rawInput) {
 
   var result = r[0], match = r[1], apply = r[2], warning = r[3];
 
-  // The tables read the algorithm's result map, so publish it back the way the
-  // Streamlit app did before building them.
-  $setGlobal('result143', result);
-
   var warnings = $truthy(warning) ? [warning] : [];
 
-  // No result map at all means the algorithm stopped early; there is nothing
-  // to tabulate, so report and return.
   if (!$truthy(apply) && (result === null || result === undefined)) {
     return {
       ok: true,
       selected: false,
       errors: [],
       warnings: warnings,
-      message: "Model 143 will not work for this application.",
+      message: "Model 046 will not work for this application.",
       stopped: true
     };
   }
@@ -236,7 +273,7 @@ function sizeTool(rawInput) {
     selected: !!$truthy(apply),
     errors: [],
     warnings: warnings,
-    message: $truthy(apply) ? "Regulator selected!" : "Model 143 will not work for this application."
+    message: $truthy(apply) ? "Regulator selected!" : "Model 046 will not work for this application."
   };
 
   if ($truthy(apply)) {
@@ -269,44 +306,43 @@ function sizeTool(rawInput) {
     }
 
     var pns = [];
-    var pn = hsc_pnc143(match);
+    var pn = hsc_pnc046(match);
     var pnList = Array.isArray(pn) ? pn : [pn];
     for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
     out.part_numbers = pns;
   }
 
-  // ---- the three capacity tables (mirrors build_table in the Streamlit app) ----
-  // Guarded like the selection run: a spring or orifice lookup can fault on a
-  // value outside its table, and that must produce a readable message rather
-  // than a broken page.
+  // ---- capacity tables, grouped into labelled sections ----
+  // Guarded like the selection run: will_irv_work046() can fault on spring
+  // colours missing from its IRV map (see README, "Known algorithm defect"),
+  // and that must produce a readable message rather than a broken page.
   try {
-    var isIrv = (opp_type === "IRV");
-    var columns = isIrv
-      ? ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work", "Will IRV Work"]
-      : ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"];
-
-    var tables = [];
-    for (var b = 0; b < BODY_SIZES.length; b++) {
-      var title = BODY_SIZES[b][0], prefix = BODY_SIZES[b][1];
-      var rows = [];
-      result.forEach(function (capacity, reg) {
-        if (String(reg).indexOf(prefix) !== 0) return;
-        var orifice = orifice_type143(reg);
-        var capStr = (typeof capacity === 'number') ? $format(capacity, ',.0f') : String(capacity);
-        var works = will_work(capacity, reg, orifice_max143(reg));
-        if (isIrv) {
-          rows.push([orifice, capStr, works, will_irv_work143(reg, opp_type)]);
-        } else {
-          rows.push([orifice, capStr, works]);
-        }
-      });
-      // Streamlit skipped empty frames; do the same.
-      if (rows.length) tables.push({ title: title, headers: columns, rows: rows });
+    // IRV sizing shows both families; everything else shows one.
+    var sections = [];
+    function addSection(label, bodies, tableOpp, resultMap) {
+      var tables = [];
+      for (var b = 0; b < bodies.length; b++) {
+        var t = buildTable(bodies[b][0], bodies[b][1], tableOpp, resultMap);
+        if (t) tables.push(t);
+      }
+      if (tables.length) sections.push({ label: label, tables: tables });
     }
-    out.tables = tables;
+
+    if (opp_type === "IRV") {
+      addSection("With IRV", IRV_BODIES, "IRV", result_irv);
+      addSection("With Monitor", MONITOR_BODIES, "Monitor", result_mon);
+    } else if (opp_type === "Partial") {
+      addSection("With Partial IRV", IRV_BODIES, "Partial", result);
+    } else if (opp_type === "Monitor") {
+      addSection("With Monitor", MONITOR_BODIES, "Monitor", result);
+    } else {
+      // No protection: one unlabelled group, as in the original.
+      addSection(null, MONITOR_BODIES, opp_type, result);
+    }
+    out.sections = sections;
   } catch (err) {
     if (typeof console !== 'undefined' && console.error) {
-      console.error('USG 143 table build error', err, rawInput);
+      console.error('USG 046 table build error', err, rawInput);
     }
     return {
       ok: false,
@@ -330,10 +366,13 @@ function sizeTool(rawInput) {
     kv("Requested Pipe Size", pipesize_raw),
     kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No")
   ];
-  if (p.opp_required) {
-    summary.push(kv("IRV Protect Downstream Pressure To (psi)", $format(irv_input, ".1f")));
-  } else {
+  if (!p.opp_required) {
     summary.push(kv("Select Regulator with IRV", opp_type === "Partial" ? "Yes" : "No"));
+  } else {
+    summary.push(kv("Protection Type", opp_pref === "IRV" ? "IRV" : "Monitor"));
+    if (opp_pref === "IRV") {
+      summary.push(kv("IRV Protect Downstream Pressure To (psi)", $format(irv_input, ".1f")));
+    }
   }
   summary.push(kv("Percent Load Feeding High-Efficiency Appliance", p.high_efficiency ? (pload_pct + "%") : "0"));
   summary.push(kv("Override percentage regulator is oversized by",

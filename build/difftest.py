@@ -110,7 +110,9 @@ def py_run(reference, case: dict) -> dict:
     except Exception as exc:  # the reference must never blow up either
         return {"ok": False, "errors": ["__PYTHON_EXCEPTION__ " + type(exc).__name__ + ": " + str(exc)]}
     if reference.LAST_ALGORITHM_ERROR is not None:
-        result["__algorithm_error"] = reference.LAST_ALGORITHM_ERROR
+        # Boolean to match the JavaScript harness - see run_js.js for why the
+        # message text itself is not compared.
+        result["__algorithm_error"] = True
     return result
 
 

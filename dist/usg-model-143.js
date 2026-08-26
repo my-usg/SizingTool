@@ -9,7 +9,7 @@
  * tool:      model-143
  * version:   1.0.0
  * algorithm: sha256:107e1b188178
- * sources:   sha256:3f28b0071f87
+ * sources:   sha256:f21871165ac3
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel143(input)  -> result object
@@ -782,30 +782,43 @@ function sizeTool(rawInput) {
   }
 
   // ---- the three capacity tables (mirrors build_table in the Streamlit app) ----
-  var isIrv = (opp_type === "IRV");
-  var columns = isIrv
-    ? ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work", "Will IRV Work"]
-    : ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"];
+  // Guarded like the selection run: a spring or orifice lookup can fault on a
+  // value outside its table, and that must produce a readable message rather
+  // than a broken page.
+  try {
+    var isIrv = (opp_type === "IRV");
+    var columns = isIrv
+      ? ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work", "Will IRV Work"]
+      : ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"];
 
-  var tables = [];
-  for (var b = 0; b < BODY_SIZES.length; b++) {
-    var title = BODY_SIZES[b][0], prefix = BODY_SIZES[b][1];
-    var rows = [];
-    result.forEach(function (capacity, reg) {
-      if (String(reg).indexOf(prefix) !== 0) return;
-      var orifice = orifice_type143(reg);
-      var capStr = (typeof capacity === 'number') ? $format(capacity, ',.0f') : String(capacity);
-      var works = will_work(capacity, reg, orifice_max143(reg));
-      if (isIrv) {
-        rows.push([orifice, capStr, works, will_irv_work143(reg, opp_type)]);
-      } else {
-        rows.push([orifice, capStr, works]);
-      }
-    });
-    // Streamlit skipped empty frames; do the same.
-    if (rows.length) tables.push({ title: title, headers: columns, rows: rows });
+    var tables = [];
+    for (var b = 0; b < BODY_SIZES.length; b++) {
+      var title = BODY_SIZES[b][0], prefix = BODY_SIZES[b][1];
+      var rows = [];
+      result.forEach(function (capacity, reg) {
+        if (String(reg).indexOf(prefix) !== 0) return;
+        var orifice = orifice_type143(reg);
+        var capStr = (typeof capacity === 'number') ? $format(capacity, ',.0f') : String(capacity);
+        var works = will_work(capacity, reg, orifice_max143(reg));
+        if (isIrv) {
+          rows.push([orifice, capStr, works, will_irv_work143(reg, opp_type)]);
+        } else {
+          rows.push([orifice, capStr, works]);
+        }
+      });
+      // Streamlit skipped empty frames; do the same.
+      if (rows.length) tables.push({ title: title, headers: columns, rows: rows });
+    }
+    out.tables = tables;
+  } catch (err) {
+    if (typeof console !== 'undefined' && console.error) {
+      console.error('USG 143 table build error', err, rawInput);
+    }
+    return {
+      ok: false,
+      errors: ["This combination could not be sized automatically. Please contact Holland Supply Company to review the selection."]
+    };
   }
-  out.tables = tables;
 
   // ---- sizing adjustments ----
   var adjustments = [kv("Oversized By", $format(oversize_percent, ".0f") + "%")];
@@ -891,6 +904,6 @@ function sizeTool(rawInput) {
   ns.versions['model-143'] = {
     version: '1.0.0',
     algorithm: 'sha256:107e1b188178',
-    sources: 'sha256:3f28b0071f87'
+    sources: 'sha256:f21871165ac3'
   };
 })(typeof window !== 'undefined' ? window : this);

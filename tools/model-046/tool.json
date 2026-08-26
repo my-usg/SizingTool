@@ -1,0 +1,26 @@
+{
+  "slug": "model-046",
+  "title": "Model 046 Sizing Tool",
+  "page": "/resources/regulator-sizing-tools/model-046",
+  "output": "usg-model-046.js",
+  "method": "sizeModel046",
+  "entry": "run_regulator_selection046",
+  "injected_globals": [
+    "inlet_input",
+    "outlet_input",
+    "flow_rate",
+    "maop",
+    "pipesize_input",
+    "opp_type",
+    "irv_input",
+    "oversizeby",
+    "oversize_percent",
+    "gastypemult",
+    "pload",
+    "Patm"
+  ],
+  "skip_functions": [
+    "print_regulator_selection",
+    "print_model_table"
+  ]
+}

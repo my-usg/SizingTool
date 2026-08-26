@@ -5,7 +5,7 @@ differential test can prove the shipped JavaScript agrees with Python end to
 end - unit conversion, table building and number formatting included, not just
 the algorithm.
 
-This is a direct port of the logic in the Streamlit front end (model143.py):
+This is a direct port of the logic in the Streamlit front end (model046.py):
 same rules, same message wording, same ordering.
 """
 
@@ -26,10 +26,16 @@ OUTLET_UNITS = ["psi", "in wc", "oz", "bar", "kPa"]
 FLOW_UNITS = ["CFH", "CMH", "BTUH"]
 GAS_TYPES = ["Natural Gas", "Propane", "Other"]
 
-BODY_SIZES = [
-    ('Model 143, 3/4" Body', "R14334"),
-    ('Model 143, 1" Body', "R14310"),
-    ('Model 143, 1-1/4" Body', "R1431Q"),
+# The 046 tabulates two different regulator families.
+IRV_BODIES = [
+    ('Model 046-2, 3/4" Body', "R046234"),
+    ('Model 046-2, 1" Body', "R046210"),
+    ('Model 046-2, 1-1/4" Body', "R04621Q"),
+]
+MONITOR_BODIES = [
+    ('Model 046, 046-M or 046-2M, 3/4" Body', "R046134"),
+    ('Model 046, 046-M or 046-2M, 1" Body', "R046110"),
+    ('Model 046, 046-M or 046-2M, 1-1/4" Body', "R04611Q"),
 ]
 
 DEFAULTS = {
@@ -38,7 +44,7 @@ DEFAULTS = {
     "flow": 0, "flow_units": "CFH",
     "maop": 0,
     "pipe_size": "N/A",
-    "opp_required": False, "irv_pressure": 2.0, "partial_irv": False,
+    "opp_required": False, "opp_pref": "IRV", "irv_pressure": 2.0, "partial_irv": False,
     "high_efficiency": False, "high_efficiency_pct": 100,
     "override_oversize": False, "oversize_pct": 25,
     "gas_type": "Natural Gas", "specific_gravity": 0.6,
@@ -100,9 +106,14 @@ def run(payload) -> Dict[str, Any]:
     # ---- overpressure protection ----
     irv_input = 0.0
     opp_type = "None"
+    opp_pref = ""
     if payload.opp_required:
-        irv_input = float(payload.irv_pressure)
-        opp_type = "IRV"
+        opp_pref = payload.opp_pref
+        if opp_pref == "IRV":
+            irv_input = float(payload.irv_pressure)
+            opp_type = "IRV"
+        else:
+            opp_type = "Monitor"
     elif payload.partial_irv:
         opp_type = "Partial"
 
@@ -146,10 +157,10 @@ def run(payload) -> Dict[str, Any]:
 
     # ---- validation (same rules, wording and order as the original tool) ----
     errors: List[str] = []
-    if inlet_psi > 0 and (inlet_psi > 125 or inlet_psi < 0.5):
-        errors.append("Inlet pressure must be between 0.5 and 125 psi.")
-    if outlet_psi > 0 and (outlet_psi < 3.5 / 28 or outlet_psi > 6):
-        errors.append('Outlet pressure must be between 3.5" wc and 6 psi.')
+    if inlet_psi > 0 and (inlet_psi > 1000 or inlet_psi < 10):
+        errors.append("Inlet pressure must be between 10 and 1,000 psi.")
+    if outlet_psi > 0 and (outlet_psi < 3 or outlet_psi > 200):
+        errors.append("Outlet pressure must be between 3 and 200 psi.")
     if inlet_psi > 0 and outlet_psi > 0 and outlet_psi >= inlet_psi:
         errors.append("Outlet pressure must be less than inlet pressure.")
     if int(maop) != 0 and maop < inlet_psi:
@@ -199,13 +210,20 @@ def run(payload) -> Dict[str, Any]:
         gastypemult=gastypemult,
         pload=pload,
         Patm=patm,
-        result143={},
     )
 
     try:
-        result143, match143, apply143, warning143 = ns["run_regulator_selection143"](
+        result046, match046, apply046, warning046 = ns["run_regulator_selection046"](
             inlet_psi, outlet_psi, opp_type
         )
+        # For IRV sizing the Streamlit app tabulated both families, recomputing
+        # each with its own monitor flag rather than reusing the selection run.
+        if opp_type == "IRV":
+            result_irv = ns["interpolate_capacity"](ns["data046"], inlet_psi, outlet_psi, False, False)
+            result_mon = ns["interpolate_capacity"](ns["data046"], inlet_psi, outlet_psi, True, False)
+        else:
+            result_irv = result046
+            result_mon = result046
     except Exception as exc:
         LAST_ALGORITHM_ERROR = str(exc)
         log.exception(
@@ -220,43 +238,41 @@ def run(payload) -> Dict[str, Any]:
             ],
         }
 
-    ns["result143"] = result143
+    warnings = [warning046] if warning046 else []
 
-    warnings = [warning143] if warning143 else []
-
-    if not apply143 and result143 is None:
+    if not apply046 and result046 is None:
         return {
             "ok": True,
             "selected": False,
             "errors": [],
             "warnings": warnings,
-            "message": "Model 143 will not work for this application.",
+            "message": "Model 046 will not work for this application.",
             "stopped": True,
         }
 
     out: Dict[str, Any] = {
         "ok": True,
-        "selected": bool(apply143),
+        "selected": bool(apply046),
         "errors": [],
         "warnings": warnings,
-        "message": "Regulator selected!" if apply143 else "Model 143 will not work for this application.",
+        "message": "Regulator selected!" if apply046 else "Model 046 will not work for this application.",
     }
 
-    if apply143:
+    if apply046:
         mon_spring = None
-        if match143.get("mon_color"):
-            mon_spring = f"{match143.get('mon_color')} {match143.get('mon_range', '')}".strip()
+        if match046.get("mon_color"):
+            mon_spring = f"{match046.get('mon_color')} {match046.get('mon_range', '')}".strip()
         raw_fields = [
-            ("Model", match143.get("model")),
-            ("Body Size", match143.get("body")),
-            ("Orifice Size", match143.get("orifice")),
-            ("Seat", match143.get("seat")),
-            ("Spring", f"{match143.get('color', '')} {match143.get('range', '')}".strip()),
+            ("Model", match046.get("model")),
+            ("Body Size", match046.get("body")),
+            ("Orifice Size", match046.get("orifice")),
+            ("Seat", match046.get("seat")),
+            ("Spring", f"{match046.get('color', '')} {match046.get('range', '')}".strip()),
             ("Monitor Spring", mon_spring),
         ]
         out["selection"] = [_kv(label, value) for label, value in raw_fields if value]
 
-        cap = match143.get("capacity")
+        cap = match046.get("capacity")
         capacity = None
         if cap and cap != "N/A":
             try:
@@ -265,35 +281,54 @@ def run(payload) -> Dict[str, Any]:
                 capacity = str(cap)
         out["capacity"] = capacity
 
-        pn = ns["hsc_pnc143"](match143)
+        pn = ns["hsc_pnc046"](match046)
         pns = pn if isinstance(pn, list) else [pn]
         out["part_numbers"] = [p for p in pns if p]
 
-    # ---- the three capacity tables (mirrors build_table) ----
-    # Guarded like the selection run: a spring or orifice lookup can fault on a
-    # value outside its table, and that must produce a readable message rather
-    # than a traceback.
+    # ---- capacity tables, grouped into labelled sections ----
+    # Guarded like the selection run: will_irv_work046() can fault on spring
+    # colours missing from its IRV map (see README, "Known algorithm defect"),
+    # and that must produce a readable message rather than a traceback.
     try:
-        is_irv = opp_type == "IRV"
-        columns = ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"] + (
-            ["Will IRV Work"] if is_irv else []
-        )
-        tables = []
-        for title, prefix in BODY_SIZES:
+        def build_table(title, prefix, table_opp, result_map):
+            is_irv = table_opp == "IRV"
             rows = []
-            for reg, capacity in result143.items():
+            for reg, capacity in result_map.items():
                 if not str(reg).startswith(prefix):
                     continue
-                orifice = ns["orifice_type143"](reg)
+                orifice = ns["orifice_type046"](reg)
                 cap_str = f"{capacity:,.0f}" if isinstance(capacity, (int, float)) else str(capacity)
-                works = ns["will_work"](capacity, reg, ns["orifice_max143"](reg))
+                works = ns["will_work"](capacity, reg, ns["orifice_max046"](reg))
                 if is_irv:
-                    rows.append([orifice, cap_str, works, ns["will_irv_work143"](reg, opp_type)])
+                    rows.append([orifice, cap_str, works, ns["will_irv_work046"](reg, table_opp)])
                 else:
                     rows.append([orifice, cap_str, works])
-            if rows:
-                tables.append({"title": title, "headers": columns, "rows": rows})
-        out["tables"] = tables
+            if not rows:
+                return None  # Streamlit skipped empty frames
+            headers = ["Orifice Size", "Calculated Capacity (CFH)", "Will Reg Work"] + (
+                ["Will IRV Work"] if is_irv else []
+            )
+            return {"title": title, "headers": headers, "rows": rows}
+
+        sections = []
+
+        def add_section(label, bodies, table_opp, result_map):
+            tables = [t for t in (build_table(t_, p_, table_opp, result_map) for t_, p_ in bodies) if t]
+            if tables:
+                sections.append({"label": label, "tables": tables})
+
+        if opp_type == "IRV":
+            add_section("With IRV", IRV_BODIES, "IRV", result_irv)
+            add_section("With Monitor", MONITOR_BODIES, "Monitor", result_mon)
+        elif opp_type == "Partial":
+            add_section("With Partial IRV", IRV_BODIES, "Partial", result046)
+        elif opp_type == "Monitor":
+            add_section("With Monitor", MONITOR_BODIES, "Monitor", result046)
+        else:
+            # No protection: one unlabelled group, as in the original.
+            add_section(None, MONITOR_BODIES, opp_type, result046)
+
+        out["sections"] = sections
     except Exception as exc:
         LAST_ALGORITHM_ERROR = str(exc)
         log.exception("table build error: inlet=%s outlet=%s opp=%s", inlet_psi, outlet_psi, opp_type)
@@ -307,7 +342,7 @@ def run(payload) -> Dict[str, Any]:
 
     # ---- sizing adjustments ----
     adjustments = [_kv("Oversized By", f"{oversize_percent:.0f}%")]
-    if apply143 and match143.get("opp") == "Monitor":
+    if apply046 and match046.get("opp") == "Monitor":
         adjustments.append(_kv("Monitor Capacity Reduction", "30%"))
     if gastypemult != 1:
         adjustments.append(_kv("Gas Type Factor", f"{gastypemult:.4f}"))
@@ -324,10 +359,12 @@ def run(payload) -> Dict[str, Any]:
         _kv("Requested Pipe Size", pipesize_raw),
         _kv("Overpressure Protection Required", "Yes" if payload.opp_required else "No"),
     ]
-    if payload.opp_required:
-        summary.append(_kv("IRV Protect Downstream Pressure To (psi)", f"{irv_input:.1f}"))
-    else:
+    if not payload.opp_required:
         summary.append(_kv("Select Regulator with IRV", "Yes" if opp_type == "Partial" else "No"))
+    else:
+        summary.append(_kv("Protection Type", "IRV" if opp_pref == "IRV" else "Monitor"))
+        if opp_pref == "IRV":
+            summary.append(_kv("IRV Protect Downstream Pressure To (psi)", f"{irv_input:.1f}"))
     summary.append(
         _kv(
             "Percent Load Feeding High-Efficiency Appliance",

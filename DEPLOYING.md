@@ -104,11 +104,12 @@ Each tool has its own block and its own page:
 | --- | --- |
 | `/resources/regulator-sizing-tools/general` | `tools/all-models/block.html` |
 | `/resources/regulator-sizing-tools/model-143` | `tools/model-143/block.html` |
+| `/resources/regulator-sizing-tools/model-046` | `tools/model-046/block.html` |
 
 Open the page, edit its HTML block, and replace the contents with that file.
-The Model 143 page will need creating if it does not exist yet; if you use a
-different URL, update `"page"` in `tools/model-143/tool.json` so the tests
-mirror reality.
+The Model 143 and Model 046 pages will need creating if they do not exist yet;
+if you use different URLs, update `"page"` in that tool's `tool.json` so the
+tests mirror reality.
 
 Keep the "Preliminary selection only" disclaimer paragraph and the Report a Bug
 button from the old block - they are page content, not part of the tool, and
@@ -130,7 +131,13 @@ Model **143-1**, 3/4" body, capacity **1,300** CFH, part number
 protection to Yes and re-run: each table gains a **Will IRV Work** column and a
 "Sized for IRV" notice appears.
 
-Then check both on a phone, and check the Download PDF Summary buttons.
+**Model 046.** Enter inlet 100 psi, outlet 20 psi, flow 12000 CFH. You should
+get Model **046**, 1" body, 1/2" orifice, capacity **19,900** CFH, part number
+`R.046-1.STD.1.15.TAN.25.ALU`. Set overpressure protection to Yes with IRV and
+re-run: the tables split into **With IRV** and **With Monitor** sections, six
+tables in total.
+
+Then check each on a phone, and check the Download PDF Summary buttons.
 
 ---
 

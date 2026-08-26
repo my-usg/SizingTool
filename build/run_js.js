@@ -47,9 +47,14 @@ process.stdin.on('end', () => {
       return { ok: false, errors: ['__JS_EXCEPTION__ ' + (err && err.message)] };
     }
     // The wrapper catches algorithm faults and returns a friendly message. That
-    // must never hide a JavaScript-only bug, so surface it for comparison: the
-    // Python side has to have failed in the same way for the case to pass.
-    if (lastError !== null) result.__algorithm_error = lastError;
+    // must never hide a JavaScript-only bug, so flag it for comparison: Python
+    // has to have faulted on the same input for the case to pass.
+    //
+    // A boolean, not the message: Python and JavaScript spell the same
+    // exception differently (KeyError('Gray') prints as "'Gray'" in Python and
+    // "KeyError: Gray" here), so comparing text would fail on wording rather
+    // than on behaviour. The message still goes to the console for debugging.
+    if (lastError !== null) result.__algorithm_error = true;
     return result;
   });
   process.stdout.write(JSON.stringify(out));

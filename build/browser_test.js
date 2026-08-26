@@ -79,6 +79,7 @@ function driver(dom) {
           rows: Array.from(w.querySelectorAll('tbody tr'))
             .map(tr => Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim()))
         })),
+        sectionLabels: Array.from(out.querySelectorAll('.usg-section-label')).map(e => e.textContent.trim()),
         hasError: !!out.querySelector('.usg-error'),
         hasSuccess: !!out.querySelector('.usg-success'),
         hasWarning: !!out.querySelector('.usg-warning'),
@@ -143,10 +144,13 @@ async function testTool(slug) {
       if (!got.hasError || got.text.indexOf(want.message) === -1) problems.push('no-match message');
       // The 143 still lists every body size's capacities when nothing fits,
       // unless the algorithm stopped before producing them.
-      if (want.tables) {
+      const wantTableCount = want.tables
+        ? want.tables.length
+        : (want.sections ? want.sections.reduce((n, g) => n + g.tables.length, 0) : null);
+      if (wantTableCount !== null) {
         const gotTables = got.tables.filter(t => t.title !== null);
-        if (gotTables.length !== want.tables.length) {
-          problems.push('table count ' + gotTables.length + ' vs ' + want.tables.length);
+        if (gotTables.length !== wantTableCount) {
+          problems.push('table count ' + gotTables.length + ' vs ' + wantTableCount);
         }
       }
       if (want.stopped && got.tables.filter(t => t.title !== null).length) {
@@ -176,6 +180,34 @@ async function testTool(slug) {
       : (got.tables.filter(t => t.title === null).pop() || { rows: [] }).rows;
     if (JSON.stringify(gotAdj) !== JSON.stringify(wantAdj)) {
       problems.push('adjustments ' + JSON.stringify(gotAdj) + ' vs ' + JSON.stringify(wantAdj));
+    }
+
+    // Capacity tables grouped into labelled sections (the 046 shows both the
+    // IRV and Monitor families when sizing for IRV). Labels and every cell are
+    // compared against what Python computed.
+    if (want.sections) {
+      const wantLabels = want.sections.filter(g => g.label).map(g => g.label);
+      if (JSON.stringify(got.sectionLabels) !== JSON.stringify(wantLabels)) {
+        problems.push('section labels ' + JSON.stringify(got.sectionLabels) + ' vs ' + JSON.stringify(wantLabels));
+      }
+      const wantFlat = [];
+      for (const g of want.sections) for (const t of g.tables) wantFlat.push(t);
+      const gotTables = got.tables.filter(t => t.title !== null);
+      if (gotTables.length !== wantFlat.length) {
+        problems.push('table count ' + gotTables.length + ' vs ' + wantFlat.length);
+      } else {
+        for (let t = 0; t < wantFlat.length; t++) {
+          if (gotTables[t].title !== wantFlat[t].title) {
+            problems.push('table title ' + gotTables[t].title + ' vs ' + wantFlat[t].title);
+          }
+          if (JSON.stringify(gotTables[t].headers) !== JSON.stringify(wantFlat[t].headers)) {
+            problems.push('headers differ in "' + wantFlat[t].title + '"');
+          }
+          if (JSON.stringify(gotTables[t].rows) !== JSON.stringify(wantFlat[t].rows)) {
+            problems.push('rows differ in "' + wantFlat[t].title + '"');
+          }
+        }
+      }
     }
 
     // Capacity tables, for tools that produce them (the 143's three body

@@ -15,10 +15,13 @@ Setup instructions: **[DEPLOYING.md](DEPLOYING.md)**.
 | --- | --- | --- | --- |
 | all-models | `tools/all-models/algorithm.py` | `dist/usg-all-models.js` | `/resources/regulator-sizing-tools/general` |
 | model-143 | `tools/model-143/algorithm.py` | `dist/usg-model-143.js` | `/resources/regulator-sizing-tools/model-143` |
+| model-046 | `tools/model-046/algorithm.py` | `dist/usg-model-046.js` | `/resources/regulator-sizing-tools/model-046` |
 
-The Model 143 tool additionally renders three capacity tables (one per body
-size), colour-coded Yes/No and horizontally scrollable on a phone. Those tables
-are compared cell for cell against Python in the tests, like everything else.
+The 143 and 046 additionally render capacity tables, colour-coded Yes/No and
+horizontally scrollable on a phone. The 143 shows three (one per body size); the
+046 groups its tables into labelled sections and shows **both** the IRV and
+Monitor families when sizing for IRV. Every cell is compared against Python in
+the tests, like everything else.
 
 ## How it fits together
 
@@ -184,10 +187,14 @@ translator is a tool your team owns.
 6. Add the slug to the `matrix.tool` list in `.github/workflows/build.yml`.
 7. Run the four local commands above, commit, push.
 
-## Known algorithm defect (all-models)
+## Known algorithm defects
 
-Carried over from the original script, and present in the old Streamlit tool
-too: **monitor sizing with an outlet pressure between 85 and 100 psi fails.**
+Both are carried over from the original scripts and present in the old
+Streamlit tools too. Neither algorithm has been modified; in each case the page
+catches the fault and asks the customer to contact Holland Supply Company
+rather than showing a broken result.
+
+### all-models: monitor sizing, 85-100 psi outlet
 
 `run_regulator_selection461()` sets a monitor setpoint of `outlet_input + 15`.
 Above 85 psi outlet that exceeds 100 psi, past the top of the 57S spring table,
@@ -196,11 +203,25 @@ so `spring_57S()` returns the string `'N/A'` and the next line does
 
 Reproduce: inlet 180 psi, outlet 90 psi, flow 800,000 CFH, monitor protection.
 
-The algorithm is left untouched. The page catches the fault and asks the
-customer to contact Holland Supply Company rather than showing a broken result.
 To fix it, decide what a monitor spring above 100 psi should be - most likely
-`spring_X57`, which covers 75-250 psi - and handle the `'N/A'` return. The tests
-will confirm nothing else moved.
+`spring_X57`, which covers 75-250 psi - and handle the `'N/A'` return.
+
+### model-046: IRV tables at high outlet pressure
+
+`will_irv_work046()` looks up the selected spring in its IRV table:
+
+```python
+irv_table = spring_map[spring]          # tools/model-046/algorithm.py:477
+```
+
+`spring_046()` returns `Gray` for high outlet pressures, but `spring_map` has no
+`Gray` entry, so building the IRV capacity tables raises `KeyError: 'Gray'`.
+
+Reproduce: inlet 520 psi, outlet 164 psi, flow 388,553 CFH, IRV protection.
+
+To fix it, add the `Gray` spring to `spring_map` (or decide that IRV is not
+offered on that spring and return `"No"`). The tests will confirm nothing else
+moved.
 
 ## Changing an algorithm: what else needs touching
 
