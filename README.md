@@ -16,12 +16,16 @@ Setup instructions: **[DEPLOYING.md](DEPLOYING.md)**.
 | all-models | `tools/all-models/algorithm.py` | `dist/usg-all-models.js` | `/resources/regulator-sizing-tools/general` |
 | model-143 | `tools/model-143/algorithm.py` | `dist/usg-model-143.js` | `/resources/regulator-sizing-tools/model-143` |
 | model-046 | `tools/model-046/algorithm.py` | `dist/usg-model-046.js` | `/resources/regulator-sizing-tools/model-046` |
+| model-243 | `tools/model-243/algorithm.py` | `dist/usg-model-243.js` | `/resources/regulator-sizing-tools/model-243` |
 
-The 143 and 046 additionally render capacity tables, colour-coded Yes/No and
-horizontally scrollable on a phone. The 143 shows three (one per body size); the
-046 groups its tables into labelled sections and shows **both** the IRV and
-Monitor families when sizing for IRV. Every cell is compared against Python in
-the tests, like everything else.
+The 143, 046 and 243 additionally render capacity tables, colour-coded Yes/No
+and horizontally scrollable on a phone. The 143 shows three (one per body size).
+The 046 groups its tables into labelled sections, showing **both** the IRV and
+Monitor families when sizing for IRV. The 243 is the most conditional: which
+family it tabulates depends on the outlet pressure and protection type, across
+standard and high-pressure datasets, and an IRV request at 2 psi or more outlet
+is drawn as monitor tables. Every cell is compared against Python in the tests,
+like everything else.
 
 ## How it fits together
 

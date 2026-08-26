@@ -1,0 +1,7089 @@
+[
+ {
+  "name": "basic sizing (standard tables)",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 3000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/4\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/4\", 10\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "7,500",
+   "part_numbers": [
+    "R.243-8-1.1-1/4SCD.INT.18.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "Yes"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "3,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "larger flow",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 8000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "12,000",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "8,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "outlet in 3-5 psi band (243-8 only)",
+  "input": {
+   "inlet": 25,
+   "outlet": 4,
+   "flow": 6000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Black (2 \u2013 4.5 psi)"
+    }
+   ],
+   "capacity": "12,250",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.14.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "4,700",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "3,775",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,250",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,900",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,300",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,900",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "14,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,350",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,050",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,950",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "4.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "high pressure band (HP bodies)",
+  "input": {
+   "inlet": 60,
+   "outlet": 8,
+   "flow": 10000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8HP"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1/2\""
+    },
+    {
+     "label": "Spring",
+     "value": "Cadmium + White (6 \u2013 10 psi)"
+    }
+   ],
+   "capacity": "14,667",
+   "part_numbers": [
+    "R.243.HP.1-1/2SCD.8-HP.INT.15.STD.21.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8HP, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "12,333",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "9,467",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "4,767",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "14,667",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "9,667",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "4,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "16,333",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "10,233",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "4,800",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "60.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "8.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "10,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "HP at 6 psi",
+  "input": {
+   "inlet": 80,
+   "outlet": 6,
+   "flow": 12000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8HP"
+    },
+    {
+     "label": "Body Size",
+     "value": "2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1/2\""
+    },
+    {
+     "label": "Spring",
+     "value": "Cadmium (3 \u2013 6.5 psi)"
+    }
+   ],
+   "capacity": "15,750",
+   "part_numbers": [
+    "R.243.HP.2SCD.8-HP.INT.15.STD.15.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8HP, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,250",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "8,400",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "5,850",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "14,250",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "11,250",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "5,550",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "15,750",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "11,750",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "5,900",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "80.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "6.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "12,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "IRV protection (two sections)",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "opp_required": true,
+   "opp_pref": "IRV",
+   "irv_pressure": 2
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [
+    "IRV curves did not work for your application, sized for worker/monitor setup"
+   ],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    },
+    {
+     "label": "Monitor Spring",
+     "value": "Orange (1 \u2013 2 psi)"
+    }
+   ],
+   "capacity": "8,400",
+   "part_numbers": [
+    "R.243-8-1M.1-1/2SCD.EXT.20.STD.13.ALU",
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": "With IRV",
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No",
+         "Yes"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No",
+         "Yes"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No",
+         "Yes"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No",
+         "Yes"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No",
+         "Yes"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No",
+         "Yes"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No",
+         "Yes"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No",
+         "Yes"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work",
+        "Will IRV Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No",
+         "Yes"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "label": "With Monitor",
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "5,250",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,480",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,540",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,050",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "8,400",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,000",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,600",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,400",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,390",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "11,830",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,300",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,850",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,750",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "5,250",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,480",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,540",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "9,450",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,050",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,650",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,850",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "9,450",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "8,750",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,050",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,650",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,850",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "12,600",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "10,150",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,350",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,250",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Monitor Capacity Reduction",
+     "value": "30%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "IRV"
+    },
+    {
+     "label": "IRV Protect Downstream Pressure To (psi)",
+     "value": "2.0"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "IRV above 2 psi becomes monitor tables",
+  "input": {
+   "inlet": 25,
+   "outlet": 5,
+   "flow": 20000,
+   "opp_required": true,
+   "opp_pref": "IRV",
+   "irv_pressure": 6
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 243 will not work for this application.",
+   "sections": [
+    {
+     "label": "With Monitor",
+     "tables": [
+      {
+       "title": "Model 243-8HP, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "3,080",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "2,555",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "2,135",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "8,400",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "6,510",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,270",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,360",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "9,100",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "5,740",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,270",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,360",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "5.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "20,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "IRV"
+    },
+    {
+     "label": "IRV Protect Downstream Pressure To (psi)",
+     "value": "6.0"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "monitor protection",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 20000,
+   "opp_required": true,
+   "opp_pref": "Monitor"
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 243 will not work for this application.",
+   "sections": [
+    {
+     "label": "With Monitor",
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "5,250",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,480",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,540",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,050",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "8,400",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,000",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,600",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,400",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,390",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "11,830",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,300",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,850",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,750",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "5,250",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,480",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,540",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "9,450",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,050",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,650",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,850",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "9,450",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "8,750",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,050",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,650",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,850",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "12,600",
+         "No"
+        ],
+        [
+         "1\", 10\u00b0",
+         "10,150",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,350",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,250",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,680",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "20,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "Monitor"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "monitor in 2-3 psi band",
+  "input": {
+   "inlet": 25,
+   "outlet": 2.5,
+   "flow": 20000,
+   "opp_required": true,
+   "opp_pref": "Monitor"
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 243 will not work for this application.",
+   "sections": [
+    {
+     "label": "With Monitor",
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "3,937",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "3,168",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "2,494",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,645",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,050",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "8,662",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,262",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,812",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,610",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "10,972",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "10,832",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,137",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,775",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,640",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,698",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "2.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "20,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "Monitor"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "HP monitor",
+  "input": {
+   "inlet": 60,
+   "outlet": 8,
+   "flow": 30000,
+   "opp_required": true,
+   "opp_pref": "Monitor"
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 243 will not work for this application.",
+   "sections": [
+    {
+     "label": "With Monitor",
+     "tables": [
+      {
+       "title": "Model 243-8HP, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "8,633",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "6,627",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "3,337",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "10,267",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "6,767",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "3,150",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8HP, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "11,433",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "7,163",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "3,360",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "60.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "8.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "30,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "Monitor"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "partial IRV",
+  "input": {
+   "inlet": 25,
+   "outlet": 1.5,
+   "flow": 6000,
+   "partial_irv": true
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-2"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Orange (1 \u2013 2 psi)"
+    }
+   ],
+   "capacity": "12,125",
+   "part_numbers": [
+    "R.243-8-2.1-1/2SCD.INT.20.STD.13.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "6,875",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,775",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,188",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,250",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,125",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,125",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,625",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,100",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,025",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,425",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "13,875",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,750",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,400",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,475",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "6,875",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,775",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,188",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,250",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "14,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,250",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,050",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,350",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "15,750",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,250",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,400",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "21,500",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "17,250",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "12,250",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.5"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "Yes"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "propane",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "gas_type": "Propane"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "7,560",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "4,725",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,032",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "2,835",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,386",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "945",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "7,560",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "6,300",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,040",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,260",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "11,151",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "10,647",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,450",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "5,670",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,465",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,575",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "4,725",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,032",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "2,835",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,386",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "8,505",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,245",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,985",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,465",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,512",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "8,505",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "7,875",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,245",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,985",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,465",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,512",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "11,340",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "9,135",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "6,615",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,725",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,150",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,512",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Gas Type Factor",
+     "value": "0.6300"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Propane"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "other gas",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "gas_type": "Other",
+   "specific_gravity": 1.2
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "8,485",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "5,303",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,525",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,182",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,556",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,061",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "8,485",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,071",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,657",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,536",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,414",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,516",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "11,950",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,607",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,364",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,889",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,768",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "5,303",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "4,525",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,182",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,556",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "9,546",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,132",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,718",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,889",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,697",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "9,546",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "8,839",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "8,132",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,718",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,889",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,697",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "12,728",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "10,253",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "7,425",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,303",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "3,536",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,697",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Gas Type Factor",
+     "value": "0.7071"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Other"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "high altitude",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "high_altitude": true,
+   "atmospheric_pressure": 11.0
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "10,895",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "6,810",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,811",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,086",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,997",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,362",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "10,895",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,079",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,264",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,540",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,816",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "16,071",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "15,344",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "13,619",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,172",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "4,994",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,270",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "6,810",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,811",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,086",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,997",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "12,257",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,441",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,625",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "4,994",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,179",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "12,257",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "11,349",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,441",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,625",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "4,994",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,179",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "16,343",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "13,165",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,533",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,810",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,540",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,179",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Elevation capacity reduction",
+     "value": "9%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "Yes"
+    },
+    {
+     "label": "Atmospheric Pressure (psi)",
+     "value": "11.0"
+    }
+   ]
+  }
+ },
+ {
+  "name": "high efficiency 50%",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "high_efficiency": true,
+   "high_efficiency_pct": 50
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "12,000",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "62%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "50%"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "oversize override 40%",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "override_oversize": true,
+   "oversize_pct": 40
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "12,000",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "40%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "40%"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "requested pipe size",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 6000,
+   "pipe_size": "2\""
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "17,700",
+   "part_numbers": [
+    "R.243-8-1.2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "Yes"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "6,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "2\""
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "bar units",
+  "input": {
+   "inlet": 1.7,
+   "outlet": 0.07,
+   "inlet_units": "bar",
+   "outlet_units": "bar",
+   "flow": 8000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Orange (1 \u2013 2 psi)"
+    }
+   ],
+   "capacity": "11,899",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.13.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,429",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,336",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,470",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,191",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,484",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "11,899",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,933",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "7,936",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,965",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "1,998",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,637",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,783",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "14,927",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,948",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,462",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,475",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,429",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,336",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,470",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,191",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,445",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,440",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,399",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,443",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,379",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,479",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,471",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,476",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,405",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,444",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,379",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "17,980",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,441",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,451",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,441",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,958",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,377",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (bar)",
+     "value": "1.7"
+    },
+    {
+     "label": "Outlet Pressure (bar)",
+     "value": "0.07"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "8,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "in wc outlet",
+  "input": {
+   "inlet": 25,
+   "outlet": 25,
+   "outlet_units": "in wc",
+   "flow": 8000
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "11,847",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "6,551",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,589",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,133",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,261",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "11,847",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "9,724",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "7,724",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,031",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,122",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "16,720",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "17,084",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "13,469",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,755",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,531",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,469",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "6,551",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "5,589",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,133",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,261",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "12,888",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,765",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,980",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,378",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "14,418",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "14,796",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,408",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,439",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,369",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,653",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,806",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,653",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (in wc)",
+     "value": "25.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "8,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "BTUH natural gas",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 8000000,
+   "flow_units": "BTUH",
+   "gas_type": "Natural Gas"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-8-1"
+    },
+    {
+     "label": "Body Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1\", 30\u00b0"
+    },
+    {
+     "label": "Spring",
+     "value": "Green (12\" \u2013 28\" wc)"
+    }
+   ],
+   "capacity": "12,000",
+   "part_numbers": [
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+   ],
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "Yes"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "Yes"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "Yes"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (BTUH)",
+     "value": "8,000,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "BTUH with other gas (error)",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 8000000,
+   "flow_units": "BTUH",
+   "gas_type": "Other",
+   "specific_gravity": 0.9
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "BTUH conversion only supported for Natural Gas or Propane. Use CFH or CMH."
+   ]
+  }
+ },
+ {
+  "name": "nothing entered",
+  "input": {},
+  "expected": {
+   "ok": false,
+   "errors": [
+    "Inlet pressure is required.",
+    "Outlet pressure is required.",
+    "Please enter a gas load / flow rate."
+   ]
+  }
+ },
+ {
+  "name": "inlet below range",
+  "input": {
+   "inlet": 0.3,
+   "outlet": 0.2,
+   "flow": 5000
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "Inlet pressure must be between 0.5 and 125 psi."
+   ]
+  }
+ },
+ {
+  "name": "outlet above range",
+  "input": {
+   "inlet": 25,
+   "outlet": 11,
+   "flow": 5000
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "Outlet pressure must be between 3.5\" wc and 10 psi."
+   ]
+  }
+ },
+ {
+  "name": "MAIP below inlet",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 5000,
+   "maop": 10
+  },
+  "expected": {
+   "ok": false,
+   "errors": [
+    "MAIP must be >= inlet pressure."
+   ]
+  }
+ },
+ {
+  "name": "no regulator fits",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 900000
+  },
+  "expected": {
+   "ok": true,
+   "selected": false,
+   "errors": [],
+   "warnings": [],
+   "message": "Model 243 will not work for this application.",
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Model 243-8, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "1,500",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "12,000",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,000",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "8,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,000",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-8, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1\", 30\u00b0",
+         "17,700",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "16,900",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "15,000",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,000",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,500",
+         "No"
+        ],
+        [
+         "0.207\"",
+         "N/A",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/4\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "3/4\", 10\u00b0",
+         "7,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "6,400",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "4,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,200",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 1-1/2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12, 2\" Body",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 30\u00b0",
+         "N/A",
+         "No"
+        ],
+        [
+         "1\", 30\u00b0",
+         "13,500",
+         "No"
+        ],
+        [
+         "3/4\", 30\u00b0",
+         "12,500",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "11,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "9,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,500",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      },
+      {
+       "title": "Model 243-12-1 with External Control Line",
+       "headers": [
+        "Orifice Size",
+        "Calculated Capacity (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "1-1/4\", 10\u00b0",
+         "18,000",
+         "No"
+        ],
+        [
+         "1\", 10\u00b0",
+         "14,500",
+         "No"
+        ],
+        [
+         "3/4\", 10\u00b0",
+         "10,500",
+         "No"
+        ],
+        [
+         "1/2\"",
+         "7,500",
+         "No"
+        ],
+        [
+         "3/8\"",
+         "5,000",
+         "No"
+        ],
+        [
+         "1/4\"",
+         "2,400",
+         "No"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "900,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
+    },
+    {
+     "label": "Select Regulator with IRV",
+     "value": "No"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ }
+]

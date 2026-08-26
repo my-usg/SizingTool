@@ -105,9 +105,10 @@ Each tool has its own block and its own page:
 | `/resources/regulator-sizing-tools/general` | `tools/all-models/block.html` |
 | `/resources/regulator-sizing-tools/model-143` | `tools/model-143/block.html` |
 | `/resources/regulator-sizing-tools/model-046` | `tools/model-046/block.html` |
+| `/resources/regulator-sizing-tools/model-243` | `tools/model-243/block.html` |
 
 Open the page, edit its HTML block, and replace the contents with that file.
-The Model 143 and Model 046 pages will need creating if they do not exist yet;
+Any page that does not exist yet will need creating;
 if you use different URLs, update `"page"` in that tool's `tool.json` so the
 tests mirror reality.
 
@@ -136,6 +137,12 @@ get Model **046**, 1" body, 1/2" orifice, capacity **19,900** CFH, part number
 `R.046-1.STD.1.15.TAN.25.ALU`. Set overpressure protection to Yes with IRV and
 re-run: the tables split into **With IRV** and **With Monitor** sections, six
 tables in total.
+
+**Model 243.** Enter inlet 25 psi, outlet 1 psi, flow 3000 CFH. You should get
+Model **243-8-1**, 1-1/4" body, capacity **7,500** CFH, part number
+`R.243-8-1.1-1/4SCD.INT.18.STD.12.ALU`, and seven capacity tables. Change the
+outlet to 4 psi and re-run: only the three 243-8 tables appear. Change it to
+8 psi: the 243-8HP tables appear instead.
 
 Then check each on a phone, and check the Download PDF Summary buttons.
 
