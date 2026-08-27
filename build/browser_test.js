@@ -122,6 +122,38 @@ async function testTool(slug) {
   check('block carries no capacity data', blockHtml.length < 80000, blockHtml.length + ' bytes');
   check('loads its own bundle from jsDelivr',
     blockHtml.indexOf('cdn.jsdelivr.net') !== -1 && blockHtml.indexOf('dist/' + cfg.output) !== -1);
+
+  // The PDF and print-fallback subtitles must name THIS tool. Blocks are
+  // derived from one another, so a stale name leaks easily - the 461 and RPC
+  // both shipped with "Model 121 Sizing Tool" in their PDF heading.
+  const h1 = (blockHtml.match(/<h1 class="usg-h1">([^<]*)<\/h1>/) || [])[1];
+  check('page heading present', !!h1, h1);
+  if (h1 && h1 !== 'General Sizing Tool - All Models') {
+    check('PDF subtitle matches the page heading',
+      blockHtml.indexOf("doc.text('" + h1 + "'") !== -1,
+      'h1 is ' + JSON.stringify(h1) + ' but PDF says ' +
+        JSON.stringify((blockHtml.match(/doc\.text\('(Model[^']*)'/) || [])[1]));
+    check('print-fallback subtitle matches the page heading',
+      blockHtml.indexOf('<div>' + h1 + '</div>') !== -1);
+  }
+  // No other tool's name should appear anywhere in the block.
+  const OTHER_NAMES = ['Model 046 Sizing Tool', 'Model 121/122 Sizing Tool', 'Model 143 Sizing Tool',
+                       'Model 243 Sizing Tool', 'Model 243-RPC Sizing Tool', 'Model 441/461 Sizing Tool',
+                       'Model 496 Sizing Tool', 'Model 121 Sizing Tool'];
+  const strays = OTHER_NAMES.filter(n => n !== h1 && blockHtml.indexOf(n) !== -1);
+  check('no other tool name appears in the block', strays.length === 0, strays.join(', '));
+
+  // A tool that produces a pipe requirement must surface it in the PDF too,
+  // not only in the on-page info box.
+  const wrapper = fs.readFileSync(path.join(toolDir, 'wrapper.js'), 'utf8');
+  // Wrappers spell it either `out.pipe_note = ...` or `pipe_note: ...` in the
+  // returned object literal, so just look for the field name.
+  if (wrapper.indexOf('pipe_note') !== -1) {
+    check('pipe requirement has a PDF section',
+      blockHtml.indexOf("section('Pipe Size Requirements')") !== -1);
+    check('pipe requirement is carried into the PDF data',
+      blockHtml.indexOf('pipeNote: body.pipe_note') !== -1);
+  }
   check('calls its own namespace method',
     blockHtml.indexOf('USGSizing.' + cfg.method) !== -1 ||
     blockHtml.indexOf("USGSizing['" + cfg.method + "']") !== -1);

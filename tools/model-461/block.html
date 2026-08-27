@@ -586,7 +586,7 @@ function downloadPdf() {
     doc.text('USG Sizing Tool', marginX, y); y += 16;
     doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
     doc.setTextColor(DARK[0], DARK[1], DARK[2]);
-    doc.text('Model 121 Sizing Tool', marginX, y); y += 12;
+    doc.text('Model 441/461 Sizing Tool', marginX, y); y += 12;
     doc.setFontSize(7.5); doc.setTextColor(GREY[0], GREY[1], GREY[2]);
     var now = new Date();
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -674,7 +674,7 @@ function printFallback() {
   var w = window.open('', '_blank');
   if (!w) { window.alert('Could not generate PDF: please allow pop-ups or check that the PDF library can load.'); return; }
   var h = '<html><head><title>USG Sizing Tool</title><style>body{font-family:Helvetica,Arial,sans-serif;margin:40px;color:#111827}h1{color:#1F3864;font-size:20px;margin:0}h2{color:#e85d26;font-size:12px;margin:26px 0 6px}table{width:100%;border-collapse:collapse;font-size:9px}td{border-bottom:0.5px solid #e5e7eb;padding:3px 0;vertical-align:top}td:first-child{font-weight:bold;width:40%}.gen{color:#6b7280;font-size:8px}</style></head><body>';
-  h += '<h1>USG Sizing Tool</h1><div>Model 121 Sizing Tool</div><div class="gen">Generated ' + new Date().toLocaleString() + '</div>';
+  h += '<h1>USG Sizing Tool</h1><div>Model 441/461 Sizing Tool</div><div class="gen">Generated ' + new Date().toLocaleString() + '</div>';
   var kv = function (pairs) { var t = '<table>'; for (var i = 0; i < pairs.length; i++) t += '<tr><td>' + esc(pairs[i].label) + '</td><td>' + esc(pairs[i].value) + '</td></tr>'; return t + '</table>'; };
   var li = function (items) { var t = '<table>'; for (var i = 0; i < items.length; i++) t += '<tr><td style="font-weight:normal;width:auto">' + esc(items[i]) + '</td></tr>'; return t + '</table>'; };
   var sel = lastRun.selection.slice();
