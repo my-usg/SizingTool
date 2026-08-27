@@ -177,6 +177,46 @@ Then check each on a phone, and check the Download PDF Summary buttons.
 
 ---
 
+## Which changes need what deployed
+
+This catches people out, so it is worth being explicit. There are **two**
+artefacts on the website, and they update by different routes:
+
+| What changed | Where it lives | How it reaches the site |
+| --- | --- | --- |
+| Sizing results, validation messages, and **everything in the PDF's Inputs table** | `dist/usg-*.js`, served from jsDelivr | push to GitHub, then wait for the cache or purge it |
+| PDF layout and spacing, section headings, page markup and styling | the pasted `block.html` | re-paste the block; instant |
+
+So a change to the summary contents - say adding Specific Gravity - will **not**
+appear just from pasting a new block. The bundle has to be republished:
+
+```bash
+git commit -am "..." && git push          # CI rebuilds and commits dist/
+```
+
+then load each purge URL once and hard-refresh (Ctrl+F5):
+
+```
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-046.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-121.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-143.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-243.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-461.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-496.js
+https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-rpc.js
+```
+
+To check which bundle a page is actually running, open the browser console on
+that page and enter:
+
+```js
+USGSizing.versions
+```
+
+The `sources` hash changes whenever the algorithm or wrapper changes, so if two
+pages report the same hash after a push, the CDN is still serving the old file.
+
 ## Publishing a change later
 
 ```bash

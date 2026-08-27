@@ -1,0 +1,26 @@
+{
+  "slug": "all-models",
+  "title": "General Sizing Tool - All Models",
+  "page": "/resources/regulator-sizing-tools/general",
+  "output": "usg-all-models.js",
+  "method": "sizeAllModels",
+  "entry": "allmodels_selector",
+  "injected_globals": [
+    "inlet_input",
+    "outlet_input",
+    "flow_rate",
+    "min_flow",
+    "maop",
+    "pipesize_input",
+    "opp_type",
+    "irv_input",
+    "oversizeby",
+    "gastypemult",
+    "pload",
+    "combust_pref",
+    "Patm"
+  ],
+  "skip_functions": [
+    "print_regulator_selection"
+  ]
+}
