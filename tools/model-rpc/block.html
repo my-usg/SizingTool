@@ -544,7 +544,8 @@ function render(body) {
       capacity: body.capacity || '',
       pns: body.part_numbers || [],
       msgs: warnings,
-      adjustments: adj
+      adjustments: adj,
+      pipeNote: body.pipe_note || null
     };
     html += '<hr class="usg-hr">';
     html += '<h3 class="usg-h3">Download PDF Summary</h3>';
@@ -671,6 +672,9 @@ function downloadPdf() {
     section('Warnings');
     if (lastRun.msgs.length) listRows(lastRun.msgs); else noneText('None');
 
+    section('Pipe Size Requirements');
+    if (lastRun.pipeNote) listRows([lastRun.pipeNote]); else noneText('None');
+
     section('Sizing Adjustments');
     if (lastRun.adjustments.length) kvRows(lastRun.adjustments); else noneText('None');
 
@@ -694,6 +698,7 @@ function printFallback() {
   h += '<h2>Regulator Selection</h2>' + (sel.length ? kv(sel) : 'No regulator selected.');
   h += '<h2>Part Number(s)</h2>' + (lastRun.pns.length ? li(lastRun.pns) : 'None');
   h += '<h2>Warnings</h2>' + (lastRun.msgs.length ? li(lastRun.msgs) : 'None');
+  h += '<h2>Pipe Size Requirements</h2>' + (lastRun.pipeNote ? li([lastRun.pipeNote]) : 'None');
   h += '<h2>Sizing Adjustments</h2>' + kv(lastRun.adjustments);
   h += '</body></html>';
   w.document.write(h);

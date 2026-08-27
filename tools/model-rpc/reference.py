@@ -351,6 +351,9 @@ def run(payload) -> Dict[str, Any]:
         _kv(f"Outlet Pressure ({payload.outlet_units})", repr(outlet_input)),
         _kv(f"Max Flow Rate ({payload.flow_units})", f"{flow_rate:,}"),
         _kv("Max Allowable Inlet Pressure (psi)", f"{int(maop)}"),
+        # Always shown, including "N/A (any)", so the summary records whether a
+        # model was pinned.
+        _kv("Desired RPC Model", model_raw),
         _kv("Requested Pipe Size", pipesize_raw),
         _kv("Overpressure Protection Required", "Yes" if payload.opp_required else "No"),
     ]

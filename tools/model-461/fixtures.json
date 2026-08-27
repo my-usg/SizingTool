@@ -322,7 +322,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -686,7 +686,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -1038,7 +1038,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "5,000.0"
+     "value": "5,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -1390,7 +1390,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "200,000.0"
+     "value": "200,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -1743,7 +1743,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "10,000.0"
+     "value": "10,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -2097,7 +2097,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -2451,7 +2451,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -2808,7 +2808,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -3166,7 +3166,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -3528,7 +3528,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -3886,7 +3886,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -4239,7 +4239,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "5,000.0"
+     "value": "5,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -4592,7 +4592,7 @@
     },
     {
      "label": "Min Flow Rate (CMH)",
-     "value": "49,440.58"
+     "value": "49,441"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -4946,7 +4946,7 @@
     },
     {
      "label": "Min Flow Rate (BTUH)",
-     "value": "50,000.0"
+     "value": "50,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",
@@ -5360,7 +5360,7 @@
     },
     {
      "label": "Min Flow Rate (CFH)",
-     "value": "9,000,000.0"
+     "value": "9,000,000"
     },
     {
      "label": "Max Allowable Inlet Pressure (psi)",

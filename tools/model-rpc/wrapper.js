@@ -351,6 +351,9 @@ function sizeTool(rawInput) {
     kv("Outlet Pressure (" + p.outlet_units + ")", pyFloatStr(outlet_input)),
     kv("Max Flow Rate (" + p.flow_units + ")", $format(flow_rate, ',')),
     kv("Max Allowable Inlet Pressure (psi)", String(Math.trunc(maop))),
+    // Always shown, including "N/A (any)", so the summary records whether a
+    // model was pinned.
+    kv("Desired RPC Model", model_raw),
     kv("Requested Pipe Size", pipesize_raw),
     kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No")
   ];

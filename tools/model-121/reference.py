@@ -405,7 +405,8 @@ def run(payload) -> Dict[str, Any]:
         _kv(f"Inlet Pressure ({payload.inlet_units})", repr(inlet_input)),
         _kv(f"Outlet Pressure ({payload.outlet_units})", repr(outlet_input)),
         _kv(f"Max Flow Rate ({payload.flow_units})", f"{flow_rate:,}"),
-        _kv(f"Min Flow Rate ({payload.flow_units})", f"{min_flow:,}"),
+        # Whole numbers only - see the note in wrapper.js.
+        _kv(f"Min Flow Rate ({payload.flow_units})", f"{round(min_flow):,}"),
         _kv("Max Allowable Inlet Pressure (psi)", f"{int(maop)}"),
         _kv("Requested Pipe Size", pipesize_raw),
         _kv("Overpressure Protection Required", "Yes" if payload.opp_required else "No"),

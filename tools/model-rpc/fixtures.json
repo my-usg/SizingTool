@@ -142,6 +142,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -323,6 +327,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -490,6 +498,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -662,6 +674,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "243-RPC"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -830,6 +846,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "243-RPC-A"
     },
     {
      "label": "Requested Pipe Size",
@@ -1002,6 +1022,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "243-RPC-B"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -1170,6 +1194,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -1343,6 +1371,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -1512,6 +1544,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -1688,6 +1724,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -1861,6 +1901,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -2042,6 +2086,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -2217,6 +2265,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -2385,6 +2437,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -2557,6 +2613,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -2726,6 +2786,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -2947,6 +3011,10 @@
      "value": "0"
     },
     {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
      "label": "Requested Pipe Size",
      "value": "N/A"
     },
@@ -3114,6 +3182,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
@@ -3295,6 +3367,10 @@
     {
      "label": "Max Allowable Inlet Pressure (psi)",
      "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
     },
     {
      "label": "Requested Pipe Size",
