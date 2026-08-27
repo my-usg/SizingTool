@@ -37,7 +37,7 @@ DEFAULTS = {
     "outlet": 0, "outlet_units": "psi",
     "flow": 0, "min_flow": 0, "flow_units": "CFH",
     "maop": 0,
-    "opp_required": False,
+    "opp_required": False, "vp_preference": "standard",
     "high_efficiency": False, "high_efficiency_pct": 100,
     "override_oversize": False, "oversize_pct": 25,
     "gas_type": "Natural Gas", "specific_gravity": 0.6,
@@ -97,6 +97,11 @@ def run(payload) -> Dict[str, Any]:
     # ---- overpressure protection ----
     # The 441/461 offers monitor protection only - there is no IRV option.
     opp_type = "Monitor" if payload.opp_required else "None"
+
+    # Standard or V-Port orifice preference. The algorithm expects exactly
+    # "standard" or "vport"; anything else falls back to standard - see the
+    # matching note in wrapper.js.
+    vp_preference = "vport" if payload.vp_preference == "vport" else "standard"
 
     # ---- oversizing ----
     pload = 0.0
@@ -209,7 +214,7 @@ def run(payload) -> Dict[str, Any]:
         # and the entry returns three values. The two capacity tables come from
         # their own functions rather than a shared result map.
         match461, ok461, warning461 = ns["run_regulator_selection461"](
-            inlet_psi, outlet_psi, flow_cfh, min_flow, opp_type
+            inlet_psi, outlet_psi, flow_cfh, min_flow, opp_type, vp_preference
         )
         std_table = ns["build_standard_table"](inlet_psi, outlet_psi, flow_cfh, min_flow, opp_type)
         vp_table = ns["build_vport_table"](inlet_psi, outlet_psi, flow_cfh, min_flow, opp_type)
@@ -345,6 +350,7 @@ def run(payload) -> Dict[str, Any]:
         _kv(f"Min Flow Rate ({payload.flow_units})", f"{round(min_flow):,}"),
         _kv("Max Allowable Inlet Pressure (psi)", f"{int(maop)}"),
         _kv("Overpressure Protection Required", "Yes" if payload.opp_required else "No"),
+        _kv("Orifice Preference", "V-Port" if vp_preference == "vport" else "Standard"),
     ]
     summary.append(
         _kv(

@@ -291,6 +291,63 @@
     "high_altitude": true,
     "atmospheric_pressure": 11.0
    }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 50000,
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 50000,
+    "vp_preference": "standard"
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 50000,
+    "opp_required": true,
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "input": {
+    "inlet": 10,
+    "outlet": 1,
+    "flow": 5000,
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "input": {
+    "inlet": 500,
+    "outlet": 100,
+    "flow": 200000,
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 250000,
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 250000,
+    "vp_preference": "standard"
+   }
   }
  ],
  "fixtures": [
@@ -479,6 +536,25 @@
     "outlet": 20,
     "flow": 9000000
    }
+  },
+  {
+   "name": "V-Port preferred",
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 50000,
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "name": "V-Port preferred with monitor",
+   "input": {
+    "inlet": 100,
+    "outlet": 20,
+    "flow": 50000,
+    "opp_required": true,
+    "vp_preference": "vport"
+   }
   }
  ],
  "random": {
@@ -637,6 +713,13 @@
    ],
    "decimals": [
     2
+   ]
+  },
+  "vp_preference": {
+   "choices": [
+    "standard",
+    "standard",
+    "vport"
    ]
   }
  }

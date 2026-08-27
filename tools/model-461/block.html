@@ -30,7 +30,7 @@
 
   <p class="hsg-lede">Used in district regulator stations, gate stations, commercial and industrial service, and as monitor regulators.</p>
 
-  <p class="hsg-lede">The V-Port allows for increased turndown and helps reduce outlet pressure pulsation.</p>
+  <p class="hsg-lede">Note: The V-Port allows for increased turndown and helps reduce outlet pressure pulsation.</p>
 
   <p class="hsg-lede hsg-lede-last">
     <b>Not sure this is the right model?</b> The
@@ -106,6 +106,14 @@
         <div class="usg-radio-group">
           <label class="usg-radio"><input type="radio" name="usg-opp" value="No" checked><span>No</span></label>
           <label class="usg-radio"><input type="radio" name="usg-opp" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+
+      <div class="usg-widget">
+        <label class="usg-label">Standard or V-Port orifice preferred? <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="The V-Port allows for increased turndown and helps reduce outlet pressure pulsation. If the preferred orifice cannot be sized the tool falls back to the other.">i</span></label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-vp" value="Standard" checked><span>Standard</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-vp" value="V-Port"><span>V-Port</span></label>
         </div>
       </div>
 
@@ -446,6 +454,8 @@ function buildInput() {
     maop: intVal('maop'),
     // The 121/122 offers monitor protection only - a plain Yes/No.
     opp_required: radioVal('opp') === "Yes",
+    // The algorithm expects "standard" or "vport", not the on-screen labels.
+    vp_preference: radioVal('vp') === "V-Port" ? "vport" : "standard",
     high_efficiency: radioVal('higheff') === "Yes",
     high_efficiency_pct: parseInt($('pload').value, 10),
     override_oversize: radioVal('override') === "Yes",

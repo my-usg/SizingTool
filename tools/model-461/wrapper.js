@@ -67,6 +67,7 @@ function defaulted(input) {
     flow: 0, min_flow: 0, flow_units: "CFH",
     maop: 0,
     opp_required: false,
+    vp_preference: "standard",
     high_efficiency: false, high_efficiency_pct: 100,
     override_oversize: false, oversize_pct: 25,
     gas_type: "Natural Gas", specific_gravity: 0.6,
@@ -113,6 +114,11 @@ function sizeTool(rawInput) {
 
   // The 441/461 offers monitor protection only - there is no IRV option.
   var opp_type = p.opp_required ? "Monitor" : "None";
+
+  // Standard or V-Port orifice preference. The algorithm expects exactly
+  // "standard" or "vport"; anything else falls back to standard so a stray
+  // value cannot silently flip the selection to V-Port.
+  var vp_preference = (p.vp_preference === "vport") ? "vport" : "standard";
 
   // ---- oversizing ----
   var pload = 0.0;
@@ -228,7 +234,7 @@ function sizeTool(rawInput) {
     // Unlike the other tools the flows are ARGUMENTS here, not just globals,
     // and the entry returns three values. The two capacity tables come from
     // their own functions rather than a shared result map.
-    var r = run_regulator_selection461(inlet_psi, outlet_psi, flow_cfh, min_flow, opp_type);
+    var r = run_regulator_selection461(inlet_psi, outlet_psi, flow_cfh, min_flow, opp_type, vp_preference);
     match = r[0];
     ok = r[1];
     warning = r[2];
@@ -340,6 +346,7 @@ function sizeTool(rawInput) {
     kv("Min Flow Rate (" + p.flow_units + ")", $format($round(min_flow), ',')),
     kv("Max Allowable Inlet Pressure (psi)", String(Math.trunc(maop))),
     kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No"),
+    kv("Orifice Preference", vp_preference === "vport" ? "V-Port" : "Standard"),
     kv("Percent Load Feeding High-Efficiency Appliance", p.high_efficiency ? (pload_pct + "%") : "0"),
     kv("Override percentage regulator is oversized by",
       p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"),

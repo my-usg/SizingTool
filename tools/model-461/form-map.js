@@ -25,6 +25,10 @@ module.exports = {
     // Monitor protection only - a plain Yes/No, with no preference or IRV psi.
     if (input.opp_required) d.radio('opp', 'Yes');
 
+    // Standard / V-Port orifice preference. The input carries the algorithm's
+    // value ("vport"), while the control shows the label ("V-Port").
+    if (input.vp_preference === 'vport') d.radio('vp', 'V-Port');
+
     if (input.high_efficiency) {
       d.radio('higheff', 'Yes');
       if (input.high_efficiency_pct !== undefined) d.set('pload', input.high_efficiency_pct);
@@ -56,6 +60,11 @@ module.exports = {
     check('no partial-IRV question', doc.querySelector('input[name="usg-partial"]') === null);
     check('protection is a plain Yes/No',
       doc.querySelectorAll('input[name="usg-opp"]').length === 2);
+    check('orifice preference offers Standard and V-Port',
+      Array.from(doc.querySelectorAll('input[name="usg-vp"]')).map(i => i.value)
+        .join(',') === 'Standard,V-Port');
+    check('orifice preference defaults to Standard',
+      doc.querySelector('input[name="usg-vp"][value="Standard"]').checked);
     d.radio('opp', 'Yes');
 
     d.radio('higheff', 'Yes');
@@ -77,7 +86,7 @@ module.exports = {
     check('no pipe-size field (not on this tool)', doc.getElementById('usg-pipesize') === null);
 
     check('no +/- steppers', doc.querySelectorAll('.usg-step').length === 0);
-    check('7 info tooltips', doc.querySelectorAll('.usg-help').length === 7,
+    check('8 info tooltips', doc.querySelectorAll('.usg-help').length === 8,
       doc.querySelectorAll('.usg-help').length);
   }
 };

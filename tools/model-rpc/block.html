@@ -21,8 +21,22 @@
 <script src="https://cdn.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-rpc.js"></script>
 
 <div id="usg-sizing-tool">
+  <p class="hsg-crumb">
+    <a href="/resources/regulator-sizing-tools">Regulator Sizing Tools</a>
+    &nbsp;/&nbsp; Model 243-RPC
+  </p>
+
   <h1 class="usg-h1">Model 243-RPC Sizing Tool</h1>
-  <p class="usg-sub">Fill in the inputs above and click <strong>Run Sizing</strong>.</p>
+
+  <p class="hsg-lede">Pilot-operated regulator for fixed-factor billing, pressure-compensated metering and pressure factor measurement where precise outlet control matters.</p>
+
+  <p class="hsg-lede">Note: You can let the tool choose between the 243-RPC, -A and -B variants, or specify one. The 243-RPC-A and 243-RPC-B contain a throat opening for faster response. The 243-RPC-B does not require a sense line.</p>
+
+  <p class="hsg-lede hsg-lede-last">
+    <b>Not sure this is the right model?</b> The
+    <a href="/resources/regulator-sizing-tools/general">General Sizing Tool</a>
+    compares every USG regulator and recommends one for your conditions.
+  </p>
 
   <h2 class="usg-h2">&#128203; Inputs</h2>
 
@@ -215,6 +229,27 @@
   padding: 16px 0 8px !important; margin: 0 !important; line-height: 1.25 !important;
 }
 #usg-sizing-tool .usg-sub { font-size: 16px !important; color: rgb(49, 51, 63) !important; margin: 0 0 16px !important; }
+/* ---- page copy carried over from the old text-only block ----
+   Selectors are scoped to #usg-sizing-tool rather than .hsg-root, so no extra
+   wrapper is needed and the block keeps its own width and padding. The
+   !important guards are what stop the Concrete theme restyling this copy. */
+#usg-sizing-tool {
+  --hsc-accent: #21417F;   /* Holland Supply brand blue */
+  --hsg-ink: #111827;
+  --hsg-muted: #6B7280;
+}
+#usg-sizing-tool .hsg-crumb {
+  font-size: 15px !important; color: var(--hsg-muted) !important; margin: 0 0 14px !important;
+}
+#usg-sizing-tool .hsg-crumb a { color: var(--hsc-accent) !important; text-decoration: none; }
+#usg-sizing-tool .hsg-crumb a:hover { text-decoration: underline; }
+#usg-sizing-tool .hsg-lede {
+  font-size: 16px !important; color: var(--hsg-muted) !important; margin: 0 0 20px !important;
+  line-height: 1.55;
+}
+#usg-sizing-tool .hsg-lede b { color: var(--hsg-ink) !important; }
+#usg-sizing-tool .hsg-lede a { color: var(--hsc-accent) !important; }
+#usg-sizing-tool .hsg-lede-last { margin-bottom: 26px !important; }
 #usg-sizing-tool .usg-group-label { font-size: 17px !important; color: rgb(49, 51, 63) !important; margin: 0 0 10px !important; }
 #usg-sizing-tool .usg-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
 #usg-sizing-tool .usg-cols-4 > .usg-widget { flex: 1 1 0; min-width: 190px; }
