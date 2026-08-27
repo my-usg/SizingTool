@@ -501,8 +501,14 @@ def gen_matchRPC(result, opp):
                     if model_input == "243-RPC-B":
                         model = model_labelsRPC[prefix]
                     else:
-                        model = model_input
-                        model = "243-RPC" if model == "RPC" else model
+                        # model_input is "RPC" when no specific variant was
+                        # requested. That is an internal sentinel, not a model
+                        # name, so translate it to the base model "243-RPC".
+                        # Previously it reached the output verbatim, giving
+                        # "Model: RPC" and a part number of "R.RPC.…" - note
+                        # the monitor part number below already hardcodes
+                        # "R.243-RPC.", which is the correct token.
+                        model = model_labelsRPC.get(model_input, model_input)
 
                     # RPC-B always 2"
                     if model == "243-RPC-B" or pipesize_input == 0:

@@ -15,7 +15,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -33,7 +33,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -191,7 +191,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -213,7 +213,7 @@
    "capacity": "15,260",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU",
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU",
     "R.243-RPC.2SCD.EXT.18.STD.25.ALU"
    ],
    "tables": [
@@ -373,7 +373,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -391,7 +391,7 @@
    "capacity": "58,200",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.20.STD.27.ALU"
+    "R.243-RPC.2SCD.EXT.20.STD.27.ALU"
    ],
    "tables": [
     {
@@ -1069,7 +1069,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -1087,7 +1087,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -1244,7 +1244,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -1262,7 +1262,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -1419,7 +1419,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -1437,7 +1437,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -1593,7 +1593,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -1611,7 +1611,7 @@
    "capacity": "13,734",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -1772,7 +1772,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -1790,7 +1790,7 @@
    "capacity": "15,415",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -1955,7 +1955,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -1973,7 +1973,7 @@
    "capacity": "19,793",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -2138,7 +2138,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -2156,7 +2156,7 @@
    "capacity": "21,604",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -2312,7 +2312,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -2330,7 +2330,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -2486,7 +2486,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -2504,7 +2504,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -2661,7 +2661,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -2679,7 +2679,7 @@
    "capacity": "21,800",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.18.STD.14.ALU"
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
    "tables": [
     {
@@ -3057,7 +3057,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -3075,7 +3075,7 @@
    "capacity": "7,600",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.12.STD.22.ALU"
+    "R.243-RPC.2SCD.EXT.12.STD.22.ALU"
    ],
    "tables": [
     {
@@ -3233,7 +3233,7 @@
    "selection": [
     {
      "label": "Model",
-     "value": "RPC"
+     "value": "243-RPC"
     },
     {
      "label": "Body Size",
@@ -3255,7 +3255,7 @@
    "capacity": "5,320",
    "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.RPC.2SCD.EXT.12.STD.22.ALU",
+    "R.243-RPC.2SCD.EXT.12.STD.22.ALU",
     "R.243-RPC.2SCD.EXT.12.STD.22.ALU"
    ],
    "tables": [
@@ -3379,6 +3379,180 @@
     {
      "label": "Overpressure Protection Required",
      "value": "Yes"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "no model pinned reports 243-RPC, not the RPC sentinel",
+  "input": {
+   "inlet": 25,
+   "outlet": 1,
+   "flow": 10000,
+   "model": "N/A (any)"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "243-RPC"
+    },
+    {
+     "label": "Body Size",
+     "value": "2\""
+    },
+    {
+     "label": "Orifice Size",
+     "value": "3/4\""
+    },
+    {
+     "label": "Spring",
+     "value": "Black (1 - 2 psi)"
+    }
+   ],
+   "capacity": "21,800",
+   "pipe_note": "Model 243-RPC regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
+   "part_numbers": [
+    "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
+   ],
+   "tables": [
+    {
+     "title": "243-RPC or 243-RPC-A",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1-1/4\"",
+       "41,600",
+       "Yes"
+      ],
+      [
+       "1\"",
+       "35,700",
+       "Yes"
+      ],
+      [
+       "3/4\"",
+       "21,800",
+       "Yes"
+      ],
+      [
+       "1/2\"",
+       "10,300",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "5,800",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "2,600",
+       "No"
+      ]
+     ]
+    },
+    {
+     "title": "243-RPC-B",
+     "headers": [
+      "Orifice Size",
+      "Calculated Capacity (CFH)",
+      "Will Reg Work"
+     ],
+     "rows": [
+      [
+       "1-1/4\"",
+       "35,000",
+       "Yes"
+      ],
+      [
+       "1\"",
+       "28,500",
+       "Yes"
+      ],
+      [
+       "3/4\"",
+       "21,800",
+       "Yes"
+      ],
+      [
+       "1/2\"",
+       "10,300",
+       "No"
+      ],
+      [
+       "3/8\"",
+       "5,800",
+       "No"
+      ],
+      [
+       "1/4\"",
+       "2,600",
+       "No"
+      ]
+     ]
+    }
+   ],
+   "tables_caption": null,
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "25.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "1.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "10,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Desired RPC Model",
+     "value": "N/A (any)"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "No"
     },
     {
      "label": "Percent Load Feeding High-Efficiency Appliance",

@@ -8,8 +8,8 @@
  *
  * tool:      model-rpc
  * version:   1.1.0
- * algorithm: sha256:a7567f7f3adf
- * sources:   sha256:17da8432c04b
+ * algorithm: sha256:20dd5a579944
+ * sources:   sha256:1d14d1b3249a
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModelRPC(input)  -> result object
@@ -465,7 +465,7 @@ function gen_matchRPC(result, opp) {
           if ($truthy(($eq(model_input, "243-RPC-B")))) {
             model = $get(model_labelsRPC, prefix);
           } else {
-            model = model_input;
+            model = $dget(model_labelsRPC, model_input, model_input);
           }
           if ($truthy((($truthy(($t12 = ($eq(model, "243-RPC-B"))))) ? $t12 : (($eq(pipesize_input, 0)))))) {
             body = "2\"";
@@ -955,7 +955,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-rpc'] = {
     version: '1.1.0',
-    algorithm: 'sha256:a7567f7f3adf',
-    sources: 'sha256:17da8432c04b'
+    algorithm: 'sha256:20dd5a579944',
+    sources: 'sha256:1d14d1b3249a'
   };
 })(typeof window !== 'undefined' ? window : this);

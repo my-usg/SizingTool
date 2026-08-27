@@ -563,6 +563,15 @@
     "flow": 500,
     "opp_required": true
    }
+  },
+  {
+   "name": "no model pinned reports 243-RPC, not the RPC sentinel",
+   "input": {
+    "inlet": 25,
+    "outlet": 1,
+    "flow": 10000,
+    "model": "N/A (any)"
+   }
   }
  ],
  "random": {
