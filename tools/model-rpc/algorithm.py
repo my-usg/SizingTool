@@ -502,6 +502,7 @@ def gen_matchRPC(result, opp):
                         model = model_labelsRPC[prefix]
                     else:
                         model = model_input
+                        model = "243-RPC" if model == "RPC" else model
 
                     # RPC-B always 2"
                     if model == "243-RPC-B" or pipesize_input == 0:
