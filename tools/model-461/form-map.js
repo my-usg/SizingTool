@@ -77,7 +77,7 @@ module.exports = {
     check('no pipe-size field (not on this tool)', doc.getElementById('usg-pipesize') === null);
 
     check('no +/- steppers', doc.querySelectorAll('.usg-step').length === 0);
-    check('6 info tooltips', doc.querySelectorAll('.usg-help').length === 6,
+    check('7 info tooltips', doc.querySelectorAll('.usg-help').length === 7,
       doc.querySelectorAll('.usg-help').length);
   }
 };
