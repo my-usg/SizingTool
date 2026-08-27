@@ -9,7 +9,7 @@
  * tool:      model-461
  * version:   1.0.0
  * algorithm: sha256:7aba94482dd3
- * sources:   sha256:6e42985c44b9
+ * sources:   sha256:8e1bda0f58e2
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel461(input)  -> result object
@@ -1366,7 +1366,10 @@ function sizeTool(rawInput) {
     kv("Inlet Pressure (" + p.inlet_units + ")", pyFloatStr(inlet_input)),
     kv("Outlet Pressure (" + p.outlet_units + ")", pyFloatStr(outlet_input)),
     kv("Max Flow Rate (" + p.flow_units + ")", $format(flow_rate, ',')),
-    kv("Min Flow Rate (" + p.flow_units + ")", pyFloatCommaStr(min_flow)),
+    // Whole numbers only. The original tool computed min_flow after the float
+    // conversion so it printed "5,000.0"; a flow rate reads better without the
+    // decimal, so it is rounded for display here.
+    kv("Min Flow Rate (" + p.flow_units + ")", $format($round(min_flow), ',')),
     kv("Max Allowable Inlet Pressure (psi)", String(Math.trunc(maop))),
     kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No"),
     kv("Percent Load Feeding High-Efficiency Appliance", p.high_efficiency ? (pload_pct + "%") : "0"),
@@ -1436,6 +1439,6 @@ function sizeTool(rawInput) {
   ns.versions['model-461'] = {
     version: '1.0.0',
     algorithm: 'sha256:7aba94482dd3',
-    sources: 'sha256:6e42985c44b9'
+    sources: 'sha256:8e1bda0f58e2'
   };
 })(typeof window !== 'undefined' ? window : this);

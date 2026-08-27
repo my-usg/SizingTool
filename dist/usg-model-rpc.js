@@ -9,7 +9,7 @@
  * tool:      model-rpc
  * version:   1.0.0
  * algorithm: sha256:a7567f7f3adf
- * sources:   sha256:0137d0b36f05
+ * sources:   sha256:d20baf994d1b
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModelRPC(input)  -> result object
@@ -882,6 +882,9 @@ function sizeTool(rawInput) {
     kv("Outlet Pressure (" + p.outlet_units + ")", pyFloatStr(outlet_input)),
     kv("Max Flow Rate (" + p.flow_units + ")", $format(flow_rate, ',')),
     kv("Max Allowable Inlet Pressure (psi)", String(Math.trunc(maop))),
+    // Always shown, including "N/A (any)", so the summary records whether a
+    // model was pinned.
+    kv("Desired RPC Model", model_raw),
     kv("Requested Pipe Size", pipesize_raw),
     kv("Overpressure Protection Required", p.opp_required ? "Yes" : "No")
   ];
@@ -953,6 +956,6 @@ function sizeTool(rawInput) {
   ns.versions['model-rpc'] = {
     version: '1.0.0',
     algorithm: 'sha256:a7567f7f3adf',
-    sources: 'sha256:0137d0b36f05'
+    sources: 'sha256:d20baf994d1b'
   };
 })(typeof window !== 'undefined' ? window : this);
