@@ -60,26 +60,35 @@ once (about 50 KB gzipped) and sizes instantly thereafter.
 
 ## Repository layout
 
-```
-build/                     shared machinery - used by every tool
-├─ transpile.py              Python to JavaScript translator
-├─ build.py                  builds one tool or all
-├─ difftest.py               proves the JavaScript matches the Python
-├─ run_js.js                 runs a bundle over a batch of inputs
-├─ make_fixtures.py          regenerates expected results
-└─ browser_test.js           drives a block in a headless browser
+The website loads `dist/usg-*.js` from this repository at run time, so this
+repo is live infrastructure, not just source.
 
-tools/<tool>/              one folder per sizing tool
-├─ tool.json                 entry function, injected globals, output name
+```
+tools/<tool>/              one folder per sizing tool - 8 files each
 ├─ algorithm.py            THE PYTHON YOU EDIT
+├─ tool.json                 entry function, injected globals, output name
 ├─ wrapper.js                units, validation, result shaping
 ├─ reference.py              Python twin of wrapper.js, for the tests
 ├─ scenarios.json            test inputs (edge cases, fixtures, fuzz ranges)
-├─ fixtures.json             expected page output - generated, but committed
+├─ fixtures.json             expected output - generated, but committed
 ├─ block.html                the Concrete CMS block for this page
 └─ form-map.js               how the browser test drives this form
 
-dist/                      built bundles, one per tool - never edit
+build/                     shared machinery - used by every tool
+├─ transpile.py              Python to JavaScript translator
+├─ build.py                  builds the bundles and the pasteable blocks
+├─ difftest.py               proves the JavaScript matches the Python
+├─ fault_sweep.py            finds inputs an algorithm cannot answer
+├─ make_fixtures.py          regenerates expected results
+├─ run_js.js                 runs a bundle over a batch of inputs
+└─ browser_test.js           drives a pasteable block in a headless browser
+
+dist/usg-<tool>.js         compiled algorithm - PUBLISHED via jsDelivr
+
+.github/workflows/build.yml  builds, verifies, commits dist/ and purges the CDN
+README.md, DEPLOYING.md      documentation
+VERSION                      version string stamped into each build
+.gitignore
 ```
 
 Shared machinery lives in `build/` so a fix benefits every tool at once. When
@@ -103,42 +112,38 @@ Each command takes an optional tool slug to work on just that tool.
 To try a block in a browser, open `tools/<tool>/block.html` and point the
 `<script src>` near the top at the local `dist/` file.
 
-## Publishing and caching
+## Publishing
 
-A block loads its algorithm with:
+Each page's HTML block loads its tool's algorithm from this repository over
+jsDelivr:
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js"></script>
 ```
 
-**The repository must be public** - jsDelivr cannot read a private repo, and
-neither can a visitor's browser.
+So `dist/usg-*.js` **is** the published artefact and is committed here. The
+repository must stay public - jsDelivr cannot read a private repo, and neither
+can a visitor's browser.
 
-Two ways to publish, pick one:
+To publish a change: edit `tools/<tool>/algorithm.py` and push. CI rebuilds
+`dist/`, verifies it against the Python, commits it, and then **purges
+jsDelivr's cache automatically** so the site picks it up within a minute or two.
+Without that purge a branch URL is cached for up to 12 hours, which makes a
+pushed change look like it did nothing.
 
-* **Track `main` (default).** Pushes reach the site automatically within
-  jsDelivr's cache window (up to 12 hours). To make an update immediate, load
-  `https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js`
-  once.
-* **Pin a release tag.** Tag a release (`git tag v1.1.0 && git push --tags`) and
-  use `@v1.1.0` in the block. Nothing changes on the site until you edit the
-  block - stricter control, at the cost of a manual step. Tagged URLs are cached
-  permanently and never need purging.
-
-The build is **reproducible**: identical sources produce a byte-identical
-bundle. Nothing is republished unless it actually changed, so an unrelated push
-never invalidates a visitor's cache.
+Nothing needs re-pasting unless `block.html` itself changed.
 
 ### Site configuration
 
-The Content Security Policy must allow both CDNs:
+The Content Security Policy needs only:
 
 ```
 script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
 ```
 
 `cdn.jsdelivr.net` serves the algorithms; `cdnjs.cloudflare.com` serves jsPDF
-for the Download PDF Summary button.
+for the Download PDF Summary button. The old
+`frame-src https://*.streamlit.app` entry is not needed.
 
 Bundles join a shared `window.USGSizing` namespace rather than replacing it
 (`USGSizing.sizeAllModels`, `USGSizing.sizeModel143`, ...), so several tools can

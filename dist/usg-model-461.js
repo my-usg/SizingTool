@@ -7,9 +7,9 @@
  * Edit the Python, push, and CI regenerates this file.
  *
  * tool:      model-461
- * version:   1.0.0
+ * version:   1.1.0
  * algorithm: sha256:7aba94482dd3
- * sources:   sha256:8e1bda0f58e2
+ * sources:   sha256:0cc9aa58026d
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel461(input)  -> result object
@@ -1437,8 +1437,8 @@ function sizeTool(rawInput) {
   };
   ns.versions = ns.versions || {};
   ns.versions['model-461'] = {
-    version: '1.0.0',
+    version: '1.1.0',
     algorithm: 'sha256:7aba94482dd3',
-    sources: 'sha256:8e1bda0f58e2'
+    sources: 'sha256:0cc9aa58026d'
   };
 })(typeof window !== 'undefined' ? window : this);

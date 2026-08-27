@@ -7,9 +7,9 @@
  * Edit the Python, push, and CI regenerates this file.
  *
  * tool:      model-243
- * version:   1.0.0
+ * version:   1.1.0
  * algorithm: sha256:5fcd5ce61deb
- * sources:   sha256:6ef34e38bd18
+ * sources:   sha256:f046a95a45dd
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel243(input)  -> result object
@@ -1284,8 +1284,8 @@ function sizeTool(rawInput) {
   };
   ns.versions = ns.versions || {};
   ns.versions['model-243'] = {
-    version: '1.0.0',
+    version: '1.1.0',
     algorithm: 'sha256:5fcd5ce61deb',
-    sources: 'sha256:6ef34e38bd18'
+    sources: 'sha256:f046a95a45dd'
   };
 })(typeof window !== 'undefined' ? window : this);

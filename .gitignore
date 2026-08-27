@@ -2,3 +2,9 @@ __pycache__/
 *.py[cod]
 node_modules/
 .DS_Store
+
+# dist/usg-*.js IS committed on purpose: jsDelivr serves those files straight
+# out of this repository, so they are the published artefact, not scratch.
+
+# Stray downloads from testing the PDF button.
+USG_Sizing_Tool_Output*.pdf

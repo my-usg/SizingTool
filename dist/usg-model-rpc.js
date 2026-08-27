@@ -7,9 +7,9 @@
  * Edit the Python, push, and CI regenerates this file.
  *
  * tool:      model-rpc
- * version:   1.0.0
+ * version:   1.1.0
  * algorithm: sha256:a7567f7f3adf
- * sources:   sha256:d20baf994d1b
+ * sources:   sha256:17da8432c04b
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModelRPC(input)  -> result object
@@ -954,8 +954,8 @@ function sizeTool(rawInput) {
   };
   ns.versions = ns.versions || {};
   ns.versions['model-rpc'] = {
-    version: '1.0.0',
+    version: '1.1.0',
     algorithm: 'sha256:a7567f7f3adf',
-    sources: 'sha256:d20baf994d1b'
+    sources: 'sha256:17da8432c04b'
   };
 })(typeof window !== 'undefined' ? window : this);

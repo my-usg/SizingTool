@@ -101,13 +101,34 @@ jobs:
       - name: Commit changed bundles
         run: |
           if git diff --quiet dist/; then
-            echo "No bundle changed - nothing to publish."
+            echo "No bundle changed - nothing to commit."
             exit 0
           fi
-          echo "Changed bundles:"
+          echo "Changed:"
           git --no-pager diff --stat dist/
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add dist/
           git commit -m "Rebuild sizing bundles from algorithms [skip ci]"
           git push
+
+      # ------------------------------------------------------------------
+      # 5. Tell jsDelivr to drop its cached copies.
+      #    A branch URL like @main is cached for up to 12 hours, so without
+      #    this a pushed change looks like it did nothing - the pages keep
+      #    serving the old bundle. Purging here means the site picks the new
+      #    build up within a minute or two and nobody has to remember a step.
+      # ------------------------------------------------------------------
+      - name: Purge jsDelivr cache
+        if: always()
+        run: |
+          for f in dist/usg-*.js; do
+            name=$(basename "$f")
+            url="https://purge.jsdelivr.net/gh/${{ github.repository }}@${{ github.ref_name }}/dist/$name"
+            code=$(curl -s -o /tmp/purge.out -w "%{http_code}" --max-time 30 "$url" || echo "000")
+            echo "$name -> HTTP $code"
+            if [ "$code" != "200" ]; then
+              echo "  (purge did not confirm; the CDN will refresh on its own within 12h)"
+              cat /tmp/purge.out || true
+            fi
+          done

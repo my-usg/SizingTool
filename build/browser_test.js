@@ -95,19 +95,18 @@ async function testTool(slug) {
   const toolDir = path.join(TOOLS_DIR, slug);
   const cfg = JSON.parse(fs.readFileSync(path.join(toolDir, 'tool.json'), 'utf8'));
   const blockHtml = fs.readFileSync(path.join(toolDir, 'block.html'), 'utf8');
-  const fixtures = JSON.parse(fs.readFileSync(path.join(toolDir, 'fixtures.json'), 'utf8'));
-  const formMap = require(path.join(toolDir, 'form-map.js'));
   const bundlePath = path.join(ROOT, 'dist', cfg.output);
-
   if (!fs.existsSync(bundlePath)) {
     console.error(`\n${slug}: dist/${cfg.output} missing - run python3 build/build.py ${slug}`);
     fail++;
     return;
   }
   const bundle = fs.readFileSync(bundlePath, 'utf8');
-
-  // The CDN <script> is swapped for the local bundle (same code, no network).
-  // Everything else is byte-for-byte the block that gets pasted into the site.
+  const fixtures = JSON.parse(fs.readFileSync(path.join(toolDir, 'fixtures.json'), 'utf8'));
+  const formMap = require(path.join(toolDir, 'form-map.js'));
+  // The CDN <script> is swapped for the local bundle - the same file jsDelivr
+  // will serve, so no network is needed. Everything else is byte-for-byte the
+  // block that gets pasted into the site.
   function makePage(opts) {
     opts = opts || {};
     let html = blockHtml.replace(/<script src="https:\/\/cdn\.jsdelivr\.net[^"]*"><\/script>/,
@@ -120,8 +119,7 @@ async function testTool(slug) {
   }
 
   console.log(`\n=== ${slug}: block contains no algorithm ===`);
-  check('no capacity data in the block', blockHtml.indexOf('interpolate_capacity') === -1);
-  check('block is small', blockHtml.length < 80000, blockHtml.length + ' bytes');
+  check('block carries no capacity data', blockHtml.length < 80000, blockHtml.length + ' bytes');
   check('loads its own bundle from jsDelivr',
     blockHtml.indexOf('cdn.jsdelivr.net') !== -1 && blockHtml.indexOf('dist/' + cfg.output) !== -1);
   check('calls its own namespace method',

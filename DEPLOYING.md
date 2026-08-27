@@ -68,33 +68,31 @@ Watch it go green. It will:
 If any step fails, nothing is published. Read the log - the failure message
 names the offending line or input.
 
-## 5. Check the file is live
+## 5. Check the bundles are live
 
-Open this in a browser:
+CI commits them to `dist/`. Open this in a browser:
 
 <https://cdn.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js>
 
-You should see JavaScript beginning with a comment block that includes a
-version, an algorithm hash and a build timestamp. If you get a 404, the build
-has not committed `dist/` yet - go back to step 3.
+You should see JavaScript starting with a comment block containing the version
+and two hashes. A 404 means CI has not committed `dist/` yet - check the
+Actions tab.
 
-## 6. Allow the CDN in the site's Content Security Policy
-
-The tool loads two scripts from CDNs, so `script-src` must include both:
+## 6. Allow both CDNs in the site's Content Security Policy
 
 ```
 script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
 ```
 
-* `cdn.jsdelivr.net` - the sizing algorithm from your repository.
+* `cdn.jsdelivr.net` - the sizing algorithms from this repository.
 * `cdnjs.cloudflare.com` - jsPDF, used by the Download PDF Summary button.
 
 The `frame-src https://*.streamlit.app` entry that was added for the old
 embedded version is no longer needed and can be removed.
 
-If sizing reports "The sizing algorithm could not be loaded", this is almost
-always the cause. Open the browser console (F12) and look for a Content
-Security Policy error naming `cdn.jsdelivr.net`.
+If the Download PDF button does nothing, this is the usual cause - the tool
+falls back to a print view. Open the browser console (F12) and look for a
+Content Security Policy error naming `cdnjs.cloudflare.com`.
 
 ## 7. Paste the blocks into their pages
 
@@ -177,88 +175,43 @@ Then check each on a phone, and check the Download PDF Summary buttons.
 
 ---
 
-## Which changes need what deployed
-
-This catches people out, so it is worth being explicit. There are **two**
-artefacts on the website, and they update by different routes:
-
-| What changed | Where it lives | How it reaches the site |
-| --- | --- | --- |
-| Sizing results, validation messages, and **everything in the PDF's Inputs table** | `dist/usg-*.js`, served from jsDelivr | push to GitHub, then wait for the cache or purge it |
-| PDF layout and spacing, section headings, page markup and styling | the pasted `block.html` | re-paste the block; instant |
-
-So a change to the summary contents - say adding Specific Gravity - will **not**
-appear just from pasting a new block. The bundle has to be republished:
+## Publishing a change
 
 ```bash
-git commit -am "..." && git push          # CI rebuilds and commits dist/
+# edit tools/<tool>/algorithm.py, then
+git commit -am "Describe the change" && git push
 ```
 
-then load each purge URL once and hard-refresh (Ctrl+F5):
+That is it. CI rebuilds `dist/`, proves the JavaScript still matches the
+Python, commits the new bundle, and purges jsDelivr's cache so the pages pick
+it up within a minute or two. Watch the Actions tab go green, then hard-refresh
+the page (Ctrl+F5).
 
-```
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-046.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-121.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-143.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-243.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-461.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-496.js
-https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-model-rpc.js
-```
+You only need to re-paste a block when `tools/<tool>/block.html` itself changed
+- that is page markup and PDF layout, which the CDN does not serve.
 
-To check which bundle a page is actually running, open the browser console on
-that page and enter:
+To confirm which build a page is running, open its console and enter
+`USGSizing.versions`. The `sources` hash changes whenever a tool's algorithm or
+wrapper changes.
 
-```js
-USGSizing.versions
-```
+### If a change still does not appear
 
-The `sources` hash changes whenever the algorithm or wrapper changes, so if two
-pages report the same hash after a push, the CDN is still serving the old file.
-
-## Publishing a change later
-
-```bash
-# edit tools/all-models/algorithm.py
-git commit -am "Describe the change"
-git push
-```
-
-The build verifies and republishes automatically. The site picks it up within
-12 hours (jsDelivr's cache window for a branch URL). To make it immediate, load
-this once in a browser:
-
-<https://purge.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js>
-
-Then hard-refresh the page (Ctrl+F5).
-
-### If you prefer explicit control over when the site changes
-
-Pin a tag instead of tracking `main`:
-
-```bash
-git tag v1.1.0
-git push --tags
-```
-
-and change the block's script tag to `@v1.1.0`. Nothing on the site changes
-until you edit that tag, and tagged URLs never need purging. The cost is a
-manual block edit per release.
-
----
+1. Actions tab - did the run go green, and did it commit a new `dist/` file?
+2. Open the bundle URL directly and search it for something you expect:
+   `https://cdn.jsdelivr.net/gh/my-usg/sizingtool@main/dist/usg-all-models.js`
+3. If the CDN has it but the page does not, hard-refresh (Ctrl+F5).
+4. The purge step logs an HTTP code per file; a non-200 means the CDN will
+   refresh on its own within 12 hours instead.
 
 ## Rolling back
 
-The site can be reverted without touching the repository: change the block's
-script tag to a specific commit, which jsDelivr serves permanently.
+`git revert` the change and push; CI rebuilds, republishes and purges. For an
+immediate revert without touching the repository, point a block's script tag at
+a specific commit, which jsDelivr serves permanently:
 
 ```
 https://cdn.jsdelivr.net/gh/my-usg/sizingtool@COMMIT_SHA/dist/usg-all-models.js
 ```
-
-Take the SHA from the repository's commit history. To roll back properly,
-`git revert` the change and push; the build republishes the previous behaviour.
 
 ---
 
@@ -266,8 +219,8 @@ Take the SHA from the repository's commit history. To roll back properly,
 
 | Symptom | Cause |
 | --- | --- |
-| "The sizing algorithm could not be loaded" | CSP is missing `cdn.jsdelivr.net`, or the `dist/` file 404s (build has not committed yet). |
-| Build is green but the site shows old results | jsDelivr cache - purge the URL, then hard-refresh. |
+| "The sizing algorithm could not be loaded" | CSP is missing `cdn.jsdelivr.net`, or the bundle 404s because CI has not committed `dist/` yet. |
+| The site shows old results | The CDN or browser is still holding the old bundle. Check the purge step in the Actions log, then hard-refresh (Ctrl+F5). Confirm with `USGSizing.versions`. |
 | Build fails at "Commit rebuilt bundle" with a permissions error | Step 3: workflow permissions are read-only. |
 | Build fails with `Unsupported stmt ... at line N` | The Python uses a construct the transpiler does not handle. See the supported subset in the README. |
 | A new tool builds locally but CI ignores it | Its slug is missing from `matrix.tool` in `.github/workflows/build.yml`. |
