@@ -1626,5 +1626,122 @@
     "This combination could not be sized automatically. Please contact Holland Supply Company to review the selection."
    ]
   }
+ },
+ {
+  "name": "441 selection: control line kit SKU ends with an inch mark",
+  "input": {
+   "inlet": 900,
+   "outlet": 200,
+   "flow": 800000,
+   "opp_required": true,
+   "opp_pref": "Monitor"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [
+    "Sized for worker/monitor setup"
+   ],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "441-X57"
+    },
+    {
+     "label": "Body Size",
+     "value": "2\" ANSI600"
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Seat",
+     "value": "Poly-Tan"
+    },
+    {
+     "label": "Spring",
+     "value": "Black (150 - 250 psi)"
+    },
+    {
+     "label": "Monitor Spring",
+     "value": "Black (150 - 250 psi)"
+    }
+   ],
+   "capacity": "1,366,571",
+   "part_numbers": [
+    "R.441-X57.2FLG600.EXTCON.23.PT.14.S",
+    "R.441-X57.2FLG600.EXTCON.23.PT.14.S"
+   ],
+   "control_line": "CONTROL LINE KIT - 441-1/2\"",
+   "control_line_qty": 2,
+   "pipe_note": null,
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Monitor Capacity Reduction",
+     "value": "30%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "900.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "200.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "800,000"
+    },
+    {
+     "label": "Min Flow Rate (CFH)",
+     "value": "800,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "Monitor"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Combustion Regulator Preferred",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
  }
 ]

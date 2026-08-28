@@ -5884,7 +5884,7 @@
     "R.441-57S.2FLG.EXTCON.23VP.BUNA.10.I",
     "R.441-57S.2FLG.EXTCON.23VP.BUNA.10.I"
    ],
-   "control_line": "CONTROL LINE KIT - 441-1/2",
+   "control_line": "CONTROL LINE KIT - 441-1/2\"",
    "control_line_qty": 2,
    "sections": [
     {
@@ -6187,6 +6187,376 @@
     {
      "label": "Orifice Preference",
      "value": "V-Port"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "441 selection: control line kit SKU ends with an inch mark",
+  "input": {
+   "inlet": 900,
+   "outlet": 200,
+   "flow": 800000,
+   "opp_required": true
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [
+    "Sized for worker/monitor setup"
+   ],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "441-X57"
+    },
+    {
+     "label": "Body Size",
+     "value": "2\" ANSI600"
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1-1/2\""
+    },
+    {
+     "label": "Seat",
+     "value": "Poly-Tan"
+    },
+    {
+     "label": "Spring",
+     "value": "Black (150 - 250 psi)"
+    },
+    {
+     "label": "Monitor Spring",
+     "value": "Black (150 - 250 psi)"
+    }
+   ],
+   "capacity": "1,366,571",
+   "part_numbers": [
+    "R.441-X57.2FLG600.EXTCON.23.PT.14.S",
+    "R.441-X57.2FLG600.EXTCON.23.PT.14.S"
+   ],
+   "control_line": "CONTROL LINE KIT - 441-1/2\"",
+   "control_line_qty": 2,
+   "sections": [
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "Standard Valves",
+       "headers": [
+        "Applicable Models",
+        "Body",
+        "Orifice",
+        "Qmax (CFH)",
+        "Qmin (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "461-X57",
+         "2\"",
+         "11/16\" single",
+         "208,026",
+         "10,401",
+         "N"
+        ],
+        [
+         "461-X57",
+         "2\"",
+         "11/16\" double",
+         "320,040",
+         "16,002",
+         "N"
+        ],
+        [
+         "461-X57",
+         "2\"",
+         "1\" single",
+         "416,052",
+         "20,803",
+         "N"
+        ],
+        [
+         "461-X57",
+         "2\"",
+         "1\" double",
+         "640,080",
+         "32,004",
+         "N"
+        ],
+        [
+         "441-X57",
+         "2\"",
+         "1-1/2\"",
+         "1,366,571",
+         "68,329",
+         "Y"
+        ],
+        [
+         "N/A",
+         "2\"",
+         "1-3/4\"",
+         "1,744,218",
+         "87,211",
+         "N"
+        ],
+        [
+         "441-X57",
+         "3\"",
+         "1-1/2\"",
+         "1,366,571",
+         "68,329",
+         "Y"
+        ],
+        [
+         "N/A",
+         "3\"",
+         "1-3/4\"",
+         "2,121,865",
+         "106,093",
+         "N"
+        ],
+        [
+         "N/A",
+         "3\"",
+         "2-1/8\"",
+         "2,841,955",
+         "142,098",
+         "N"
+        ],
+        [
+         "N/A",
+         "4\"",
+         "1-3/4\"",
+         "1,734,617",
+         "86,731",
+         "N"
+        ],
+        [
+         "N/A",
+         "4\"",
+         "2-1/8\"",
+         "2,841,955",
+         "142,098",
+         "N"
+        ],
+        [
+         "N/A",
+         "4\"",
+         "3\"",
+         "5,677,510",
+         "283,875",
+         "N"
+        ],
+        [
+         "N/A",
+         "6\"",
+         "2-1/8\"",
+         "2,841,955",
+         "142,098",
+         "N"
+        ],
+        [
+         "N/A",
+         "6\"",
+         "3\"",
+         "5,920,740",
+         "296,037",
+         "N"
+        ],
+        [
+         "N/A",
+         "6\"",
+         "4-1/4\"",
+         "10,561,320",
+         "528,066",
+         "N"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "label": null,
+     "tables": [
+      {
+       "title": "V-Port Valves",
+       "headers": [
+        "Applicable Models",
+        "Body",
+        "Orifice",
+        "Qmax (CFH)",
+        "Qmin (CFH)",
+        "Will Reg Work"
+       ],
+       "rows": [
+        [
+         "461-X57",
+         "2\"",
+         "1\" single",
+         "312,039",
+         "7,801",
+         "N"
+        ],
+        [
+         "461-X57",
+         "2\"",
+         "1\" double",
+         "480,060",
+         "12,001",
+         "N"
+        ],
+        [
+         "441-X57",
+         "2\"",
+         "1-1/2\"",
+         "1,331,366",
+         "33,284",
+         "Y"
+        ],
+        [
+         "N/A",
+         "2\"",
+         "1-3/4\"",
+         "1,683,410",
+         "42,085",
+         "N"
+        ],
+        [
+         "441-X57",
+         "3\"",
+         "1-1/2\"",
+         "1,331,366",
+         "33,284",
+         "Y"
+        ],
+        [
+         "N/A",
+         "3\"",
+         "1-3/4\"",
+         "2,045,056",
+         "51,126",
+         "N"
+        ],
+        [
+         "N/A",
+         "3\"",
+         "2-1/8\"",
+         "2,701,138",
+         "67,528",
+         "N"
+        ],
+        [
+         "N/A",
+         "4\"",
+         "1-3/4\"",
+         "1,683,410",
+         "42,085",
+         "N"
+        ],
+        [
+         "N/A",
+         "4\"",
+         "2-1/8\"",
+         "2,701,138",
+         "67,528",
+         "N"
+        ],
+        [
+         "N/A",
+         "4\"",
+         "3\"",
+         "4,432,554",
+         "110,814",
+         "N"
+        ],
+        [
+         "N/A",
+         "6\"",
+         "2-1/8\"",
+         "2,701,138",
+         "67,528",
+         "N"
+        ],
+        [
+         "N/A",
+         "6\"",
+         "3\"",
+         "4,618,177",
+         "115,454",
+         "N"
+        ],
+        [
+         "N/A",
+         "6\"",
+         "4-1/4\"",
+         "8,161,020",
+         "204,025",
+         "N"
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "tables_caption": "Capacity reduction due to monitor shown.",
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Monitor Capacity Reduction",
+     "value": "30%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "900.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "200.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "800,000"
+    },
+    {
+     "label": "Min Flow Rate (CFH)",
+     "value": "800,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Percent Load Feeding High-Efficiency Appliance",

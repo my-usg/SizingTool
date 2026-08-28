@@ -8,8 +8,8 @@
  *
  * tool:      all-models
  * version:   1.1.0
- * algorithm: sha256:f57bc0e1e816
- * sources:   sha256:e6c2f4643b44
+ * algorithm: sha256:ff3d0aeb6639
+ * sources:   sha256:35333e437cc1
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeAllModels(input)  -> result object
@@ -3039,7 +3039,7 @@ function hsc_pnc461(match) {
     }
   }
   if ($truthy((($truthy(($t131 = ($eq(model, "441-S"))))) ? $t131 : ((($truthy(($t130 = ($eq(model, "441-57S"))))) ? $t130 : (($eq(model, "441-X57")))))))) {
-    $set(output, "controlline", "CONTROL LINE KIT - 441-1/2");
+    $set(output, "controlline", "CONTROL LINE KIT - 441-1/2\"");
     if ($truthy(($eq(opp, "Monitor")))) {
       $set(output, "controllineqty", 2);
     } else {
@@ -3572,7 +3572,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['all-models'] = {
     version: '1.1.0',
-    algorithm: 'sha256:f57bc0e1e816',
-    sources: 'sha256:e6c2f4643b44'
+    algorithm: 'sha256:ff3d0aeb6639',
+    sources: 'sha256:35333e437cc1'
   };
 })(typeof window !== 'undefined' ? window : this);

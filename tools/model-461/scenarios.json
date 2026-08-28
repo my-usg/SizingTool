@@ -348,6 +348,14 @@
     "flow": 250000,
     "vp_preference": "standard"
    }
+  },
+  {
+   "input": {
+    "inlet": 900,
+    "outlet": 200,
+    "flow": 800000,
+    "opp_required": true
+   }
   }
  ],
  "fixtures": [
@@ -554,6 +562,15 @@
     "flow": 50000,
     "opp_required": true,
     "vp_preference": "vport"
+   }
+  },
+  {
+   "name": "441 selection: control line kit SKU ends with an inch mark",
+   "input": {
+    "inlet": 900,
+    "outlet": 200,
+    "flow": 800000,
+    "opp_required": true
    }
   }
  ],

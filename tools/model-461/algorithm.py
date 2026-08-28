@@ -914,7 +914,7 @@ def hsc_pnc461(match):
             output = {'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.{end}"}
 
     if model == '441-S' or model == '441-57S' or model == '441-X57':
-        output['controlline'] = "CONTROL LINE KIT - 441-1/2"
+        output['controlline'] = "CONTROL LINE KIT - 441-1/2\""
         if opp == "Monitor":
             output['controllineqty'] = 2
         else:

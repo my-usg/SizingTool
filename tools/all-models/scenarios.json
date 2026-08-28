@@ -204,6 +204,15 @@
     "high_altitude": true,
     "atmospheric_pressure": 11.0
    }
+  },
+  {
+   "input": {
+    "inlet": 900,
+    "outlet": 200,
+    "flow": 800000,
+    "opp_required": true,
+    "opp_pref": "Monitor"
+   }
   }
  ],
  "fixtures": [
@@ -406,6 +415,16 @@
    "input": {
     "inlet": 180,
     "outlet": 90,
+    "flow": 800000,
+    "opp_required": true,
+    "opp_pref": "Monitor"
+   }
+  },
+  {
+   "name": "441 selection: control line kit SKU ends with an inch mark",
+   "input": {
+    "inlet": 900,
+    "outlet": 200,
     "flow": 800000,
     "opp_required": true,
     "opp_pref": "Monitor"
