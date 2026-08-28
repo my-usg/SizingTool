@@ -31,6 +31,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -306,6 +308,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -536,6 +540,8 @@
    "part_numbers": [
     "R.121-8-HP.STD.11/2SCD.8-HP.EXTCON.STD.STD.STD.15.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -704,6 +710,8 @@
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU",
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 2,
    "sections": [
     {
      "label": "Standard Valves",
@@ -988,9 +996,11 @@
    "capacity": "8,995",
    "pipe_note": "Model 121 regulators have outlet pipe sizing requirements. This regulator was sized for use with 2\" outlet pipe. For capacities with smaller outlet piping, see regulator brochure.",
    "part_numbers": [
-    "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.14.ALU",
-    "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.13.ALU"
+    "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.13.ALU",
+    "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 2,
    "sections": [
     {
      "label": "Standard Valves",
@@ -1226,6 +1236,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -1502,6 +1514,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -1779,6 +1793,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -2056,6 +2072,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -2332,6 +2350,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -2613,6 +2633,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -2898,6 +2920,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -3183,6 +3207,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.3.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -3459,6 +3485,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -3735,6 +3763,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",
@@ -4012,6 +4042,8 @@
    "part_numbers": [
     "R.121-8.STD.1SCD.8.EXTCON.STD.STD.STD.12.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "Standard Valves",

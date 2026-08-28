@@ -606,14 +606,23 @@ def hsc_pncRPC(match):
         control = 'EXT'
 
     if opp == "Monitor":
-        return [
-            f"R.{model}.{body}.{control}.{orifice}.STD.{spring}.ALU",
-            f"R.243-RPC.{body}.EXT.{orifice}.STD.{monitor_spring}.ALU",
-        ]
-
+        output = {
+            'worker': f"R.{model}.{body}.{control}.{orifice}.STD.{spring}.ALU",
+            'monitor': f"R.243-RPC.{body}.EXT.{orifice}.STD.{monitor_spring}.ALU",
+        }
+        if control == "EXT":
+            output['controlline'] = "CONTROL LINE KIT"
+            output['controllineqty'] = 2
+        else:
+            output['controlline'] = "CONTROL LINE KIT"
+            output['controllineqty'] = 1
     else:
-        return f"R.{model}.{body}.{control}.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.{model}.{body}.{control}.{orifice}.STD.{spring}.ALU"}
+        if control == 'EXT':
+            output['controlline'] = "CONTROL LINE KIT"
+            output['controllineqty'] = 1
 
+    return output
 
 
 # Output Functions

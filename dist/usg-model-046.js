@@ -8,8 +8,8 @@
  *
  * tool:      model-046
  * version:   1.1.0
- * algorithm: sha256:1286a0456880
- * sources:   sha256:19e704610780
+ * algorithm: sha256:208e4323a736
+ * sources:   sha256:d7b43c7e5ef4
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel046(input)  -> result object
@@ -627,7 +627,7 @@ function run_regulator_selection046(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc046(match) {
-  let body, body_map, model, monitor_spring, orifice, orifice_map, seat, spring, spring_map, $t15;
+  let body, body_map, model, monitor_spring, orifice, orifice_map, output, seat, spring, spring_map, $t15;
   body_map = new Map([["3/4\"", "3/4"], ["1\"", "1"], ["1-1/4\"", "1-1/4"]]);
   orifice_map = new Map([["1/8\"", "10"], ["3/16\"", "11"], ["1/4\"", "12"], ["5/16\"", "13"], ["3/8\"", "14"], ["1/2\"", "15"]]);
   spring_map = new Map([["Yellow", "23"], ["Aluminum", "24"], ["White", "25"], ["Green", "28"], ["Tan", "26"], ["Gray", "27"]]);
@@ -638,18 +638,19 @@ function hsc_pnc046(match) {
   spring = $dget(spring_map, $get(match, "color"), null);
   monitor_spring = $dget(spring_map, $get(match, "mon_color"), null);
   if ($truthy(($eq(model, "046-2")))) {
-    return `R.046-2.IRV.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`;
+    output = new Map([["worker", `R.046-2.IRV.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`]]);
   } else {
     if ($truthy((($truthy(($t15 = ($eq(model, "046"))))) ? (((!$eq($get(match, "opp"), "Monitor")))) : $t15))) {
-      return `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`;
+      output = new Map([["worker", `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`]]);
     } else {
       if ($truthy(((!$eq(monitor_spring, "27"))))) {
-        return [`R.046-2M.MON.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`, `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`];
+        output = new Map([["worker", `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`], ["monitor", `R.046-2M.MON.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
       } else {
-        return [`R.046-M.MON.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`, `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`];
+        output = new Map([["worker", `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`], ["monitor", `R.046-M.MON.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
       }
     }
   }
+  return output;
 }
 
 
@@ -966,11 +967,23 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc046(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- capacity tables, grouped into labelled sections ----
@@ -1100,7 +1113,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-046'] = {
     version: '1.1.0',
-    algorithm: 'sha256:1286a0456880',
-    sources: 'sha256:19e704610780'
+    algorithm: 'sha256:208e4323a736',
+    sources: 'sha256:d7b43c7e5ef4'
   };
 })(typeof window !== 'undefined' ? window : this);

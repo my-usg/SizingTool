@@ -8,8 +8,8 @@
  *
  * tool:      model-243
  * version:   1.1.0
- * algorithm: sha256:5fcd5ce61deb
- * sources:   sha256:f046a95a45dd
+ * algorithm: sha256:70c1d9cc096d
+ * sources:   sha256:f1b051019ac2
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel243(input)  -> result object
@@ -763,7 +763,7 @@ function run_regulator_selection243(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc243(match) {
-  let body, body_map, model, monitor_spring, opp, orifice, orifice_map, spring, spring_map, $t23, $t24, $t25, $t26;
+  let body, body_map, model, monitor_spring, opp, orifice, orifice_map, output, spring, spring_map, $t23, $t24, $t25, $t26;
   body_map = new Map([["1-1/4\"", "1-1/4SCD"], ["1-1/2\"", "1-1/2SCD"], ["2\"", "2SCD"], ["Any Size", "2SCD"]]);
   orifice_map = new Map([["0.207\"", "207"], ["1/4\"", "12"], ["3/8\"", "14"], ["1/2\"", "15"], ["3/4\", 10°", "18"], ["3/4\", 30°", "19"], ["1\", 10°", "20"], ["1\", 30°", "20"], ["1-1/4\", 10°", "21"], ["1-1/4\", 30°", "21"]]);
   spring_map = new Map([["Red-Black", "01"], ["Blue-Black", "02"], ["Green-Black", "03"], ["Red", "10"], ["Blue", "11"], ["Green", "12"], ["Orange-Black", "13A"], ["Orange", "13"], ["Black", "14"], ["Cadmium", "15"], ["Cadmium + White", "21"]]);
@@ -774,33 +774,33 @@ function hsc_pnc243(match) {
   opp = $get(match, "opp");
   monitor_spring = $dget(spring_map, $get(match, "mon_color"), null);
   if ($truthy(($eq(model, "243-12-2")))) {
-    return `R.243-12-2.IRV.${$str(body)}.12-2.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+    output = new Map([["worker", `R.243-12-2.IRV.${$str(body)}.12-2.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
   } else {
     if ($truthy((($truthy(($t23 = ($eq(model, "243-12-1"))))) ? (($eq(opp, "Monitor"))) : $t23))) {
-      return [`R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+      output = new Map([["worker", `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
     } else {
       if ($truthy(($eq(model, "243-12-1")))) {
-        return `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+        output = new Map([["worker", `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
       } else {
         if ($truthy((($truthy(($t24 = ($eq(model, "243-12-1 with External Control Line"))))) ? (($eq(opp, "Monitor"))) : $t24))) {
-          return [`R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+          output = new Map([["worker", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 2]]);
         } else {
           if ($truthy(($eq(model, "243-12-1 with External Control Line")))) {
-            return `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+            output = new Map([["worker", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
           } else {
             if ($truthy(($eq(model, "243-8-2")))) {
-              return `R.243-8-2.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+              output = new Map([["worker", `R.243-8-2.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
             } else {
               if ($truthy((($truthy(($t25 = ($eq(model, "243-8-1"))))) ? (($eq(opp, "Monitor"))) : $t25))) {
-                return [`R.243-8-1M.${$str(body)}.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+                output = new Map([["worker", `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-8-1M.${$str(body)}.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
               } else {
                 if ($truthy(($eq(model, "243-8-1")))) {
-                  return `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+                  output = new Map([["worker", `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
                 } else {
                   if ($truthy((($truthy(($t26 = ($eq(model, "243-8HP"))))) ? (($eq(opp, "Monitor"))) : $t26))) {
-                    return [`R.243.HP-M.${$str(body)}.8-HP.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+                    output = new Map([["worker", `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243.HP-M.${$str(body)}.8-HP.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
                   } else {
-                    return `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+                    output = new Map([["worker", `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
                   }
                 }
               }
@@ -810,6 +810,7 @@ function hsc_pnc243(match) {
       }
     }
   }
+  return output;
 }
 
 
@@ -1139,11 +1140,23 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc243(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- capacity tables ----
@@ -1285,7 +1298,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-243'] = {
     version: '1.1.0',
-    algorithm: 'sha256:5fcd5ce61deb',
-    sources: 'sha256:f046a95a45dd'
+    algorithm: 'sha256:70c1d9cc096d',
+    sources: 'sha256:f1b051019ac2'
   };
 })(typeof window !== 'undefined' ? window : this);

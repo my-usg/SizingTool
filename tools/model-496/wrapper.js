@@ -275,11 +275,23 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc496(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- the four capacity tables (mirrors build_table in the Streamlit app) ----

@@ -68,8 +68,16 @@ function driver(dom) {
         if (!out.querySelector('.usg-spinner')) break;
       }
       return {
+        html: out.innerHTML,
         text: out.textContent,
-        codes: Array.from(out.querySelectorAll('.usg-code')).map(c => c.textContent.trim()),
+        // Part numbers render as <pre class="usg-code"> on the model tools and
+        // as inline <code class="usg-pn"> fields on the general tool.
+        codes: Array.from(out.querySelectorAll('.usg-code, code.usg-pn')).map(c => c.textContent.trim()),
+        pnLabels: Array.from(out.querySelectorAll('.usg-field'))
+          .map(p => p.textContent.trim())
+          .filter(t => /Part Number/.test(t)),
+        cartHref: (out.querySelector('a.usg-btn-cart') || {}).getAttribute
+          ? out.querySelector('a.usg-btn-cart').getAttribute('href') : null,
         adjustments: Array.from(out.querySelectorAll('.usg-table tbody tr'))
           .map(tr => Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim())),
         tables: Array.from(out.querySelectorAll('.usg-dfwrap')).map(w => ({
@@ -203,6 +211,83 @@ async function testTool(slug) {
     if (JSON.stringify(got.codes) !== JSON.stringify(want.part_numbers || [])) {
       problems.push('part numbers ' + JSON.stringify(got.codes) + ' vs ' + JSON.stringify(want.part_numbers));
     }
+
+    // Part numbers are fields of the selection on every tool: the first is
+    // "Part Number" and a second (monitor) one is "Monitor Part Number".
+    if ((want.part_numbers || []).length) {
+      const want0 = 'Part Number: ' + want.part_numbers[0];
+      if (!got.pnLabels.some(t => t === want0)) {
+        problems.push('missing "' + want0 + '" (saw ' + JSON.stringify(got.pnLabels) + ')');
+      }
+      if (want.part_numbers.length > 1) {
+        const want1 = 'Monitor Part Number: ' + want.part_numbers[1];
+        if (!got.pnLabels.some(t => t === want1)) {
+          problems.push('missing "' + want1 + '"');
+        }
+      }
+      if (got.html.indexOf('HSC Part Number(s)') !== -1) {
+        problems.push('still shows a separate part-number heading');
+      }
+    }
+
+    // Control line kit, shown as "<KIT NAME>: <qty>" below the part numbers.
+    // It is not a regulator, so it must NOT reach the cart link or the PDF.
+    if (want.control_line) {
+      const line = want.control_line + ': ' + want.control_line_qty;
+      if (got.text.indexOf(line) === -1) problems.push('missing control line "' + line + '"');
+      // It is a real SKU, so it belongs in the cart with its own quantity.
+    } else if (want.control_line === null && /CONTROL LINE KIT/.test(got.text)) {
+      problems.push('control line shown when the algorithm returned none');
+    }
+
+    // Add to Cart: one matched part[]/qty[] pair per part number, in order,
+    // pointing at the site's endpoint. Parsed back out rather than string
+    // matched, so an encoding mistake cannot slip through.
+    const wantPns = want.part_numbers || [];
+    if (wantPns.length) {
+      if (!got.cartHref) {
+        problems.push('no Add to Cart button');
+      } else {
+        const ENDPOINT = 'https://hollandsupplycompany.com/api/sizing-tool/add-to-cart';
+        if (got.cartHref.indexOf(ENDPOINT + '?') !== 0) {
+          problems.push('cart endpoint ' + got.cartHref.slice(0, 80));
+        }
+        const qs = got.cartHref.slice(got.cartHref.indexOf('?') + 1).split('&');
+        const parts = [], qtys = [];
+        for (const pair of qs) {
+          const eq = pair.indexOf('=');
+          const k = pair.slice(0, eq), v = decodeURIComponent(pair.slice(eq + 1));
+          if (k === 'part[]') parts.push(v);
+          else if (k === 'qty[]') qtys.push(v);
+          else problems.push('unexpected cart parameter ' + k);
+        }
+        // Regulators at quantity 1, then any control line kit at its own
+        // quantity - the pairs must line up exactly.
+        const wantParts = wantPns.slice();
+        const wantQtys = wantPns.map(() => '1');
+        if (want.control_line) {
+          wantParts.push(want.control_line);
+          wantQtys.push(String(want.control_line_qty === null || want.control_line_qty === undefined
+            ? 1 : want.control_line_qty));
+        }
+        if (JSON.stringify(parts) !== JSON.stringify(wantParts)) {
+          problems.push('cart parts ' + JSON.stringify(parts) + ' vs ' + JSON.stringify(wantParts));
+        }
+        if (JSON.stringify(qtys) !== JSON.stringify(wantQtys)) {
+          problems.push('cart quantities ' + JSON.stringify(qtys) + ' vs ' + JSON.stringify(wantQtys));
+        }
+        // The pairs must alternate part,qty,part,qty so they line up server-side.
+        const order = qs.map(x => x.slice(0, x.indexOf('=')));
+        for (let i = 0; i < order.length; i += 2) {
+          if (order[i] !== 'part[]' || order[i + 1] !== 'qty[]') {
+            problems.push('cart pairs out of order: ' + order.join(','));
+            break;
+          }
+        }
+      }
+    } else if (got.cartHref) {
+      problems.push('Add to Cart shown with no part numbers');
+    }
     // Adjustments render in a plain .usg-table for tools without capacity
     // tables, and in a .usg-dfwrap alongside them for tools that have them.
     const wantAdj = (want.adjustments || []).map(a => [a.label, a.value]);
@@ -273,6 +358,19 @@ async function testTool(slug) {
       if (gotCaption !== wantCaption) {
         problems.push('caption ' + JSON.stringify(gotCaption) + ' vs ' + JSON.stringify(wantCaption));
       }
+    }
+
+    // Output order: the PDF summary belongs with the part numbers, above the
+    // capacity tables and the adjustments table.
+    const html = got.html || '';
+    const iCart = html.indexOf('usg-btn-cart');
+    const iPdf = html.indexOf('id="usg-pdf-btn"');
+    const iAdj = html.indexOf('Sizing Adjustments');
+    const iTables = html.indexOf('Regulator Sizing Tables');
+    if (iPdf !== -1) {
+      if (iCart !== -1 && iPdf < iCart) problems.push('PDF summary appears above Add to Cart');
+      if (iAdj !== -1 && iPdf > iAdj) problems.push('PDF summary appears below Sizing Adjustments');
+      if (iTables !== -1 && iPdf > iTables) problems.push('PDF summary appears below the capacity tables');
     }
 
     // Some tools gate the PDF button on a separate flag (the 121's apply121,

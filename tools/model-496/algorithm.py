@@ -429,7 +429,9 @@ def hsc_pnc496(match):
     orifice = orifice_map.get(match['orifice'])
     spring = spring_map.get(match['color'])
 
-    return f"R.496-20.{body}.{orifice}.{spring}"
+    output = {'worker': f"R.496-20.{body}.{orifice}.{spring}"}
+
+    return output
 
 
 # Output Functions

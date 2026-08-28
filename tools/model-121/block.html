@@ -319,6 +319,21 @@
 #usg-sizing-tool .usg-btn:hover { border-color: rgb(255, 75, 75); color: rgb(255, 75, 75) !important; background: #fff; }
 #usg-sizing-tool .usg-btn-primary { background: rgb(255, 75, 75) !important; border-color: rgb(255, 75, 75) !important; color: #fff !important; }
 #usg-sizing-tool .usg-btn-primary:hover { background: rgb(255, 51, 51) !important; border-color: rgb(255, 51, 51) !important; color: #fff !important; }
+#usg-sizing-tool code.usg-pn {
+  font-family: "Source Code Pro", Menlo, Consolas, monospace !important;
+  font-size: 15px !important; color: rgb(9, 171, 59) !important;
+  background: rgb(240, 242, 246) !important; border: 0 !important;
+  padding: 2px 7px !important; border-radius: 5px;
+}
+#usg-sizing-tool .usg-cart { margin: 14px 0 0 !important; }
+#usg-sizing-tool a.usg-btn-cart {
+  display: inline-block; text-decoration: none !important;
+  background: #21417F !important; border-color: #21417F !important; color: #fff !important;
+}
+#usg-sizing-tool a.usg-btn-cart:hover {
+  background: #182F5C !important; border-color: #182F5C !important; color: #fff !important;
+  text-decoration: none !important;
+}
 #usg-sizing-tool .usg-hr { border: none; border-top: 1px solid rgba(49, 51, 63, 0.2); margin: 24px 0; }
 #usg-sizing-tool .usg-alert { border-radius: 8px; padding: 16px; margin: 8px 0 16px; font-size: 16px !important; line-height: 1.6; }
 #usg-sizing-tool .usg-error { background: rgba(255, 43, 43, 0.09); color: rgb(125, 53, 59) !important; }
@@ -473,6 +488,42 @@ function buildInput() {
   };
 }
 
+// ---- Add to Cart ----
+// The site exposes an endpoint that takes matched part[] and qty[] pairs, adds
+// each to the cart, and redirects to the cart page (or to a "contact us" page
+// if a part number is not recognised).
+var CART_ENDPOINT = 'https://hollandsupplycompany.com/api/sizing-tool/add-to-cart';
+
+// items is a list of { part, qty } - the regulators first, then any control
+// line kit with its own quantity.
+function cartUrl(items) {
+  var pairs = [];
+  for (var i = 0; i < items.length; i++) {
+    if (!items[i] || !items[i].part) continue;
+    // Encode the value, then put "/" back: part numbers contain slashes (for
+    // example R.143-1.3/4.16.11) and the endpoint's documented example shows
+    // them unencoded. A slash is legal in a query string and decodes the same
+    // either way, so this matches the spec exactly while still escaping
+    // anything else - the control line SKUs contain spaces, which do need it.
+    var part = encodeURIComponent(items[i].part).replace(/%2F/g, '/');
+    var qty = items[i].qty;
+    if (qty === null || qty === undefined || qty === '') qty = 1;
+    pairs.push('part[]=' + part + '&qty[]=' + encodeURIComponent(qty));
+  }
+  return CART_ENDPOINT + '?' + pairs.join('&');
+}
+
+// Everything the cart should receive for the current selection.
+function cartItems(body) {
+  var items = [];
+  var pns = body.part_numbers || [];
+  for (var i = 0; i < pns.length; i++) items.push({ part: pns[i], qty: 1 });
+  if (body.control_line) {
+    items.push({ part: body.control_line, qty: body.control_line_qty || 1 });
+  }
+  return items;
+}
+
 var lastRun = null; // stored for the PDF download
 
 // ---- main run handler ----
@@ -529,16 +580,52 @@ function render(body) {
       html += '<p class="usg-field"><strong>Calculated Capacity (CFH):</strong> ' + esc(body.capacity) + '</p>';
     }
 
-    if (body.pipe_note) {
-      html += alertBox('info', '\u2139\uFE0F&nbsp; ' + esc(body.pipe_note));
-    }
-
     var pns = body.part_numbers || [];
     if (pns.length) {
-      html += '<h3 class="usg-h3">HSC Part Number(s)</h3>';
+      // Part numbers read as fields of the selection, directly under the
+      // capacity. A monitor selection returns two: the worker regulator
+      // first, then the monitor. The PDF keeps its own separate
+      // "Part Number(s)" section.
       for (var p = 0; p < pns.length; p++) {
-        html += '<pre class="usg-code"><code>' + esc(pns[p]) + '</code></pre>';
+        var pnLabel = (p === 0) ? 'Part Number'
+                    : (p === 1) ? 'Monitor Part Number'
+                    : 'Part Number ' + (p + 1);
+        html += '<p class="usg-field"><strong>' + pnLabel + ':</strong> ' +
+          '<code class="usg-pn">' + esc(pns[p]) + '</code></p>';
       }
+
+      // Control line kit, below the part numbers. It is a real SKU, so it goes
+      // in the cart with its own quantity, but it stays out of the PDF.
+      if (body.control_line) {
+        html += '<p class="usg-field"><strong>' + esc(body.control_line) + ':</strong> ' +
+          esc(body.control_line_qty === null || body.control_line_qty === undefined
+              ? '' : body.control_line_qty) + '</p>';
+      }
+
+      if (body.pipe_note) {
+        html += alertBox('info', '\u2139\uFE0F&nbsp; ' + esc(body.pipe_note));
+    }
+
+      // One line per part number, each with a quantity of 1. A monitor
+      // selection returns two different regulators, so both go in the cart.
+      html += '<p class="usg-cart"><a class="usg-btn usg-btn-cart" href="' +
+        esc(cartUrl(cartItems(body))) + '">\uD83D\uDED2&nbsp; Add to Cart</a></p>';
+
+      // The PDF summary sits with the part numbers: those are what a customer
+      // acts on. The capacity tables and adjustments below are reference
+      // material, so they follow it.
+      lastRun = {
+  summary: body.summary || [],
+  selection: body.selection || [],
+  capacity: body.capacity || '',
+  pns: body.part_numbers || [],
+  msgs: warnings,
+  adjustments: body.adjustments || [],
+  pipeNote: body.pipe_note || null
+      };
+      html += '<hr class="usg-hr">';
+      html += '<h3 class="usg-h3">Download PDF Summary</h3>';
+      html += '<button type="button" class="usg-btn" id="usg-pdf-btn">\u2B07\uFE0F&nbsp; Download PDF Summary</button>';
     }
   } else {
     html += alertBox('error', '\u274C&nbsp; ' + esc(body.message || "Model 121 will not work for this application."));
@@ -581,20 +668,6 @@ function render(body) {
     html += '</tbody></table></div>';
   }
 
-  if (body.selected && body.can_download) {
-    lastRun = {
-      summary: body.summary || [],
-      selection: body.selection || [],
-      capacity: body.capacity || '',
-      pns: body.part_numbers || [],
-      msgs: warnings,
-      adjustments: adj,
-      pipeNote: body.pipe_note || null
-    };
-    html += '<hr class="usg-hr">';
-    html += '<h3 class="usg-h3">Download PDF Summary</h3>';
-    html += '<button type="button" class="usg-btn" id="usg-pdf-btn">\u2B07\uFE0F&nbsp; Download PDF Summary</button>';
-  }
 
   out.innerHTML = html;
   var pdfBtn = $('pdf-btn');

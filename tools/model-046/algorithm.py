@@ -734,22 +734,30 @@ def hsc_pnc046(match):
     monitor_spring = spring_map.get(match['mon_color'])
 
     if model == '046-2':
-        return f"R.046-2.IRV.{body}.IRV.{orifice}.{seat}.{spring}.ALU"
+        output = {'worker': f"R.046-2.IRV.{body}.IRV.{orifice}.{seat}.{spring}.ALU"}
+
     elif model == '046' and match['opp'] != "Monitor":
-        return f"R.046-1.STD.{body}.{orifice}.{seat}.{spring}.ALU"
+        output = {'worker': f"R.046-1.STD.{body}.{orifice}.{seat}.{spring}.ALU"}
+
     # Under 125 psi setpoint - use 046-2M for monitor
     elif monitor_spring != '27':
-        return [
-            f"R.046-2M.MON.{body}.IRV.{orifice}.{seat}.{monitor_spring}.ALU",
-            f"R.046-1.STD.{body}.{orifice}.{seat}.{spring}.ALU",
-        ]
+        output = {
+            'worker': f"R.046-1.STD.{body}.{orifice}.{seat}.{spring}.ALU",
+            'monitor': f"R.046-2M.MON.{body}.IRV.{orifice}.{seat}.{monitor_spring}.ALU",
+            'controlline': "CONTROL LINE KIT",
+            'controllineqty': 1,
+        }
+
     # over 125 psi setpoint - use 046-M for monitor
     else:
-        return [
-            f"R.046-M.MON.{body}.{orifice}.{seat}.{monitor_spring}.ALU",
-            f"R.046-1.STD.{body}.{orifice}.{seat}.{spring}.ALU",
-        ]
+        output = {
+            'worker': f"R.046-1.STD.{body}.{orifice}.{seat}.{spring}.ALU",
+            'monitor': f"R.046-M.MON.{body}.{orifice}.{seat}.{monitor_spring}.ALU",
+            'controlline': "CONTROL LINE KIT",
+            'controllineqty': 1,
+        }
 
+    return output
 
 # Output Functions
 # ------------------------------------------------------------------------------------------------------

@@ -287,9 +287,15 @@ def run(payload) -> Dict[str, Any]:
                 capacity = str(cap)
         out["capacity"] = capacity
 
+        # hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+        # control line kit with its quantity.
         pn = ns["hsc_pnc046"](match046)
-        pns = pn if isinstance(pn, list) else [pn]
-        out["part_numbers"] = [p for p in pns if p]
+        out["part_numbers"] = [p for p in (pn.get("worker"), pn.get("monitor")) if p]
+
+        # The control line kit is a real SKU with its own quantity. It goes in the
+        # cart and on the page, but not in the PDF.
+        out["control_line"] = pn.get("controlline") or None
+        out["control_line_qty"] = pn.get("controllineqty")
 
     # ---- capacity tables, grouped into labelled sections ----
     # Guarded like the selection run: will_irv_work046() can fault on spring

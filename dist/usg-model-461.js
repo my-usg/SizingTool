@@ -8,8 +8,8 @@
  *
  * tool:      model-461
  * version:   1.1.0
- * algorithm: sha256:5149d822905b
- * sources:   sha256:bd42bee4ffea
+ * algorithm: sha256:591ded6431e1
+ * sources:   sha256:8596844d0111
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel461(input)  -> result object
@@ -972,7 +972,7 @@ function run_regulator_selection461(inlet_p, outlet_p, max_flow, min_flow, opp, 
   return [match, apply, warning];
 }
 function hsc_pnc461(match) {
-  let body, body_map, diap, diap_map, end, model, mon_spring, opp, orifice, orifice_map, seat, spring, spring_map, $t36, $t37, $t38, $t39, $t40, $t41;
+  let body, body_map, diap, diap_map, end, model, mon_spring, opp, orifice, orifice_map, output, seat, spring, spring_map, $t36, $t37, $t38, $t39, $t40, $t41, $t42, $t43;
   body_map = new Map([["2\" ANSI125", "2FLG125"], ["2\" ANSI250", "2FLG250"], ["2\" ANSI300", "2FLG300"], ["2\" ANSI600", "2FLG600"], ["3\" ANSI125", "3FLG125"], ["3\" ANSI250", "3FLG250"], ["3\" ANSI300", "3FLG300"], ["3\" ANSI600", "3FLG600"], ["4\" ANSI125", "4FLG125"], ["4\" ANSI250", "4FLG250"], ["4\" ANSI300", "4FLG300"], ["6\" ANSI125", "6FLG125"], ["6\" ANSI250", "6FLG250"]]);
   diap_map = new Map([["10\"", "10"], ["12\"", "12"], ["14\"", "14"], ["16\"", "16"], ["18\"", "18"], ["20\"", "20"], ["12\" CI", "461S-12"], ["12\" Al", "461-12-S"], ["8\" AL", "461-8-S"]]);
   orifice_map = new Map([["11/16\" single", "22S"], ["11/16\" double", "22D"], ["1\" single", "20S"], ["1\" double", "20D"], ["1-1/2\"", "23"], ["1-3/4\"", "24"], ["2-1/8\"", "25"], ["3\"", "26"], ["4-1/4\"", "27"], ["1\" single VP", "20VPS"], ["1\" double VP", "20VPD"], ["1-1/2\" VP", "23VP"], ["1-3/4\" VP", "24VP"], ["2-1/8\" VP", "25VP"], ["3\" VP", "26VP"], ["4-1/4\" VP", "27VP"]]);
@@ -991,47 +991,63 @@ function hsc_pnc461(match) {
   if ($truthy(($eq(model, "461-X57")))) {
     seat = ($truthy(($eq(seat, "BUNA"))) ? ("B") : (seat));
     if ($truthy(($eq(opp, "Monitor")))) {
-      return [`R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`, `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.ST`];
+      output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.ST`]]);
     } else {
-      return `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`;
+      output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`]]);
     }
   } else {
     if ($truthy((($truthy(($t36 = ($eq(model, "461-57S"))))) ? $t36 : (($eq(model, "461-S")))))) {
       seat = ($truthy(($eq(seat, "BUNA"))) ? ("B") : (seat));
       model = ($truthy((($truthy(($t38 = ($eq(diap, "461S-12"))))) ? $t38 : ((($truthy(($t37 = ($eq(diap, "461-12-S"))))) ? $t37 : (($eq(diap, "461-8-S"))))))) ? (diap) : (model));
       if ($truthy(($eq(opp, "Monitor")))) {
-        return [`R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`, `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`];
+        output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`]]);
       } else {
-        return `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`;
+        output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`]]);
       }
     } else {
       if ($truthy((($truthy(($t39 = ($eq(model, "441-57S"))))) ? (($in($get(body, 0), ["4", "6"]))) : $t39))) {
         seat = ($truthy(($eq(seat, "BUNA"))) ? ("B") : (seat));
         if ($truthy(($eq(opp, "Monitor")))) {
-          return [`R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`, `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`];
+          output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`]]);
         } else {
-          return `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`;
+          output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`]]);
         }
       } else {
         if ($truthy((($truthy(($t41 = ($eq(model, "441-S"))))) ? ((($truthy(($t40 = ($eq(diap, "12"))))) ? (($eq(body, "2FLG125"))) : $t40)) : $t41))) {
           if ($truthy(($eq(opp, "Monitor")))) {
-            return [`R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`, `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`];
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`]]);
           } else {
-            return `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`;
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`]]);
           }
         } else {
           if ($truthy(($eq(model, "441-57S")))) {
             body = ($truthy(($eq(body, "2FLG125"))) ? ("2FLG") : (($truthy(($eq(body, "3FLG125"))) ? ("3FLG") : (body))));
           }
           if ($truthy(($eq(opp, "Monitor")))) {
-            return [`R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`, `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`];
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`]]);
           } else {
-            return `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`;
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`]]);
           }
         }
       }
     }
   }
+  if ($truthy((($truthy(($t43 = ($eq(model, "441-S"))))) ? $t43 : ((($truthy(($t42 = ($eq(model, "441-57S"))))) ? $t42 : (($eq(model, "441-X57")))))))) {
+    $set(output, "controlline", "CONTROL LINE KIT - 441-1/2");
+    if ($truthy(($eq(opp, "Monitor")))) {
+      $set(output, "controllineqty", 2);
+    } else {
+      $set(output, "controllineqty", 1);
+    }
+  } else {
+    $set(output, "controlline", "CONTROL LINE KIT");
+    if ($truthy(($eq(opp, "Monitor")))) {
+      $set(output, "controllineqty", 2);
+    } else {
+      $set(output, "controllineqty", 1);
+    }
+  }
+  return output;
 }
 
 
@@ -1334,11 +1350,23 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc461(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- capacity tables ----
@@ -1450,7 +1478,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-461'] = {
     version: '1.1.0',
-    algorithm: 'sha256:5149d822905b',
-    sources: 'sha256:bd42bee4ffea'
+    algorithm: 'sha256:591ded6431e1',
+    sources: 'sha256:8596844d0111'
   };
 })(typeof window !== 'undefined' ? window : this);

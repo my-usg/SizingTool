@@ -274,9 +274,21 @@ function sizeTool(rawInput) {
     capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
   }
 
+  // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+  // control line kit with its quantity. Transpiled Python dicts are JS Maps.
+  function pnField(key) {
+    if (part_number instanceof Map) return part_number.get(key);
+    return part_number ? part_number[key] : null;
+  }
   var pns = [];
-  var pnList = Array.isArray(part_number) ? part_number : [part_number];
-  for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+  if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+  if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
+
+  // The control line kit is reported separately: it is not a regulator, so it
+  // stays out of part_numbers (which drives the cart and the PDF).
+  var controlLine = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+  var controlLineQty = pnField('controllineqty');
+  if (controlLineQty === undefined) controlLineQty = null;
 
   // ---- sizing adjustments ----
   var adjustments = [kv("Oversized By", $format(oversize_percent, ".0f") + "%")];
@@ -324,6 +336,8 @@ function sizeTool(rawInput) {
     selection: selection,
     capacity: capacity,
     part_numbers: pns,
+    control_line: controlLine,
+    control_line_qty: controlLineQty,
     pipe_note: $truthy(pipe_requirement) ? pipe_requirement : null,
     adjustments: adjustments,
     summary: summary

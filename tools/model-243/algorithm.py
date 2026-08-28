@@ -842,47 +842,60 @@ def hsc_pnc243(match):
     monitor_spring = spring_map.get(match['mon_color'])
 
     if model == '243-12-2':
-        return f"R.243-12-2.IRV.{body}.12-2.INT.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.243-12-2.IRV.{body}.12-2.INT.{orifice}.STD.{spring}.ALU"}
     
     elif model == '243-12-1' and opp == "Monitor":
-        return [
-            f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{monitor_spring}.ALU",
-            f"R.243-12-1.STD.{body}.12-1.INT.{orifice}.STD.{spring}.ALU",
-        ]
+        output = {
+            'worker': f"R.243-12-1.STD.{body}.12-1.INT.{orifice}.STD.{spring}.ALU",
+            'monitor': f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{monitor_spring}.ALU",
+            'controlline': "CONTROL LINE KIT - 243-3/8",
+            'controllineqty': 1,
+        }
     
     elif model == '243-12-1':
-        return f"R.243-12-1.STD.{body}.12-1.INT.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.243-12-1.STD.{body}.12-1.INT.{orifice}.STD.{spring}.ALU"}
     
     elif model == '243-12-1 with External Control Line' and opp == "Monitor":
-        return [
-                f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{monitor_spring}.ALU",
-                f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{spring}.ALU",
-            ]
+        output = {
+                'worker': f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{spring}.ALU",
+                'monitor': f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{monitor_spring}.ALU",
+                'controlline': "CONTROL LINE KIT - 243-3/8",
+                'controllineqty': 2
+        }
     
     elif model == '243-12-1 with External Control Line':
-        return f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.243-12-1M.STD.{body}.12-1.EXT.{orifice}.STD.{spring}.ALU",
+                  'controlline': "CONTROL LINE KIT - 243-3/8",
+                  'controllineqty': 1,
+        }
 
     elif model == '243-8-2':
-        return f"R.243-8-2.{body}.INT.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.243-8-2.{body}.INT.{orifice}.STD.{spring}.ALU"}
         
     elif model == '243-8-1' and opp == "Monitor":
-        return [
-            f"R.243-8-1M.{body}.EXT.{orifice}.STD.{monitor_spring}.ALU",
-            f"R.243-8-1.{body}.INT.{orifice}.STD.{spring}.ALU",
-        ]
+        output = {
+            'worker': f"R.243-8-1.{body}.INT.{orifice}.STD.{spring}.ALU",
+            'monitor': f"R.243-8-1M.{body}.EXT.{orifice}.STD.{monitor_spring}.ALU",
+            'controlline': "CONTROL LINE KIT - 243-3/8",
+            'controllineqty': 1,
+        }
     
     elif model == '243-8-1':
-        return f"R.243-8-1.{body}.INT.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.243-8-1.{body}.INT.{orifice}.STD.{spring}.ALU"}
 
     # 243-8HP
     elif model == '243-8HP' and opp == "Monitor":
-        return [
-            f"R.243.HP-M.{body}.8-HP.EXT.{orifice}.STD.{monitor_spring}.ALU",
-            f"R.243.HP.{body}.8-HP.INT.{orifice}.STD.{spring}.ALU",
-        ]
+        output = {
+            'worker': f"R.243.HP.{body}.8-HP.INT.{orifice}.STD.{spring}.ALU",
+            'monitor': f"R.243.HP-M.{body}.8-HP.EXT.{orifice}.STD.{monitor_spring}.ALU",
+            'controlline': "CONTROL LINE KIT - 243-3/8",
+            'controllineqty': 1,
+        }
     
     else:
-        return f"R.243.HP.{body}.8-HP.INT.{orifice}.STD.{spring}.ALU"
+        output = {'worker': f"R.243.HP.{body}.8-HP.INT.{orifice}.STD.{spring}.ALU"}
+
+    return output
 
 
 # Output Functions

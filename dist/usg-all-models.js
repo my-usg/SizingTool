@@ -8,8 +8,8 @@
  *
  * tool:      all-models
  * version:   1.1.0
- * algorithm: sha256:e8daa6eec56d
- * sources:   sha256:5fac9c63e729
+ * algorithm: sha256:f57bc0e1e816
+ * sources:   sha256:e6c2f4643b44
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeAllModels(input)  -> result object
@@ -489,14 +489,15 @@ function run_regulator_selection496(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc496(match) {
-  let body, body_map, orifice, orifice_map, spring, spring_map;
+  let body, body_map, orifice, orifice_map, output, spring, spring_map;
   body_map = new Map([["3/8\"", "3/8"], ["1/2\"", "1/2"], ["3/4\"", "3/4"], ["1\"", "1"]]);
   orifice_map = new Map([["1/8\"", "10"], ["3/16\"", "11"], ["1/4\"", "12"], ["5/16\"", "13"], ["3/8\"", "14"], ["1/2\"", "15"]]);
   spring_map = new Map([["Silver", "00"], ["Blue", "11"], ["Green", "12"], ["Red", "10"], ["Black", "14"]]);
   body = $dget(body_map, $get(match, "body"), null);
   orifice = $dget(orifice_map, $get(match, "orifice"), null);
   spring = $dget(spring_map, $get(match, "color"), null);
-  return `R.496-20.${$str(body)}.${$str(orifice)}.${$str(spring)}`;
+  output = new Map([["worker", `R.496-20.${$str(body)}.${$str(orifice)}.${$str(spring)}`]]);
+  return output;
 }
 function orifice_type143(reg) {
   let suf;
@@ -713,7 +714,7 @@ function run_regulator_selection143(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc143(match) {
-  let body, body_map, model, orifice, orifice_map, spring, spring_map;
+  let body, body_map, model, orifice, orifice_map, output, spring, spring_map;
   body_map = new Map([["3/4\"", "3/4"], ["1\"", "1"], ["1-1/4\"", "1-1/4"]]);
   orifice_map = new Map([["1/8\"", "10"], ["3/16\"", "11"], ["1/4\"", "12"], ["5/16\"", "13"], ["3/8\"", "14"], ["1/2\"", "15"], ["5/8\"", "16"]]);
   spring_map = new Map([["Red", "10"], ["Blue", "11"], ["Green", "12"], ["Orange", "13"], ["Black + White", "20"], ["Cadmium", "15"], ["Black", "14"]]);
@@ -721,7 +722,8 @@ function hsc_pnc143(match) {
   body = $dget(body_map, $get(match, "body"), null);
   orifice = $dget(orifice_map, $get(match, "orifice"), null);
   spring = $dget(spring_map, $get(match, "color"), null);
-  return `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(spring)}`;
+  output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(spring)}`]]);
+  return output;
 }
 function orifice_type243(reg) {
   let suf;
@@ -1188,7 +1190,7 @@ function run_regulator_selection243(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc243(match) {
-  let body, body_map, model, monitor_spring, opp, orifice, orifice_map, spring, spring_map, $t35, $t36, $t37, $t38;
+  let body, body_map, model, monitor_spring, opp, orifice, orifice_map, output, spring, spring_map, $t35, $t36, $t37, $t38;
   body_map = new Map([["1-1/4\"", "1-1/4SCD"], ["1-1/2\"", "1-1/2SCD"], ["2\"", "2SCD"], ["Any Size", "2SCD"]]);
   orifice_map = new Map([["0.207\"", "207"], ["1/4\"", "12"], ["3/8\"", "14"], ["1/2\"", "15"], ["3/4\", 10°", "18"], ["3/4\", 30°", "19"], ["1\", 10°", "20"], ["1\", 30°", "20"], ["1-1/4\", 10°", "21"], ["1-1/4\", 30°", "21"]]);
   spring_map = new Map([["Red-Black", "01"], ["Blue-Black", "02"], ["Green-Black", "03"], ["Red", "10"], ["Blue", "11"], ["Green", "12"], ["Orange-Black", "13A"], ["Orange", "13"], ["Black", "14"], ["Cadmium", "15"], ["Cadmium + White", "21"]]);
@@ -1199,33 +1201,33 @@ function hsc_pnc243(match) {
   opp = $get(match, "opp");
   monitor_spring = $dget(spring_map, $get(match, "mon_color"), null);
   if ($truthy(($eq(model, "243-12-2")))) {
-    return `R.243-12-2.IRV.${$str(body)}.12-2.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+    output = new Map([["worker", `R.243-12-2.IRV.${$str(body)}.12-2.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
   } else {
     if ($truthy((($truthy(($t35 = ($eq(model, "243-12-1"))))) ? (($eq(opp, "Monitor"))) : $t35))) {
-      return [`R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+      output = new Map([["worker", `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
     } else {
       if ($truthy(($eq(model, "243-12-1")))) {
-        return `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+        output = new Map([["worker", `R.243-12-1.STD.${$str(body)}.12-1.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
       } else {
         if ($truthy((($truthy(($t36 = ($eq(model, "243-12-1 with External Control Line"))))) ? (($eq(opp, "Monitor"))) : $t36))) {
-          return [`R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+          output = new Map([["worker", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 2]]);
         } else {
           if ($truthy(($eq(model, "243-12-1 with External Control Line")))) {
-            return `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+            output = new Map([["worker", `R.243-12-1M.STD.${$str(body)}.12-1.EXT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
           } else {
             if ($truthy(($eq(model, "243-8-2")))) {
-              return `R.243-8-2.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+              output = new Map([["worker", `R.243-8-2.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
             } else {
               if ($truthy((($truthy(($t37 = ($eq(model, "243-8-1"))))) ? (($eq(opp, "Monitor"))) : $t37))) {
-                return [`R.243-8-1M.${$str(body)}.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+                output = new Map([["worker", `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-8-1M.${$str(body)}.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
               } else {
                 if ($truthy(($eq(model, "243-8-1")))) {
-                  return `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+                  output = new Map([["worker", `R.243-8-1.${$str(body)}.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
                 } else {
                   if ($truthy((($truthy(($t38 = ($eq(model, "243-8HP"))))) ? (($eq(opp, "Monitor"))) : $t38))) {
-                    return [`R.243.HP-M.${$str(body)}.8-HP.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`, `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`];
+                    output = new Map([["worker", `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243.HP-M.${$str(body)}.8-HP.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT - 243-3/8"], ["controllineqty", 1]]);
                   } else {
-                    return `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+                    output = new Map([["worker", `R.243.HP.${$str(body)}.8-HP.INT.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
                   }
                 }
               }
@@ -1235,6 +1237,7 @@ function hsc_pnc243(match) {
       }
     }
   }
+  return output;
 }
 function orifice_type046(reg) {
   let suf;
@@ -1566,7 +1569,7 @@ function run_regulator_selection046(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc046(match) {
-  let body, body_map, model, monitor_spring, orifice, orifice_map, seat, spring, spring_map, $t46;
+  let body, body_map, model, monitor_spring, orifice, orifice_map, output, seat, spring, spring_map, $t46;
   body_map = new Map([["3/4\"", "3/4"], ["1\"", "1"], ["1-1/4\"", "1-1/4"]]);
   orifice_map = new Map([["1/8\"", "10"], ["3/16\"", "11"], ["1/4\"", "12"], ["5/16\"", "13"], ["3/8\"", "14"], ["1/2\"", "15"]]);
   spring_map = new Map([["Yellow", "23"], ["Aluminum", "24"], ["White", "25"], ["Green", "28"], ["Tan", "26"], ["Gray", "27"]]);
@@ -1577,18 +1580,19 @@ function hsc_pnc046(match) {
   spring = $dget(spring_map, $get(match, "color"), null);
   monitor_spring = $dget(spring_map, $get(match, "mon_color"), null);
   if ($truthy(($eq(model, "046-2")))) {
-    return `R.046-2.IRV.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`;
+    output = new Map([["worker", `R.046-2.IRV.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`]]);
   } else {
     if ($truthy((($truthy(($t46 = ($eq(model, "046"))))) ? (((!$eq($get(match, "opp"), "Monitor")))) : $t46))) {
-      return `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`;
+      output = new Map([["worker", `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`]]);
     } else {
       if ($truthy(((!$eq(monitor_spring, "27"))))) {
-        return [`R.046-2M.MON.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`, `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`];
+        output = new Map([["worker", `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`], ["monitor", `R.046-2M.MON.${$str(body)}.IRV.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
       } else {
-        return [`R.046-M.MON.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`, `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`];
+        output = new Map([["worker", `R.046-1.STD.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ALU`], ["monitor", `R.046-M.MON.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
       }
     }
   }
+  return output;
 }
 function body_type121(reg) {
   let suf;
@@ -2177,7 +2181,7 @@ function run_regulator_selection121(inlet, outlet, opp) {
   return [result121, result121_VP, result122, match, apply, warning];
 }
 function hsc_pnc121(match) {
-  let body, body_map121, body_map122, diap, model, monitor_spring, spring, spring_map, vp, $t86, $t87, $t88;
+  let body, body_map121, body_map122, diap, model, monitor_spring, output, spring, spring_map, vp, $t86, $t87, $t88;
   body_map121 = new Map([["3/4\" or 1\"", "1SCD"], ["1\"", "1SCD"], ["1-1/4\"", "11/4SCD"], ["1-1/2\"", "11/2SCD"], ["2\"", "2SCD"], ["2-1/2\"", "21/2SCD"], ["3\"", "3SCD"]]);
   body_map122 = new Map([["3/4\" or 1\"", "1SCD"], ["1\"", "1SCD"], ["1-1/4\"", "1-1/4SCD"], ["1-1/2\"", "1-1/2SCD"], ["2\"", "2SCD"], ["2-1/2\"", "2-1/2SCD"], ["3\"", "3SCD"]]);
   spring_map = new Map([["Blue-Black with Black-Red counter", "37"], ["Red-Black", "1"], ["Blue-Black", "2"], ["Green-Black", "3"], ["Green", "12"], ["Orange", "13"], ["Black", "14"], ["Red with counter", "39"], ["Red", "10"], ["Blue", "11"], ["Cadmium", "15"], ["Yellow", "23"], ["Cadmium + White", "21"], ["Blue-black with Black counter", "33"], ["Red with Red-Black counter", "35"]]);
@@ -2209,17 +2213,18 @@ function hsc_pnc121(match) {
   }
   if ($truthy((($truthy(($t88 = ($eq(model, "122-8"))))) ? $t88 : (($eq(model, "122-12")))))) {
     if ($truthy(($eq($get(match, "opp"), "Monitor")))) {
-      return [`R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(monitor_spring)}.ALU`, `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.INTCON.STD.STD.${$str(spring)}.ALU`];
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.INTCON.STD.STD.${$str(spring)}.ALU`], ["monitor", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
     } else {
-      return `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(spring)}.ALU`;
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
     }
   } else {
     if ($truthy(($eq($get(match, "opp"), "Monitor")))) {
-      return [`R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(monitor_spring)}.ALU`, `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`];
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`], ["monitor", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 2]]);
     } else {
-      return `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`;
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
     }
   }
+  return output;
 }
 function model_461_single(inlet_p, outlet_p) {
   let $t89, $t90;
@@ -2973,7 +2978,7 @@ function run_regulator_selection461(inlet_p, outlet_p, max_flow, min_flow, opp) 
   return [match, apply, warning];
 }
 function hsc_pnc461(match) {
-  let body, body_map, diap, diap_map, end, model, mon_spring, opp, orifice, orifice_map, seat, spring, spring_map, $t124, $t125, $t126, $t127, $t128, $t129;
+  let body, body_map, diap, diap_map, end, model, mon_spring, opp, orifice, orifice_map, output, seat, spring, spring_map, $t124, $t125, $t126, $t127, $t128, $t129, $t130, $t131;
   body_map = new Map([["2\" ANSI125", "2FLG125"], ["2\" ANSI250", "2FLG250"], ["2\" ANSI300", "2FLG300"], ["2\" ANSI600", "2FLG600"], ["3\" ANSI125", "3FLG125"], ["3\" ANSI250", "3FLG250"], ["3\" ANSI300", "3FLG300"], ["3\" ANSI600", "3FLG600"], ["4\" ANSI125", "4FLG125"], ["4\" ANSI250", "4FLG250"], ["4\" ANSI300", "4FLG300"], ["6\" ANSI125", "6FLG125"], ["6\" ANSI250", "6FLG250"]]);
   diap_map = new Map([["10\"", "10"], ["12\"", "12"], ["14\"", "14"], ["16\"", "16"], ["18\"", "18"], ["20\"", "20"], ["12\" CI", "461S-12"], ["12\" Al", "461-12-S"], ["8\" AL", "461-8-S"]]);
   orifice_map = new Map([["11/16\" single", "22S"], ["11/16\" double", "22D"], ["1\" single", "20S"], ["1\" double", "20D"], ["1-1/2\"", "23"], ["1-3/4\"", "24"], ["2-1/8\"", "25"], ["3\"", "26"], ["4-1/4\"", "27"], ["1\" single VP", "20VPS"], ["1\" double VP", "20VPD"], ["1-1/2\" VP", "23VP"], ["1-3/4\" VP", "24VP"], ["2-1/8\" VP", "25VP"], ["3\" VP", "26VP"], ["4-1/4\" VP", "27VP"]]);
@@ -2992,50 +2997,66 @@ function hsc_pnc461(match) {
   if ($truthy(($eq(model, "461-X57")))) {
     seat = ($truthy(($eq(seat, "BUNA"))) ? ("B") : (seat));
     if ($truthy(($eq(opp, "Monitor")))) {
-      return [`R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`, `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.ST`];
+      output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.ST`]]);
     } else {
-      return `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`;
+      output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.ST`]]);
     }
   } else {
     if ($truthy((($truthy(($t124 = ($eq(model, "461-57S"))))) ? $t124 : (($eq(model, "461-S")))))) {
       seat = ($truthy(($eq(seat, "BUNA"))) ? ("B") : (seat));
       model = ($truthy((($truthy(($t126 = ($eq(diap, "461S-12"))))) ? $t126 : ((($truthy(($t125 = ($eq(diap, "461-12-S"))))) ? $t125 : (($eq(diap, "461-8-S"))))))) ? (diap) : (model));
       if ($truthy(($eq(opp, "Monitor")))) {
-        return [`R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`, `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`];
+        output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`]]);
       } else {
-        return `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`;
+        output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`]]);
       }
     } else {
       if ($truthy((($truthy(($t127 = ($eq(model, "441-57S"))))) ? (($in($get(body, 0), ["4", "6"]))) : $t127))) {
         seat = ($truthy(($eq(seat, "BUNA"))) ? ("B") : (seat));
         if ($truthy(($eq(opp, "Monitor")))) {
-          return [`R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`, `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`];
+          output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`]]);
         } else {
-          return `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`;
+          output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`]]);
         }
       } else {
         if ($truthy((($truthy(($t129 = ($eq(model, "441-S"))))) ? ((($truthy(($t128 = ($eq(diap, "12"))))) ? (($eq(body, "2FLG125"))) : $t128)) : $t129))) {
           if ($truthy(($eq(opp, "Monitor")))) {
-            return [`R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`, `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`];
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}`]]);
           } else {
-            return `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`;
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}`]]);
           }
         } else {
           if ($truthy(($eq(model, "441-57S")))) {
             body = ($truthy(($eq(body, "2FLG125"))) ? ("2FLG") : (($truthy(($eq(body, "3FLG125"))) ? ("3FLG") : (body))));
           }
           if ($truthy(($eq(opp, "Monitor")))) {
-            return [`R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`, `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`];
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`], ["monitor", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(mon_spring)}.${$str(end)}`]]);
           } else {
-            return `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`;
+            output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(diap)}.${$str(orifice)}.${$str(seat)}.${$str(spring)}.${$str(end)}`]]);
           }
         }
       }
     }
   }
+  if ($truthy((($truthy(($t131 = ($eq(model, "441-S"))))) ? $t131 : ((($truthy(($t130 = ($eq(model, "441-57S"))))) ? $t130 : (($eq(model, "441-X57")))))))) {
+    $set(output, "controlline", "CONTROL LINE KIT - 441-1/2");
+    if ($truthy(($eq(opp, "Monitor")))) {
+      $set(output, "controllineqty", 2);
+    } else {
+      $set(output, "controllineqty", 1);
+    }
+  } else {
+    $set(output, "controlline", "CONTROL LINE KIT");
+    if ($truthy(($eq(opp, "Monitor")))) {
+      $set(output, "controllineqty", 2);
+    } else {
+      $set(output, "controllineqty", 1);
+    }
+  }
+  return output;
 }
 function allmodels_selector(inlet, outlet, opp) {
-  let add_cart, apply046, apply121, apply143, apply243, apply461, apply496, match, match046, match121, match143, match243, match461, match496, model_selection, partnumber, pipe_requirement, result046, result121, result121_VP, result122, result143, result243, result496, warning, warning046, warning121, warning143, warning243, warning461, warning496, $t130, $t131, $t132, $t133, $t134, $t135, $t136, $t137, $t138, $t139, $t140;
+  let add_cart, apply046, apply121, apply143, apply243, apply461, apply496, match, match046, match121, match143, match243, match461, match496, model_selection, partnumber, pipe_requirement, result046, result121, result121_VP, result122, result143, result243, result496, warning, warning046, warning121, warning143, warning243, warning461, warning496, $t132, $t133, $t134, $t135, $t136, $t137, $t138, $t139, $t140, $t141, $t142;
   model_selection = null;
   match = null;
   warning = null;
@@ -3053,7 +3074,7 @@ function allmodels_selector(inlet, outlet, opp) {
     if ($truthy(apply496)) {
       model_selection = "496";
     } else {
-      if ($truthy((($truthy(($t130 = apply046))) ? (apply243) : $t130))) {
+      if ($truthy((($truthy(($t132 = apply046))) ? (apply243) : $t132))) {
         if ($truthy(($eq(opp, "IRV")))) {
           if ($truthy(($eq($get(match046, "model"), "046-2")))) {
             model_selection = "046";
@@ -3070,7 +3091,7 @@ function allmodels_selector(inlet, outlet, opp) {
           if ($truthy(apply046)) {
             model_selection = "046";
           } else {
-            if ($truthy((($truthy(($t131 = apply121))) ? (apply461) : $t131))) {
+            if ($truthy((($truthy(($t133 = apply121))) ? (apply461) : $t133))) {
               if ($truthy(combust_pref)) {
                 if ($truthy(apply121)) {
                   model_selection = "121";
@@ -3103,47 +3124,47 @@ function allmodels_selector(inlet, outlet, opp) {
   if ($truthy(($eq(model_selection, "496")))) {
     match = match496;
     warning = warning496;
-    $t132 = hsc_pnc496(match496);
-    partnumber = $t132;
-    add_cart = $t132;
+    $t134 = hsc_pnc496(match496);
+    partnumber = $t134;
+    add_cart = $t134;
   } else {
     if ($truthy(($eq(model_selection, "143")))) {
       match = match143;
       warning = warning143;
-      $t133 = hsc_pnc143(match143);
-      partnumber = $t133;
-      add_cart = $t133;
+      $t135 = hsc_pnc143(match143);
+      partnumber = $t135;
+      add_cart = $t135;
     } else {
       if ($truthy(($eq(model_selection, "243")))) {
         match = match243;
         warning = warning243;
-        $t134 = hsc_pnc243(match243);
-        partnumber = $t134;
-        add_cart = $t134;
+        $t136 = hsc_pnc243(match243);
+        partnumber = $t136;
+        add_cart = $t136;
       } else {
         if ($truthy(($eq(model_selection, "046")))) {
           match = match046;
           warning = warning046;
-          $t135 = hsc_pnc046(match046);
-          partnumber = $t135;
-          add_cart = $t135;
+          $t137 = hsc_pnc046(match046);
+          partnumber = $t137;
+          add_cart = $t137;
         } else {
           if ($truthy(($eq(model_selection, "121")))) {
             match = match121;
             warning = warning121;
-            $t136 = hsc_pnc121(match121);
-            partnumber = $t136;
-            add_cart = $t136;
-            if ($truthy((($truthy(($t139 = ($eq($get(match, "model"), "121-8"))))) ? $t139 : ((($truthy(($t138 = ($eq($get(match, "model"), "121-12"))))) ? $t138 : ((($truthy(($t137 = ($eq($get(match, "model"), "121-16"))))) ? $t137 : (($eq($get(match, "model"), "121-8-HP")))))))))) {
+            $t138 = hsc_pnc121(match121);
+            partnumber = $t138;
+            add_cart = $t138;
+            if ($truthy((($truthy(($t141 = ($eq($get(match, "model"), "121-8"))))) ? $t141 : ((($truthy(($t140 = ($eq($get(match, "model"), "121-12"))))) ? $t140 : ((($truthy(($t139 = ($eq($get(match, "model"), "121-16"))))) ? $t139 : (($eq($get(match, "model"), "121-8-HP")))))))))) {
               pipe_requirement = `Note: Model 121 regulators have outlet pipe sizing requirements, regulator was sized for use with ${$str(body_size_min121(inlet_input, $get(match, "reg")))} outlet pipe.  For capacities with smaller outlet piping, see regulator brochure.`;
             }
           } else {
             if ($truthy(($eq(model_selection, "461")))) {
               match = match461;
               warning = warning461;
-              $t140 = hsc_pnc461(match461);
-              partnumber = $t140;
-              add_cart = $t140;
+              $t142 = hsc_pnc461(match461);
+              partnumber = $t142;
+              add_cart = $t142;
             }
           }
         }
@@ -3430,9 +3451,21 @@ function sizeTool(rawInput) {
     capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
   }
 
+  // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+  // control line kit with its quantity. Transpiled Python dicts are JS Maps.
+  function pnField(key) {
+    if (part_number instanceof Map) return part_number.get(key);
+    return part_number ? part_number[key] : null;
+  }
   var pns = [];
-  var pnList = Array.isArray(part_number) ? part_number : [part_number];
-  for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+  if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+  if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
+
+  // The control line kit is reported separately: it is not a regulator, so it
+  // stays out of part_numbers (which drives the cart and the PDF).
+  var controlLine = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+  var controlLineQty = pnField('controllineqty');
+  if (controlLineQty === undefined) controlLineQty = null;
 
   // ---- sizing adjustments ----
   var adjustments = [kv("Oversized By", $format(oversize_percent, ".0f") + "%")];
@@ -3480,6 +3513,8 @@ function sizeTool(rawInput) {
     selection: selection,
     capacity: capacity,
     part_numbers: pns,
+    control_line: controlLine,
+    control_line_qty: controlLineQty,
     pipe_note: $truthy(pipe_requirement) ? pipe_requirement : null,
     adjustments: adjustments,
     summary: summary
@@ -3537,7 +3572,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['all-models'] = {
     version: '1.1.0',
-    algorithm: 'sha256:e8daa6eec56d',
-    sources: 'sha256:5fac9c63e729'
+    algorithm: 'sha256:f57bc0e1e816',
+    sources: 'sha256:e6c2f4643b44'
   };
 })(typeof window !== 'undefined' ? window : this);

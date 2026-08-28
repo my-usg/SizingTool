@@ -8,8 +8,8 @@
  *
  * tool:      model-121
  * version:   1.1.0
- * algorithm: sha256:d49c25cc8331
- * sources:   sha256:33b74c21d999
+ * algorithm: sha256:81ddc8bad2ef
+ * sources:   sha256:763e3d713c04
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel121(input)  -> result object
@@ -871,7 +871,7 @@ function run_regulator_selection121(inlet, outlet, opp) {
   return [result121, result121_VP, result122, match, apply, warning];
 }
 function hsc_pnc121(match) {
-  let body, body_map121, body_map122, diap, model, monitor_spring, spring, spring_map, vp, $t46, $t47, $t48;
+  let body, body_map121, body_map122, diap, model, monitor_spring, output, spring, spring_map, vp, $t46, $t47, $t48;
   body_map121 = new Map([["3/4\" or 1\"", "1SCD"], ["1\"", "1SCD"], ["1-1/4\"", "11/4SCD"], ["1-1/2\"", "11/2SCD"], ["2\"", "2SCD"], ["2-1/2\"", "21/2SCD"], ["3\"", "3SCD"]]);
   body_map122 = new Map([["3/4\" or 1\"", "1SCD"], ["1\"", "1SCD"], ["1-1/4\"", "1-1/4SCD"], ["1-1/2\"", "1-1/2SCD"], ["2\"", "2SCD"], ["2-1/2\"", "2-1/2SCD"], ["3\"", "3SCD"]]);
   spring_map = new Map([["Blue-Black with Black-Red counter", "37"], ["Red-Black", "1"], ["Blue-Black", "2"], ["Green-Black", "3"], ["Green", "12"], ["Orange", "13"], ["Black", "14"], ["Red with counter", "39"], ["Red", "10"], ["Blue", "11"], ["Cadmium", "15"], ["Yellow", "23"], ["Cadmium + White", "21"], ["Blue-black with Black counter", "33"], ["Red with Red-Black counter", "35"]]);
@@ -903,17 +903,18 @@ function hsc_pnc121(match) {
   }
   if ($truthy((($truthy(($t48 = ($eq(model, "122-8"))))) ? $t48 : (($eq(model, "122-12")))))) {
     if ($truthy(($eq($get(match, "opp"), "Monitor")))) {
-      return [`R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(monitor_spring)}.ALU`, `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.INTCON.STD.STD.${$str(spring)}.ALU`];
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.INTCON.STD.STD.${$str(spring)}.ALU`], ["monitor", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
     } else {
-      return `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(spring)}.ALU`;
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
     }
   } else {
     if ($truthy(($eq($get(match, "opp"), "Monitor")))) {
-      return [`R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(monitor_spring)}.ALU`, `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`];
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`], ["monitor", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(monitor_spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 2]]);
     } else {
-      return `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`;
+      output = new Map([["worker", `R.${$str(model)}.STD.${$str(body)}.${$str(diap)}.EXTCON.STD.STD.${$str(vp)}.${$str(spring)}.ALU`], ["controlline", "CONTROL LINE KIT"], ["controllineqty", 1]]);
     }
   }
+  return output;
 }
 
 
@@ -1248,11 +1249,23 @@ function sizeTool(rawInput) {
       }
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc121(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- capacity tables ----
@@ -1414,7 +1427,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-121'] = {
     version: '1.1.0',
-    algorithm: 'sha256:d49c25cc8331',
-    sources: 'sha256:33b74c21d999'
+    algorithm: 'sha256:81ddc8bad2ef',
+    sources: 'sha256:763e3d713c04'
   };
 })(typeof window !== 'undefined' ? window : this);

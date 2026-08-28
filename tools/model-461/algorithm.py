@@ -864,54 +864,70 @@ def hsc_pnc461(match):
     if model == '461-X57':
         seat = 'B' if seat == "BUNA" else seat
         if opp == "Monitor":
-            return [
-                f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.ST",
-                f"R.{model}.{body}.{diap}.{orifice}.{seat}.{mon_spring}.ST",
-            ]
+            output = {
+                'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.ST",
+                'monitor': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{mon_spring}.ST",
+            }
         else:
-            return f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.ST"
-    
+            output = {'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.ST"}
+
     elif model == '461-57S' or model == '461-S':
         seat = 'B' if seat == "BUNA" else seat
         model = diap if diap == '461S-12' or diap == '461-12-S' or diap == '461-8-S' else model
         if opp == "Monitor":
-            return [
-                f"R.{model}.{body}.{orifice}.{seat}.{spring}",
-                f"R.{model}.{body}.{orifice}.{seat}.{mon_spring}",
-            ]
+            output = {
+                'worker': f"R.{model}.{body}.{orifice}.{seat}.{spring}",
+                'monitor': f"R.{model}.{body}.{orifice}.{seat}.{mon_spring}",
+            }
         else:
-            return f"R.{model}.{body}.{orifice}.{seat}.{spring}"
+            output = {'worker': f"R.{model}.{body}.{orifice}.{seat}.{spring}"}
 
     # 441 -------------------
     elif model == '441-57S' and body[0] in ('4', '6'):
         seat = 'B' if seat == "BUNA" else seat
         if opp == "Monitor":
-            return [
-                f"R.{model}.{body}.{orifice}.{seat}.{spring}.{end}",
-                f"R.{model}.{body}.{orifice}.{seat}.{mon_spring}.{end}",
-            ]
+            output = {
+                'worker': f"R.{model}.{body}.{orifice}.{seat}.{spring}.{end}",
+                'monitor': f"R.{model}.{body}.{orifice}.{seat}.{mon_spring}.{end}",
+            }
         else:
-            return f"R.{model}.{body}.{orifice}.{seat}.{spring}.{end}"
+            output = {'worker': f"R.{model}.{body}.{orifice}.{seat}.{spring}.{end}"}
 
     elif model == '441-S' and diap == '12' and body == '2FLG125':
         if opp == "Monitor":
-            return [
-                f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}",
-                f"R.{model}.{body}.{diap}.{orifice}.{seat}.{mon_spring}",
-            ]
+            output = {
+                'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}",
+                'monitor': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{mon_spring}",
+            }
         else:
-            return f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}"
+            output = {'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}"}
 
     else:
         if model == '441-57S':
             body = '2FLG' if body == '2FLG125' else '3FLG' if body == '3FLG125' else body
         if opp == "Monitor":
-            return [
-                f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.{end}",
-                f"R.{model}.{body}.{diap}.{orifice}.{seat}.{mon_spring}.{end}",
-            ]
+            output = {
+                'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.{end}",
+                'monitor': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{mon_spring}.{end}",
+            }
         else:
-            return f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.{end}"
+            output = {'worker': f"R.{model}.{body}.{diap}.{orifice}.{seat}.{spring}.{end}"}
+
+    if model == '441-S' or model == '441-57S' or model == '441-X57':
+        output['controlline'] = "CONTROL LINE KIT - 441-1/2"
+        if opp == "Monitor":
+            output['controllineqty'] = 2
+        else:
+            output['controllineqty'] = 1
+    else:
+        output['controlline'] = "CONTROL LINE KIT"
+        if opp == "Monitor":
+            output['controllineqty'] = 2
+        else:
+            output['controllineqty'] = 1
+
+    return output
+
 
 
 # Print Functions

@@ -34,6 +34,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/4SCD.INT.18.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -405,6 +407,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -776,6 +780,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.14.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -992,6 +998,8 @@
    "part_numbers": [
     "R.243.HP.1-1/2SCD.8-HP.INT.15.STD.21.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -1188,6 +1196,8 @@
    "part_numbers": [
     "R.243.HP.2SCD.8-HP.INT.15.STD.15.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -1391,9 +1401,11 @@
    ],
    "capacity": "8,400",
    "part_numbers": [
-    "R.243-8-1M.1-1/2SCD.EXT.20.STD.13.ALU",
-    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
+    "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU",
+    "R.243-8-1M.1-1/2SCD.EXT.20.STD.13.ALU"
    ],
+   "control_line": "CONTROL LINE KIT - 243-3/8",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "With IRV",
@@ -2959,6 +2971,8 @@
    "part_numbers": [
     "R.243-8-2.1-1/2SCD.INT.20.STD.13.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -3331,6 +3345,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -3708,6 +3724,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -4089,6 +4107,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -4470,6 +4490,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -4843,6 +4865,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -5215,6 +5239,8 @@
    "part_numbers": [
     "R.243-8-1.2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -5588,6 +5614,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.13.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -5960,6 +5988,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -6333,6 +6363,8 @@
    "part_numbers": [
     "R.243-8-1.1-1/2SCD.INT.20.STD.12.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,

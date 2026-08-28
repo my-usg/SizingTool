@@ -38,6 +38,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -265,9 +267,11 @@
    ],
    "capacity": "13,930",
    "part_numbers": [
-    "R.046-2M.MON.1.IRV.15.TAN.25.ALU",
-    "R.046-1.STD.1.15.TAN.25.ALU"
+    "R.046-1.STD.1.15.TAN.25.ALU",
+    "R.046-2M.MON.1.IRV.15.TAN.25.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "With IRV",
@@ -630,9 +634,11 @@
    ],
    "capacity": "13,930",
    "part_numbers": [
-    "R.046-2M.MON.1.IRV.15.TAN.25.ALU",
-    "R.046-1.STD.1.15.TAN.25.ALU"
+    "R.046-1.STD.1.15.TAN.25.ALU",
+    "R.046-2M.MON.1.IRV.15.TAN.25.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": "With Monitor",
@@ -1037,6 +1043,8 @@
    "part_numbers": [
     "R.046-1.STD.3/4.14.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -1259,6 +1267,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -1481,6 +1491,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -1702,6 +1714,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -1923,6 +1937,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.24.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -2149,6 +2165,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.24.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -2379,6 +2397,8 @@
    "part_numbers": [
     "R.046-1.STD.3/4.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -2609,6 +2629,8 @@
    "part_numbers": [
     "R.046-1.STD.1.14.TAN.24.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -2831,6 +2853,8 @@
    "part_numbers": [
     "R.046-1.STD.1.14.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -3052,6 +3076,8 @@
    "part_numbers": [
     "R.046-1.STD.3/4.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -3273,6 +3299,8 @@
    "part_numbers": [
     "R.046-1.STD.1.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,
@@ -3495,6 +3523,8 @@
    "part_numbers": [
     "R.046-1.STD.3/4.15.TAN.25.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "sections": [
     {
      "label": null,

@@ -85,7 +85,7 @@ module.exports = {
       JSON.stringify(pipeOpts) === JSON.stringify(['N/A', '1-1/4"', '1-1/2"', '2"']), pipeOpts);
 
     check('no +/- steppers', doc.querySelectorAll('.usg-step').length === 0);
-    check('5 info tooltips', doc.querySelectorAll('.usg-help').length === 5,
+    check('6 info tooltips', doc.querySelectorAll('.usg-help').length === 6,
       doc.querySelectorAll('.usg-help').length);
   }
 };

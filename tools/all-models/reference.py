@@ -331,8 +331,18 @@ def run(payload) -> Dict[str, Any]:
         except (TypeError, ValueError):
             capacity_str = str(capacity)
 
-    part_numbers = part_number if isinstance(part_number, list) else [part_number]
+    # hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    # control line kit with its quantity.
+    part_numbers = [
+        part_number.get("worker"),
+        part_number.get("monitor"),
+    ]
     part_numbers = [p for p in part_numbers if p]
+
+    # The control line kit is reported separately: it is not a regulator, so it
+    # stays out of part_numbers (which drives the cart and the PDF).
+    control_line = part_number.get("controlline") or None
+    control_line_qty = part_number.get("controllineqty")
 
     # ---- sizing adjustments ----
     adjustments = [_kv("Oversized By", f"{oversize_percent:.0f}%")]
@@ -395,6 +405,8 @@ def run(payload) -> Dict[str, Any]:
         "selection": selection,
         "capacity": capacity_str,
         "part_numbers": part_numbers,
+        "control_line": control_line,
+        "control_line_qty": control_line_qty,
         "pipe_note": pipe_requirement or None,
         "adjustments": adjustments,
         "summary": summary,

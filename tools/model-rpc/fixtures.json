@@ -35,6 +35,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -216,6 +218,8 @@
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU",
     "R.243-RPC.2SCD.EXT.18.STD.25.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 2,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -393,6 +397,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.20.STD.27.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -567,6 +573,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -741,6 +749,8 @@
    "part_numbers": [
     "R.243-RPC-A.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -915,6 +925,8 @@
    "part_numbers": [
     "R.243-RPC-B.2SCD.INT.18.STD.14.ALU"
    ],
+   "control_line": null,
+   "control_line_qty": null,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -1089,6 +1101,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -1264,6 +1278,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -1439,6 +1455,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -1613,6 +1631,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -1792,6 +1812,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -1975,6 +1997,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -2158,6 +2182,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -2332,6 +2358,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -2506,6 +2534,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -2681,6 +2711,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -3077,6 +3109,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.12.STD.22.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -3258,6 +3292,8 @@
     "R.243-RPC.2SCD.EXT.12.STD.22.ALU",
     "R.243-RPC.2SCD.EXT.12.STD.22.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 2,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",
@@ -3436,6 +3472,8 @@
    "part_numbers": [
     "R.243-RPC.2SCD.EXT.18.STD.14.ALU"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "tables": [
     {
      "title": "243-RPC or 243-RPC-A",

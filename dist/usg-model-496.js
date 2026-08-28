@@ -8,8 +8,8 @@
  *
  * tool:      model-496
  * version:   1.1.0
- * algorithm: sha256:2201939c88ca
- * sources:   sha256:4e9289f11d38
+ * algorithm: sha256:f6502f86324b
+ * sources:   sha256:b597a7a8ddfd
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel496(input)  -> result object
@@ -482,14 +482,15 @@ function run_regulator_selection496(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc496(match) {
-  let body, body_map, orifice, orifice_map, spring, spring_map;
+  let body, body_map, orifice, orifice_map, output, spring, spring_map;
   body_map = new Map([["3/8\"", "3/8"], ["1/2\"", "1/2"], ["3/4\"", "3/4"], ["1\"", "1"]]);
   orifice_map = new Map([["1/8\"", "10"], ["3/16\"", "11"], ["1/4\"", "12"], ["5/16\"", "13"], ["3/8\"", "14"], ["1/2\"", "15"]]);
   spring_map = new Map([["Silver", "00"], ["Blue", "11"], ["Green", "12"], ["Red", "10"], ["Black", "14"]]);
   body = $dget(body_map, $get(match, "body"), null);
   orifice = $dget(orifice_map, $get(match, "orifice"), null);
   spring = $dget(spring_map, $get(match, "color"), null);
-  return `R.496-20.${$str(body)}.${$str(orifice)}.${$str(spring)}`;
+  output = new Map([["worker", `R.496-20.${$str(body)}.${$str(orifice)}.${$str(spring)}`]]);
+  return output;
 }
 
 
@@ -770,11 +771,23 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc496(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- the four capacity tables (mirrors build_table in the Streamlit app) ----
@@ -904,7 +917,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-496'] = {
     version: '1.1.0',
-    algorithm: 'sha256:2201939c88ca',
-    sources: 'sha256:4e9289f11d38'
+    algorithm: 'sha256:f6502f86324b',
+    sources: 'sha256:b597a7a8ddfd'
   };
 })(typeof window !== 'undefined' ? window : this);

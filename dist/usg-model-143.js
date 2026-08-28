@@ -8,8 +8,8 @@
  *
  * tool:      model-143
  * version:   1.1.0
- * algorithm: sha256:107e1b188178
- * sources:   sha256:03726d7d4e70
+ * algorithm: sha256:a92413cd57bd
+ * sources:   sha256:d1a700667586
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModel143(input)  -> result object
@@ -509,7 +509,7 @@ function run_regulator_selection143(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pnc143(match) {
-  let body, body_map, model, orifice, orifice_map, spring, spring_map;
+  let body, body_map, model, orifice, orifice_map, output, spring, spring_map;
   body_map = new Map([["3/4\"", "3/4"], ["1\"", "1"], ["1-1/4\"", "1-1/4"]]);
   orifice_map = new Map([["1/8\"", "10"], ["3/16\"", "11"], ["1/4\"", "12"], ["5/16\"", "13"], ["3/8\"", "14"], ["1/2\"", "15"], ["5/8\"", "16"]]);
   spring_map = new Map([["Red", "10"], ["Blue", "11"], ["Green", "12"], ["Orange", "13"], ["Black + White", "20"], ["Cadmium", "15"], ["Black", "14"]]);
@@ -517,7 +517,8 @@ function hsc_pnc143(match) {
   body = $dget(body_map, $get(match, "body"), null);
   orifice = $dget(orifice_map, $get(match, "orifice"), null);
   spring = $dget(spring_map, $get(match, "color"), null);
-  return `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(spring)}`;
+  output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(orifice)}.${$str(spring)}`]]);
+  return output;
 }
 
 
@@ -797,11 +798,23 @@ function sizeTool(rawInput) {
       out.capacity = isNaN(capNum) ? String(cap) : $format($round(capNum), ',');
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pnc143(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- the three capacity tables (mirrors build_table in the Streamlit app) ----
@@ -931,7 +944,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-143'] = {
     version: '1.1.0',
-    algorithm: 'sha256:107e1b188178',
-    sources: 'sha256:03726d7d4e70'
+    algorithm: 'sha256:a92413cd57bd',
+    sources: 'sha256:d1a700667586'
   };
 })(typeof window !== 'undefined' ? window : this);

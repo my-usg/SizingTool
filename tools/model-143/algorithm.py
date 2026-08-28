@@ -463,7 +463,9 @@ def hsc_pnc143(match):
     orifice = orifice_map.get(match['orifice'])
     spring = spring_map.get(match['color'])
 
-    return f"R.{model}.{body}.{orifice}.{spring}"
+    output = {'worker': f"R.{model}.{body}.{orifice}.{spring}"}
+
+    return output
 
 
 # Output Functions

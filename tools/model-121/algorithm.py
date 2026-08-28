@@ -985,21 +985,33 @@ def hsc_pnc121(match):
     if model == '122-8' or model == '122-12':
         # 122
         if match['opp'] == "Monitor":
-            return [
-                f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{monitor_spring}.ALU",
-                f"R.{model}.STD.{body}.{diap}.INTCON.STD.STD.{spring}.ALU",
-            ]
+            output = {
+                'worker': f"R.{model}.STD.{body}.{diap}.INTCON.STD.STD.{spring}.ALU",
+                'monitor': f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{monitor_spring}.ALU",
+                'controlline': "CONTROL LINE KIT",
+                'controllineqty': 1,
+            }
         else:
-            return f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{spring}.ALU"
+            output = {'worker': f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{spring}.ALU",
+                      'controlline': "CONTROL LINE KIT",
+                      'controllineqty': 1,
+            }
     else:
         # 121
         if match['opp'] == "Monitor":
-            return [
-                f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{vp}.{monitor_spring}.ALU",
-                f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{vp}.{spring}.ALU",
-            ]
+            output = {
+                'worker': f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{vp}.{spring}.ALU",
+                'monitor': f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{vp}.{monitor_spring}.ALU",
+                'controlline': "CONTROL LINE KIT",
+                'controllineqty': 2,
+            }
         else:
-            return f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{vp}.{spring}.ALU"
+            output = {'worker': f"R.{model}.STD.{body}.{diap}.EXTCON.STD.STD.{vp}.{spring}.ALU",
+                      'controlline': "CONTROL LINE KIT",
+                      'controllineqty': 1,
+            }
+
+    return output
 
 
 # Output Functions

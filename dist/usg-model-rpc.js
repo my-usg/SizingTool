@@ -8,8 +8,8 @@
  *
  * tool:      model-rpc
  * version:   1.1.0
- * algorithm: sha256:20dd5a579944
- * sources:   sha256:1d14d1b3249a
+ * algorithm: sha256:8bf4279e24d0
+ * sources:   sha256:1a6984117924
  *
  * Adds to the shared namespace:
  *   USGSizing.sizeModelRPC(input)  -> result object
@@ -506,7 +506,7 @@ function run_regulator_selectionRPC(inlet, outlet, opp) {
   return [result, match, apply, warning];
 }
 function hsc_pncRPC(match) {
-  let body, body_map, control, model, monitor_spring, opp, orifice, orifice_map, spring, spring_map;
+  let body, body_map, control, model, monitor_spring, opp, orifice, orifice_map, output, spring, spring_map;
   body_map = new Map([["1-1/4\"", "1-1/4SCD"], ["1-1/2\"", "1-1/2SCD"], ["2\"", "2SCD"]]);
   orifice_map = new Map([["1/4\"", "12"], ["3/8\"", "14"], ["1/2\"", "15"], ["3/4\"", "18"], ["1\"", "20"], ["1-1/4\"", "21"]]);
   spring_map = new Map([["Red", "10"], ["Blue", "11"], ["Green", "12"], ["Orange", "13"], ["Black", "14"], ["White", "25"], ["Aluminum", "24"], ["Gray", "27"], ["Brown", "22"]]);
@@ -522,10 +522,22 @@ function hsc_pncRPC(match) {
     control = "EXT";
   }
   if ($truthy(($eq(opp, "Monitor")))) {
-    return [`R.${$str(model)}.${$str(body)}.${$str(control)}.${$str(orifice)}.STD.${$str(spring)}.ALU`, `R.243-RPC.${$str(body)}.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`];
+    output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(control)}.${$str(orifice)}.STD.${$str(spring)}.ALU`], ["monitor", `R.243-RPC.${$str(body)}.EXT.${$str(orifice)}.STD.${$str(monitor_spring)}.ALU`]]);
+    if ($truthy(($eq(control, "EXT")))) {
+      $set(output, "controlline", "CONTROL LINE KIT");
+      $set(output, "controllineqty", 2);
+    } else {
+      $set(output, "controlline", "CONTROL LINE KIT");
+      $set(output, "controllineqty", 1);
+    }
   } else {
-    return `R.${$str(model)}.${$str(body)}.${$str(control)}.${$str(orifice)}.STD.${$str(spring)}.ALU`;
+    output = new Map([["worker", `R.${$str(model)}.${$str(body)}.${$str(control)}.${$str(orifice)}.STD.${$str(spring)}.ALU`]]);
+    if ($truthy(($eq(control, "EXT")))) {
+      $set(output, "controlline", "CONTROL LINE KIT");
+      $set(output, "controllineqty", 1);
+    }
   }
+  return output;
 }
 
 
@@ -823,11 +835,23 @@ function sizeTool(rawInput) {
       out.pipe_note = null;
     }
 
-    var pns = [];
+    // hsc_pnc* now return a dict: worker, an optional monitor, and an optional
+    // control line kit with its quantity. Transpiled Python dicts are JS Maps.
     var pn = hsc_pncRPC(match);
-    var pnList = Array.isArray(pn) ? pn : [pn];
-    for (var q = 0; q < pnList.length; q++) if ($truthy(pnList[q])) pns.push(pnList[q]);
+    function pnField(key) {
+      if (pn instanceof Map) return pn.get(key);
+      return pn ? pn[key] : null;
+    }
+    var pns = [];
+    if ($truthy(pnField('worker'))) pns.push(pnField('worker'));
+    if ($truthy(pnField('monitor'))) pns.push(pnField('monitor'));
     out.part_numbers = pns;
+
+    // The control line kit is a real SKU with its own quantity. It goes in the
+    // cart and on the page, but not in the PDF.
+    out.control_line = $truthy(pnField('controlline')) ? pnField('controlline') : null;
+    var clq = pnField('controllineqty');
+    out.control_line_qty = (clq === undefined) ? null : clq;
   }
 
   // ---- the two capacity tables (mirrors build_table in the Streamlit app) ----
@@ -955,7 +979,7 @@ function sizeTool(rawInput) {
   ns.versions = ns.versions || {};
   ns.versions['model-rpc'] = {
     version: '1.1.0',
-    algorithm: 'sha256:20dd5a579944',
-    sources: 'sha256:1d14d1b3249a'
+    algorithm: 'sha256:8bf4279e24d0',
+    sources: 'sha256:1a6984117924'
   };
 })(typeof window !== 'undefined' ? window : this);

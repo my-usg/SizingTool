@@ -38,6 +38,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -402,6 +404,8 @@
     "R.461-57S.2FLG125.20D.B.10",
     "R.461-57S.2FLG125.20D.B.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 2,
    "sections": [
     {
      "label": null,
@@ -762,6 +766,8 @@
    "part_numbers": [
     "R.461-S.2FLG125.22S.PT.13"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -1118,6 +1124,8 @@
    "part_numbers": [
     "R.461-X57.2FLG250.EXTCON.22D.PT.22.ST"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -1475,6 +1483,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -1833,6 +1843,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20D.B.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -2191,6 +2203,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -2548,6 +2562,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20D.B.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -2910,6 +2926,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20D.B.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -3276,6 +3294,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -3642,6 +3662,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -3999,6 +4021,8 @@
    "part_numbers": [
     "R.461-S.2FLG125.22S.PT.13"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -4356,6 +4380,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -4714,6 +4740,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20S.PT.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -5489,6 +5517,8 @@
    "part_numbers": [
     "R.461-57S.2FLG125.20VPD.B.10"
    ],
+   "control_line": "CONTROL LINE KIT",
+   "control_line_qty": 1,
    "sections": [
     {
      "label": null,
@@ -5854,6 +5884,8 @@
     "R.441-57S.2FLG.EXTCON.23VP.BUNA.10.I",
     "R.441-57S.2FLG.EXTCON.23VP.BUNA.10.I"
    ],
+   "control_line": "CONTROL LINE KIT - 441-1/2",
+   "control_line_qty": 2,
    "sections": [
     {
      "label": null,
