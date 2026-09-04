@@ -339,17 +339,22 @@
   background: rgb(240, 242, 246) !important; border: 0 !important;
   padding: 2px 7px !important; border-radius: 5px;
 }
-/* Add to Cart deliberately carries no styling here: it renders with the site
-   theme's own button classes (CART_BTN_CLASS in the script below) so it matches
-   every other button on the site, and any rule here would out-specify the
-   theme. The font-family on the wrapper is the one exception - it hands the
-   theme's body font back to the button, which otherwise inherits this block's
-   font. If the theme's button rules set their own font-family they still win.
-   The usg-btn-cart class stays as the hook the browser test looks for. */
+/* ---- Add to Cart ----
+   Deliberately UNSTYLED, the same way the 441 configurator does it: the cart
+   control is a plain <button>, so the site theme's own button rules give it its
+   colour, border, radius, padding and type case and it matches every other
+   button on the site. Do not add any of those here - every rule in this block
+   is #usg-sizing-tool-scoped, so it would out-specify the theme. Only
+   layout-neutral bits belong here.
+   The font-family on the wrapper hands the theme's body font back to a button
+   that would otherwise inherit this block's font; a theme that sets its own
+   button font still wins. The configurator needs no equivalent because it sets
+   no font of its own at all. */
 #usg-sizing-tool .usg-cart {
   margin: 14px 0 0 !important;
   font-family: var(--bs-body-font-family, inherit);
 }
+#usg-sizing-tool .usg-btn-cart { cursor: pointer; }
 #usg-sizing-tool .usg-hr { border: none; border-top: 1px solid rgba(49, 51, 63, 0.2); margin: 24px 0; }
 #usg-sizing-tool .usg-alert { border-radius: 8px; padding: 16px; margin: 8px 0 16px; font-size: 16px !important; line-height: 1.6; }
 #usg-sizing-tool .usg-error { background: rgba(255, 43, 43, 0.09); color: rgb(125, 53, 59) !important; }
@@ -518,13 +523,6 @@ function buildInput() {
 // if a part number is not recognised).
 var CART_ENDPOINT = 'https://hollandsupplycompany.com/api/sizing-tool/add-to-cart';
 
-// The classes the site theme uses for a normal button. Concrete's editor and
-// the Bootstrap-based themes it ships with use "btn btn-primary"; change this
-// one string if this theme's buttons use something else, and the button picks
-// up the theme's styling with no CSS in this block. usg-btn-cart is appended
-// separately as a test hook and carries no styling.
-var CART_BTN_CLASS = 'btn btn-primary';
-
 // items is a list of { part, qty } - the regulators first, then any control
 // line kit with its own quantity.
 function cartUrl(items) {
@@ -634,8 +632,8 @@ function render(body) {
       }
       // One line per part number, each with a quantity of 1. A monitor
       // selection returns two different regulators, so both go in the cart.
-      html += '<p class="usg-cart"><a class="' + CART_BTN_CLASS + ' usg-btn-cart" href="' +
-        esc(cartUrl(cartItems(body))) + '">\uD83D\uDED2&nbsp; Add to Cart</a></p>';
+      html += '<p class="usg-cart"><button type="button" class="usg-btn-cart" data-cart="' +
+        esc(cartUrl(cartItems(body))) + '">Add to Cart</button></p>';
 
       // The PDF summary sits with the part numbers: those are what a customer
       // acts on. The capacity tables and adjustments below are reference
@@ -694,6 +692,15 @@ function render(body) {
   out.innerHTML = html;
   var pdfBtn = $('pdf-btn');
   if (pdfBtn) pdfBtn.addEventListener('click', downloadPdf);
+  // Add to Cart is a <button> so that the theme styles it, which means the
+  // navigation an <a href> used to do for free is wired up here - the same
+  // arrangement as the 441 configurator, URL carried in data-cart.
+  var cartBtn = out.querySelector('.usg-btn-cart');
+  if (cartBtn) {
+    cartBtn.addEventListener('click', function () {
+      window.location.href = cartBtn.getAttribute('data-cart');
+    });
+  }
 }
 
 // One capacity table. The Yes/No columns are colour-coded so a column can be

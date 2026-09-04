@@ -76,8 +76,16 @@ function driver(dom) {
         pnLabels: Array.from(out.querySelectorAll('.usg-field'))
           .map(p => p.textContent.trim())
           .filter(t => /Part Number/.test(t)),
-        cartHref: (out.querySelector('a.usg-btn-cart') || {}).getAttribute
-          ? out.querySelector('a.usg-btn-cart').getAttribute('href') : null,
+        // Add to Cart is a theme-styled <button> carrying the URL in
+        // data-cart, navigated by a click handler. It was an <a href> until
+        // the blocks were changed to match the 441 configurator, so read
+        // either one.
+        cartHref: (function () {
+          const btn = out.querySelector('button.usg-btn-cart');
+          if (btn) return btn.getAttribute('data-cart');
+          const link = out.querySelector('a.usg-btn-cart');
+          return link ? link.getAttribute('href') : null;
+        })(),
         adjustments: Array.from(out.querySelectorAll('.usg-table tbody tr'))
           .map(tr => Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim())),
         tables: Array.from(out.querySelectorAll('.usg-dfwrap')).map(w => ({
