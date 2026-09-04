@@ -50,6 +50,7 @@ function defaulted(input) {
     high_efficiency: false, high_efficiency_pct: 100,
     override_oversize: false, oversize_pct: 25,
     prefer_combustion: false,
+    vp_preference: "standard",
     gas_type: "Natural Gas", specific_gravity: 0.6,
     high_altitude: false, atmospheric_pressure: 14.40
   };
@@ -108,6 +109,11 @@ function sizeTool(rawInput) {
   var oversize_percent = (oversizeby - 1) * 100;
 
   var combust_pref = !!p.prefer_combustion;
+
+  // Standard or V-Port orifice preference, used by the 441/461 family. The
+  // algorithm expects exactly "standard" or "vport"; anything else falls back
+  // to standard so a stray value cannot silently flip the selection.
+  var vp_preference = (p.vp_preference === "vport") ? "vport" : "standard";
 
   // ---- gas type ----
   var gastypemult = 1.0;
@@ -204,7 +210,8 @@ function sizeTool(rawInput) {
     gastypemult: gastypemult,
     pload: pload,
     combust_pref: combust_pref,
-    Patm: Patm
+    Patm: Patm,
+    vp_preference: vp_preference
   });
 
   var r;
@@ -318,6 +325,7 @@ function sizeTool(rawInput) {
   summary.push(kv("Override percentage regulator is oversized by",
     p.override_oversize ? ($format(oversize_percent, ".0f") + "%") : "No"));
   summary.push(kv("Combustion Regulator Preferred", combust_pref ? "Yes" : "No"));
+  summary.push(kv("Orifice Preference", vp_preference === "vport" ? "V-Port" : "Standard"));
   summary.push(kv("Gas Type", p.gas_type));
   // Only meaningful for "Other" - the factor is derived from it, so the PDF
   // should record what was entered.

@@ -134,6 +134,22 @@
           </div>
         </div>
       </div>
+
+      <div class="usg-widget">
+        <label class="usg-label">Standard or V-Port orifice preferred? <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="The V-Port allows for increased turndown and helps reduce outlet pressure pulsation. If the preferred orifice cannot be sized the tool falls back to the other.">i</span></label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-vp" value="Standard" checked><span>Standard</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-vp" value="V-Port"><span>V-Port</span></label>
+        </div>
+      </div>
+
+      <div class="usg-widget">
+        <label class="usg-label">Prefer combustion regulator (Model 121/122) sizing? <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="If Yes is selected, the program will attempt to select a Model 121 or 122 regulator before a Model 461 or 441 regulator.">i</span></label>
+        <div class="usg-radio-group">
+          <label class="usg-radio"><input type="radio" name="usg-combust" value="No" checked><span>No</span></label>
+          <label class="usg-radio"><input type="radio" name="usg-combust" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
     </div>
 
     <div class="usg-col">
@@ -168,14 +184,6 @@
         <div class="usg-sliderwrap">
           <input type="range" id="usg-oversize" min="0" max="100" step="1" value="25">
           <span class="usg-slider-val" id="usg-oversize-val">25</span>
-        </div>
-      </div>
-
-      <div class="usg-widget">
-        <label class="usg-label">Prefer combustion regulator (Model 121/122) sizing? <span class="usg-help" tabindex="0" role="button" aria-label="More information" data-tip="If Yes is selected, the program will attempt to select a Model 121 or 122 regulator before a Model 461 or 441 regulator.">i</span></label>
-        <div class="usg-radio-group">
-          <label class="usg-radio"><input type="radio" name="usg-combust" value="No" checked><span>No</span></label>
-          <label class="usg-radio"><input type="radio" name="usg-combust" value="Yes"><span>Yes</span></label>
         </div>
       </div>
 
@@ -464,6 +472,8 @@ function buildInput() {
     override_oversize: radioVal('override') === "Yes",
     oversize_pct: parseInt($('oversize').value, 10),
     prefer_combustion: radioVal('combust') === "Yes",
+    // The algorithm expects "standard" or "vport", not the on-screen labels.
+    vp_preference: radioVal('vp') === "V-Port" ? "vport" : "standard",
     gas_type: $('gastype').value,
     specific_gravity: numVal('sg'),
     high_altitude: radioVal('elevation') === "Yes",

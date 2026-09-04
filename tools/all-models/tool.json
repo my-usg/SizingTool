@@ -18,7 +18,8 @@
     "gastypemult",
     "pload",
     "combust_pref",
-    "Patm"
+    "Patm",
+    "vp_preference"
   ],
   "skip_functions": [
     "print_regulator_selection"

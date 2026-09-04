@@ -46,6 +46,7 @@ def _select(**kw):  # noqa: C901
         irv_input=kw["irv_input"], oversizeby=kw["oversizeby"],
         gastypemult=kw["gastypemult"], pload=kw["pload"],
         combust_pref=kw["combust_pref"], Patm=kw["patm"],
+        vp_preference=kw["vp_preference"],
     )
     global LAST_ALGORITHM_ERROR
     try:
@@ -100,6 +101,7 @@ DEFAULTS = {
     "irv_pressure": 2.0, "partial_irv": False,
     "high_efficiency": False, "high_efficiency_pct": 100,
     "override_oversize": False, "oversize_pct": 25, "prefer_combustion": False,
+    "vp_preference": "standard",
     "gas_type": "Natural Gas", "specific_gravity": 0.6,
     "high_altitude": False, "atmospheric_pressure": 14.40,
 }
@@ -161,6 +163,11 @@ def run(payload) -> Dict[str, Any]:
     oversize_percent = (oversizeby - 1) * 100
 
     combust_pref = payload.prefer_combustion
+
+    # Standard or V-Port orifice preference, used by the 441/461 family. The
+    # algorithm expects exactly "standard" or "vport"; anything else falls back
+    # to standard - see the matching note in wrapper.js.
+    vp_preference = "vport" if payload.vp_preference == "vport" else "standard"
 
     # ---- gas type ----
     gastypemult = 1.0
@@ -266,6 +273,7 @@ def run(payload) -> Dict[str, Any]:
             pload=pload,
             combust_pref=combust_pref,
             patm=patm,
+            vp_preference=vp_preference,
         )
     except SizingError:
         log.exception(
@@ -382,6 +390,9 @@ def run(payload) -> Dict[str, Any]:
         )
     )
     summary.append(_kv("Combustion Regulator Preferred", "Yes" if combust_pref else "No"))
+    summary.append(
+        _kv("Orifice Preference", "V-Port" if vp_preference == "vport" else "Standard")
+    )
     summary.append(_kv("Gas Type", payload.gas_type))
     # Only meaningful for "Other" - the factor is derived from it, so the PDF
     # should record what was entered.

@@ -4124,7 +4124,7 @@ def allmodels_selector(inlet, outlet, opp):
     result243, match243, apply243, warning243 = run_regulator_selection243(inlet, outlet, opp)
     result046, match046, apply046, warning046 = run_regulator_selection046(inlet, outlet, opp)
     result121, result121_VP, result122, match121, apply121, warning121 = run_regulator_selection121(inlet, outlet, opp)
-    match461, apply461, warning461 = run_regulator_selection461(inlet, outlet, flow_rate, min_flow, opp)
+    match461, apply461, warning461 = run_regulator_selection461(inlet, outlet, flow_rate, min_flow, opp, vp_preference)
 
     # Determine the right model to use
     if apply143:

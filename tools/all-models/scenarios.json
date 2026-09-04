@@ -213,6 +213,35 @@
     "opp_required": true,
     "opp_pref": "Monitor"
    }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 30,
+    "flow": 50000,
+    "opp_required": true,
+    "opp_pref": "Monitor",
+    "vp_preference": "vport"
+   }
+  },
+  {
+   "input": {
+    "inlet": 100,
+    "outlet": 30,
+    "flow": 50000,
+    "opp_required": true,
+    "opp_pref": "Monitor",
+    "vp_preference": "standard"
+   }
+  },
+  {
+   "input": {
+    "inlet": 10,
+    "outlet": 7,
+    "outlet_units": "in wc",
+    "flow": 500,
+    "vp_preference": "vport"
+   }
   }
  ],
  "fixtures": [
@@ -429,6 +458,17 @@
     "opp_required": true,
     "opp_pref": "Monitor"
    }
+  },
+  {
+   "name": "V-Port preferred (461 family)",
+   "input": {
+    "inlet": 100,
+    "outlet": 30,
+    "flow": 50000,
+    "opp_required": true,
+    "opp_pref": "Monitor",
+    "vp_preference": "vport"
+   }
   }
  ],
  "random": {
@@ -622,6 +662,13 @@
    ],
    "decimals": [
     2
+   ]
+  },
+  "vp_preference": {
+   "choices": [
+    "standard",
+    "standard",
+    "vport"
    ]
   }
  }

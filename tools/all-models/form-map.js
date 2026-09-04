@@ -42,6 +42,9 @@ module.exports = {
       if (input.oversize_pct !== undefined) d.set('oversize', input.oversize_pct);
     }
     if (input.prefer_combustion) d.radio('combust', 'Yes');
+    // The input carries the algorithm's value ("vport"); the control shows the
+    // label ("V-Port").
+    if (input.vp_preference === 'vport') d.radio('vp', 'V-Port');
 
     if (input.gas_type) d.set('gastype', input.gas_type);
     if (input.specific_gravity !== undefined) d.set('sg', input.specific_gravity);
@@ -80,8 +83,14 @@ module.exports = {
     d.radio('elevation', 'Yes');
     check('atmospheric pressure appears', doc.getElementById('usg-patm-block').style.display === '');
 
+    check('orifice preference offers Standard and V-Port',
+      Array.from(doc.querySelectorAll('input[name="usg-vp"]')).map(i => i.value)
+        .join(',') === 'Standard,V-Port');
+    check('orifice preference defaults to Standard',
+      doc.querySelector('input[name="usg-vp"][value="Standard"]').checked);
+
     check('no +/- steppers', doc.querySelectorAll('.usg-step').length === 0);
-    check('7 info tooltips', doc.querySelectorAll('.usg-help').length === 7,
+    check('8 info tooltips', doc.querySelectorAll('.usg-help').length === 8,
       doc.querySelectorAll('.usg-help').length);
   }
 };

@@ -8,6 +8,7 @@ browser.
 Everything else is automatic.
 
 Setup instructions: **[DEPLOYING.md](DEPLOYING.md)**.
+Full handover notes, decisions and open items: **[CONTINUITY.md](CONTINUITY.md)**.
 
 ## Tools
 

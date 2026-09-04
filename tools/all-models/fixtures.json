@@ -90,6 +90,10 @@
      "value": "No"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Natural Gas"
     },
@@ -215,6 +219,10 @@
      "value": "No"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Natural Gas"
     },
@@ -325,6 +333,10 @@
      "value": "No"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Natural Gas"
     },
@@ -425,6 +437,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -529,6 +545,10 @@
      "value": "No"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Natural Gas"
     },
@@ -629,6 +649,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -741,6 +765,10 @@
      "value": "No"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Natural Gas"
     },
@@ -841,6 +869,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -947,6 +979,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -1063,6 +1099,10 @@
      "value": "No"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Other"
     },
@@ -1171,6 +1211,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -1295,6 +1339,10 @@
      "value": "Yes"
     },
     {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
      "label": "Gas Type",
      "value": "Natural Gas"
     },
@@ -1395,6 +1443,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -1512,6 +1564,10 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
     },
     {
      "label": "Gas Type",
@@ -1732,6 +1788,132 @@
     {
      "label": "Combustion Regulator Preferred",
      "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "Standard"
+    },
+    {
+     "label": "Gas Type",
+     "value": "Natural Gas"
+    },
+    {
+     "label": "Altitude above 3,000 feet or atmospheric pressure below 13 psi",
+     "value": "No"
+    }
+   ]
+  }
+ },
+ {
+  "name": "V-Port preferred (461 family)",
+  "input": {
+   "inlet": 100,
+   "outlet": 30,
+   "flow": 50000,
+   "opp_required": true,
+   "opp_pref": "Monitor",
+   "vp_preference": "vport"
+  },
+  "expected": {
+   "ok": true,
+   "selected": true,
+   "errors": [],
+   "warnings": [
+    "Sized for worker/monitor setup"
+   ],
+   "message": "Regulator selected!",
+   "selection": [
+    {
+     "label": "Model",
+     "value": "441-57S"
+    },
+    {
+     "label": "Body Size",
+     "value": "2\" ANSI125"
+    },
+    {
+     "label": "Orifice Size",
+     "value": "1-1/2\" VP"
+    },
+    {
+     "label": "Seat",
+     "value": "BUNA"
+    },
+    {
+     "label": "Spring",
+     "value": "Brown (25 - 55 psi)"
+    },
+    {
+     "label": "Monitor Spring",
+     "value": "Brown (25 - 55 psi)"
+    }
+   ],
+   "capacity": "166,566",
+   "part_numbers": [
+    "R.441-57S.2FLG.EXTCON.23VP.BUNA.22.I",
+    "R.441-57S.2FLG.EXTCON.23VP.BUNA.22.I"
+   ],
+   "control_line": "CONTROL LINE KIT - 441-1/2\"",
+   "control_line_qty": 2,
+   "pipe_note": null,
+   "adjustments": [
+    {
+     "label": "Oversized By",
+     "value": "25%"
+    },
+    {
+     "label": "Monitor Capacity Reduction",
+     "value": "30%"
+    }
+   ],
+   "summary": [
+    {
+     "label": "Inlet Pressure (psi)",
+     "value": "100.0"
+    },
+    {
+     "label": "Outlet Pressure (psi)",
+     "value": "30.0"
+    },
+    {
+     "label": "Max Flow Rate (CFH)",
+     "value": "50,000"
+    },
+    {
+     "label": "Min Flow Rate (CFH)",
+     "value": "50,000"
+    },
+    {
+     "label": "Max Allowable Inlet Pressure (psi)",
+     "value": "0"
+    },
+    {
+     "label": "Requested Pipe Size",
+     "value": "N/A"
+    },
+    {
+     "label": "Overpressure Protection Required",
+     "value": "Yes"
+    },
+    {
+     "label": "Protection Type",
+     "value": "Monitor"
+    },
+    {
+     "label": "Percent Load Feeding High-Efficiency Appliance",
+     "value": "0"
+    },
+    {
+     "label": "Override percentage regulator is oversized by",
+     "value": "No"
+    },
+    {
+     "label": "Combustion Regulator Preferred",
+     "value": "No"
+    },
+    {
+     "label": "Orifice Preference",
+     "value": "V-Port"
     },
     {
      "label": "Gas Type",
