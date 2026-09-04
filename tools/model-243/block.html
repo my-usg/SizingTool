@@ -604,11 +604,14 @@ function cartItems(body) {
 //     status: IN_STOCK | AVAILABLE_TO_ORDER | PARTIAL_AVAILABILITY |
 //             CONTACT_US | NOT_FOUND
 //
-// THE LEAD TIME HOST BELOW IS STAGING - swap it for the production one at
-// cutover. It is the only cross-origin call this block makes, so the site's
-// CSP needs it in connect-src and the endpoint has to allow this origin.
+// The lead time host is the only cross-origin call this block makes, so it has
+// to be in the site's connect-src. The production host below is covered by the
+// `*.hsc.faxon.tech` entry already in that policy - the staging host is NOT
+// (`hsc-staging` is a different label from `hsc`, so the wildcard misses it),
+// and pointing this at staging is blocked by the browser before the request
+// leaves. Verified against production: it answers 200 with the documented list.
 var PRICE_ENDPOINT     = '/api/chatbot/products';
-var LEAD_TIME_ENDPOINT = 'https://orchestrator.hsc-staging.faxon.tech/api/lead-time';
+var LEAD_TIME_ENDPOINT = 'https://orchestrator.hsc.faxon.tech/api/lead-time';
 
 // SKU -> response, or null once a lookup has been tried and produced nothing.
 // A null is not retried: a part the endpoints do not know will not start
@@ -773,16 +776,32 @@ function loadInfo(root) {
   paintInfo(root);
 }
 
+// A failed lookup shows the customer nothing, which is right for them and
+// useless for anyone diagnosing it - so every failure says why in the console.
+// The messages are the only way to tell a blocked request (CSP or CORS) from
+// an endpoint that answered with nothing. Prefix `[USG sizing]` to find them.
+function lookupWarn(msg) {
+  if (window.console && window.console.warn) window.console.warn('[USG sizing] ' + msg);
+}
+
 function fetchPrice(sku, token, root) {
   if (sku in priceCache) return;
   priceCache[sku] = null;
   window.fetch(PRICE_ENDPOINT + '?sku=' + encodeURIComponent(sku), { credentials: 'include' })
-    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (r) {
+      if (!r.ok) { lookupWarn('price HTTP ' + r.status + ' for ' + sku); return null; }
+      return r.json();
+    })
     .then(function (data) {
       priceCache[sku] = data || null;
+      if (data && priceOf(data) === undefined) {
+        lookupWarn('price response carried no amount for ' + sku + ': ' + JSON.stringify(data));
+      }
       if (token === lookupToken) paintInfo(root);
     })
-    .catch(function () { /* no price, nothing shown */ });
+    .catch(function (e) {
+      lookupWarn('price request failed for ' + sku + ' - ' + (e && e.message ? e.message : e));
+    });
 }
 
 function fetchLeadTimes(items, token, root) {
@@ -798,16 +817,71 @@ function fetchLeadTimes(items, token, root) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ items: need })
   })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (rows) {
-      if (rows && rows.length) {
-        for (var k = 0; k < rows.length; k++) {
-          if (rows[k] && rows[k].partNumber) leadCache[String(rows[k].partNumber)] = rows[k];
-        }
-      }
+    .then(function (r) {
+      if (!r.ok) { lookupWarn('lead time HTTP ' + r.status + ' from ' + LEAD_TIME_ENDPOINT); return null; }
+      return r.json();
+    })
+    .then(function (data) {
+      absorbLeadTimes(need, data);
       if (token === lookupToken) paintInfo(root);
     })
-    .catch(function () { /* no availability, nothing shown */ });
+    .catch(function (e) {
+      // A cross-origin request that is refused arrives here with almost no
+      // detail, by design of the browser. The console entry above it says
+      // whether it was CSP or CORS.
+      lookupWarn('lead time request failed - ' + (e && e.message ? e.message : e) +
+        '. If the console also shows a CSP or CORS error, that is the cause: the ' +
+        'site needs ' + LEAD_TIME_ENDPOINT + ' in connect-src, and the endpoint ' +
+        'has to allow this origin (including the OPTIONS preflight this POST triggers).');
+    });
+}
+
+// The documented response is a bare list, one row per item. This accepts a
+// list wrapped in a single object property too, and matches rows to parts by
+// part number, then case-insensitively, then by position - so a normalised or
+// re-cased part number in the response still lands on the right slot.
+function absorbLeadTimes(need, data) {
+  if (data === null || data === undefined) return;
+  var rows = null;
+  if (Object.prototype.toString.call(data) === '[object Array]') {
+    rows = data;
+  } else if (typeof data === 'object') {
+    var keys = ['items', 'results', 'estimates', 'leadTimes', 'data'];
+    for (var i = 0; i < keys.length; i++) {
+      if (Object.prototype.toString.call(data[keys[i]]) === '[object Array]') { rows = data[keys[i]]; break; }
+    }
+  }
+  if (!rows) {
+    lookupWarn('lead time response was not a list of estimates: ' + JSON.stringify(data).slice(0, 300));
+    return;
+  }
+  for (var k = 0; k < rows.length; k++) {
+    var row = rows[k];
+    if (!row || typeof row !== 'object') continue;
+    var key = row.partNumber || row.part_number || row.sku || row.part;
+    var target = key ? matchPart(need, key) : null;
+    if (!target && !key && need[k]) target = need[k].partNumber;   // positional
+    if (!target) {
+      lookupWarn('lead time row matched no part on screen (' + JSON.stringify(key) + ')');
+      continue;
+    }
+    leadCache[target] = row;
+    if (!availability(row)) {
+      lookupWarn('lead time row for ' + target + ' had no status or message, so nothing is shown: ' +
+        JSON.stringify(row).slice(0, 300));
+    }
+  }
+}
+function matchPart(need, key) {
+  var s = String(key), i;
+  for (i = 0; i < need.length; i++) {
+    if (need[i].partNumber === s) return need[i].partNumber;
+  }
+  var flat = s.toUpperCase().replace(/\s+/g, '');
+  for (i = 0; i < need.length; i++) {
+    if (need[i].partNumber.toUpperCase().replace(/\s+/g, '') === flat) return need[i].partNumber;
+  }
+  return null;
 }
 
 var lastRun = null; // stored for the PDF download
