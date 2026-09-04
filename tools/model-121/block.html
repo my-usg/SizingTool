@@ -337,10 +337,36 @@
    button font still wins. The configurator needs no equivalent because it sets
    no font of its own at all. */
 #usg-sizing-tool .usg-cart {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
   margin: 14px 0 0 !important;
   font-family: var(--bs-body-font-family, inherit);
 }
 #usg-sizing-tool .usg-btn-cart { cursor: pointer; }
+/* Price and lead time. Colours and proportions follow the 441 configurator so
+   the two blocks read as one product. Both start hidden and stay hidden if the
+   lookup is unavailable, so nothing shifts on the page when it fails. */
+#usg-sizing-tool [hidden] { display: none !important; }
+#usg-sizing-tool .usg-price {
+  font-size: 20px !important; font-weight: 700 !important;
+  color: rgb(49, 51, 63) !important; margin: -6px 0 10px !important;
+}
+#usg-sizing-tool .usg-price small {
+  font-size: 14px !important; font-weight: 400;
+  color: rgba(49, 51, 63, 0.65) !important; margin-left: 7px;
+}
+#usg-sizing-tool .usg-avail {
+  background: #f7f7f7; border-left: 3px solid #b4741d; border-radius: 0 4px 4px 0;
+  padding: 9px 15px; margin: 0 0 14px; font-size: 15px !important; line-height: 1.5;
+}
+#usg-sizing-tool .usg-avail strong {
+  display: block; font-size: 13px !important; font-weight: 700 !important;
+  text-transform: uppercase; letter-spacing: 0.06em; color: #b4741d !important;
+}
+#usg-sizing-tool .usg-avail span { display: block; }
+#usg-sizing-tool .usg-avail a { color: inherit !important; }
+#usg-sizing-tool .usg-avail.is-stock { border-left-color: #1e7d3a; }
+#usg-sizing-tool .usg-avail.is-stock strong { color: #1e7d3a !important; }
+#usg-sizing-tool .usg-total { font-weight: 700; white-space: nowrap; }
 #usg-sizing-tool .usg-hr { border: none; border-top: 1px solid rgba(49, 51, 63, 0.2); margin: 24px 0; }
 #usg-sizing-tool .usg-alert { border-radius: 8px; padding: 16px; margin: 8px 0 16px; font-size: 16px !important; line-height: 1.6; }
 #usg-sizing-tool .usg-error { background: rgba(255, 43, 43, 0.09); color: rgb(125, 53, 59) !important; }
@@ -531,6 +557,237 @@ function cartItems(body) {
   return items;
 }
 
+// ---- Price and lead time ----
+// Looked up from the customer's own browser once the selection has rendered,
+// so a slow or failing lookup never delays the sizing result. Every slot
+// starts hidden and stays hidden if a lookup fails, which is why an outage
+// costs nothing but the price line. Neither figure is written into
+// `lastRun`: prices are session-specific and lead times move, so a saved PDF
+// must not carry either.
+//
+// PRICE - Hutman's CMS endpoint, one call per SKU. It must be same-origin and
+// send credentials: without the session cookie it answers with list price
+// rather than this customer's price.
+//     GET /api/chatbot/products?sku=<sku>
+//     { sku, internal_id,
+//       price:      { amount: "1507.54", currency: "USD",
+//                     is_customer_specific: false, price_group: "..." },
+//       list_price: { amount: "1507.54", currency: "USD" } }
+//
+// LEAD TIME - the orchestrator endpoint, one call for the whole selection. It
+// takes 1-8 items and a selection is at most three (worker, monitor, kit).
+//     POST <LEAD_TIME_ENDPOINT>   { items: [ { partNumber, quantity } ] }
+//     [ { ok, partNumber, quantity, status, leadTime, message,
+//         availableNow, contact: { email, phone } } ]
+//     status: IN_STOCK | AVAILABLE_TO_ORDER | PARTIAL_AVAILABILITY |
+//             CONTACT_US | NOT_FOUND
+//
+// THE LEAD TIME HOST BELOW IS STAGING - swap it for the production one at
+// cutover. It is the only cross-origin call this block makes, so the site's
+// CSP needs it in connect-src and the endpoint has to allow this origin.
+var PRICE_ENDPOINT     = '/api/chatbot/products';
+var LEAD_TIME_ENDPOINT = 'https://orchestrator.hsc-staging.faxon.tech/api/lead-time';
+
+// SKU -> response, or null once a lookup has been tried and produced nothing.
+// A null is not retried: a part the endpoints do not know will not start
+// knowing it while the page is open, and one failed call should not become one
+// per run.
+var priceCache = {};
+var leadCache = {};
+// A late response must not paint over a newer sizing run.
+var lookupToken = 0;
+
+// Placeholders rendered with each part number. Empty and hidden until a
+// lookup fills them in.
+function infoSlots(sku) {
+  return '<p class="usg-price" data-price-for="' + esc(sku) + '" hidden></p>' +
+    '<div class="usg-avail" data-avail-for="' + esc(sku) + '" hidden></div>';
+}
+
+// The part/quantity list travels on the Add to Cart paragraph so the lookup
+// can read back exactly what is on screen, with no state to reset when a run
+// finds no regulator. Part numbers contain "." "/" "-" and quote marks but
+// never "~" or "|".
+function itemsAttr(items) {
+  var bits = [];
+  for (var i = 0; i < items.length; i++) {
+    if (items[i] && items[i].part) bits.push(items[i].part + '~' + (items[i].qty || 1));
+  }
+  return bits.join('|');
+}
+function itemsFromDom(root) {
+  var el = root.querySelector('.usg-cart[data-items]');
+  if (!el) return [];
+  var pairs = (el.getAttribute('data-items') || '').split('|'), items = [];
+  for (var i = 0; i < pairs.length; i++) {
+    if (!pairs[i]) continue;
+    var bits = pairs[i].split('~');
+    items.push({ part: bits[0], qty: Number(bits[1]) || 1 });
+  }
+  return items;
+}
+
+function money(n, currency) {
+  var parts = Number(n).toFixed(2).split('.');
+  var s = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + parts[1];
+  return (!currency || currency === 'USD') ? '$' + s : s + ' ' + currency;
+}
+// Amounts arrive as strings ("1507.54"), so they are parsed rather than used
+// directly.
+function amountOf(slot) {
+  if (!slot) return undefined;
+  var v = (typeof slot === 'object') ? slot.amount : slot;
+  if (v === null || v === undefined || v === '') return undefined;
+  var n = Number(String(v).replace(/[$,\s]/g, ''));
+  return isFinite(n) ? n : undefined;
+}
+function priceOf(rec) {
+  if (!rec) return undefined;
+  var v = amountOf(rec.price);
+  return (v === undefined) ? amountOf(rec.list_price) : v;
+}
+function currencyOf(rec) {
+  if (!rec) return 'USD';
+  return (rec.price && rec.price.currency) ||
+         (rec.list_price && rec.list_price.currency) || 'USD';
+}
+function priceHtml(rec) {
+  var v = priceOf(rec);
+  if (v === undefined) return '';
+  var html = esc(money(v, currencyOf(rec)));
+  if (rec.price && rec.price.is_customer_specific) html += ' <small>your account price</small>';
+  return html;
+}
+
+// Wording for the availability line lives here, and nowhere else.
+var LEAD_LABELS = {
+  IN_STOCK: 'In stock',
+  AVAILABLE_TO_ORDER: 'Available to order',
+  PARTIAL_AVAILABILITY: 'Partly in stock',
+  CONTACT_US: 'Contact us',
+  NOT_FOUND: 'Contact us'
+};
+function availability(rec) {
+  if (!rec) return null;
+  var status = String(rec.status || '');
+  // `message` is the customer-ready sentence; `leadTime` says the same thing
+  // more tersely. Swap the order here to show the terse one instead.
+  var text = rec.message || rec.leadTime || '';
+  // A part number the sizing tool can produce but NetSuite does not carry
+  // comes back NOT_FOUND. Saying nothing would leave the customer to discover
+  // it at the cart, so it points them at a person instead.
+  var toContact = (rec.ok === false || status === 'CONTACT_US' || status === 'NOT_FOUND');
+  if (toContact && !text) {
+    text = 'Contact Holland Supply Company to confirm availability for this part.';
+  }
+  if (!text) return null;
+  var extra = '';
+  if (toContact && rec.contact) {
+    var bits = [];
+    if (rec.contact.phone) {
+      bits.push('<a href="tel:' + esc(String(rec.contact.phone).replace(/[^0-9+]/g, '')) +
+        '">' + esc(rec.contact.phone) + '</a>');
+    }
+    if (rec.contact.email) {
+      bits.push('<a href="mailto:' + esc(rec.contact.email) + '">' + esc(rec.contact.email) + '</a>');
+    }
+    if (bits.length) extra = '<span>' + bits.join(' &middot; ') + '</span>';
+  }
+  return {
+    label: LEAD_LABELS[status] || 'Availability',
+    text: text,
+    stocked: status === 'IN_STOCK',
+    extra: extra
+  };
+}
+
+// Fills the placeholders in place - never rebuilds the results - so it is safe
+// to call from a fetch callback.
+function paintInfo(root) {
+  var i, el, rec;
+  var prices = root.querySelectorAll('[data-price-for]');
+  for (i = 0; i < prices.length; i++) {
+    el = prices[i];
+    var html = priceHtml(priceCache[el.getAttribute('data-price-for')]);
+    el.innerHTML = html;
+    el.hidden = !html;
+  }
+  var avails = root.querySelectorAll('[data-avail-for]');
+  for (i = 0; i < avails.length; i++) {
+    el = avails[i];
+    var a = availability(leadCache[el.getAttribute('data-avail-for')]);
+    if (!a) { el.hidden = true; el.innerHTML = ''; continue; }
+    el.hidden = false;
+    el.className = 'usg-avail' + (a.stocked ? ' is-stock' : '');
+    el.innerHTML = '<strong>' + esc(a.label) + '</strong><span>' + esc(a.text) + '</span>' + a.extra;
+  }
+  // Line-item total beside Add to Cart, shown only when every part on screen
+  // has a price - a partial total would understate the order.
+  var wrap = root.querySelector('.usg-cart[data-items]');
+  var tot = wrap ? wrap.querySelector('.usg-total') : null;
+  if (tot) {
+    var items = itemsFromDom(root), sum = 0, ok = items.length > 0, cur = 'USD';
+    for (i = 0; i < items.length; i++) {
+      rec = priceCache[items[i].part];
+      var v = priceOf(rec);
+      if (v === undefined) { ok = false; break; }
+      cur = currencyOf(rec);
+      sum += v * items[i].qty;
+    }
+    tot.textContent = ok ? 'Total ' + money(sum, cur) : '';
+    tot.hidden = !ok;
+  }
+}
+
+// One price call per SKU and one lead time call for the selection, fired after
+// the result is on screen. Anything already cached paints immediately.
+function loadInfo(root) {
+  if (!window.fetch) return;
+  var items = itemsFromDom(root);
+  if (!items.length) return;
+  var token = ++lookupToken;
+  for (var i = 0; i < items.length; i++) fetchPrice(items[i].part, token, root);
+  fetchLeadTimes(items, token, root);
+  paintInfo(root);
+}
+
+function fetchPrice(sku, token, root) {
+  if (sku in priceCache) return;
+  priceCache[sku] = null;
+  window.fetch(PRICE_ENDPOINT + '?sku=' + encodeURIComponent(sku), { credentials: 'include' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      priceCache[sku] = data || null;
+      if (token === lookupToken) paintInfo(root);
+    })
+    .catch(function () { /* no price, nothing shown */ });
+}
+
+function fetchLeadTimes(items, token, root) {
+  var need = [];
+  for (var i = 0; i < items.length && need.length < 8; i++) {
+    if (items[i].part in leadCache) continue;
+    leadCache[items[i].part] = null;
+    need.push({ partNumber: items[i].part, quantity: items[i].qty });
+  }
+  if (!need.length) return;
+  window.fetch(LEAD_TIME_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: need })
+  })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rows) {
+      if (rows && rows.length) {
+        for (var k = 0; k < rows.length; k++) {
+          if (rows[k] && rows[k].partNumber) leadCache[String(rows[k].partNumber)] = rows[k];
+        }
+      }
+      if (token === lookupToken) paintInfo(root);
+    })
+    .catch(function () { /* no availability, nothing shown */ });
+}
+
 var lastRun = null; // stored for the PDF download
 
 // ---- main run handler ----
@@ -599,6 +856,7 @@ function render(body) {
                     : 'Part Number ' + (p + 1);
         html += '<p class="usg-field"><strong>' + pnLabel + ':</strong> ' +
           '<code class="usg-pn">' + esc(pns[p]) + '</code></p>';
+        html += infoSlots(pns[p]);
       }
 
       // Control line kit, below the part numbers. It is a real SKU, so it goes
@@ -607,6 +865,7 @@ function render(body) {
         html += '<p class="usg-field"><strong>' + esc(body.control_line) + ':</strong> ' +
           esc(body.control_line_qty === null || body.control_line_qty === undefined
               ? '' : body.control_line_qty) + '</p>';
+        html += infoSlots(body.control_line);
       }
 
       if (body.pipe_note) {
@@ -615,8 +874,11 @@ function render(body) {
 
       // One line per part number, each with a quantity of 1. A monitor
       // selection returns two different regulators, so both go in the cart.
-      html += '<p class="usg-cart"><button type="button" class="usg-btn-cart" data-cart="' +
-        esc(cartUrl(cartItems(body))) + '">Add to Cart</button></p>';
+      var items = cartItems(body);
+      html += '<p class="usg-cart" data-items="' + esc(itemsAttr(items)) + '">' +
+        '<button type="button" class="usg-btn-cart" data-cart="' +
+        esc(cartUrl(items)) + '">Add to Cart</button>' +
+        '<span class="usg-total" hidden></span></p>';
 
       // The PDF summary sits with the part numbers: those are what a customer
       // acts on. The capacity tables and adjustments below are reference
@@ -688,6 +950,9 @@ function render(body) {
       window.location.href = cartBtn.getAttribute('data-cart');
     });
   }
+  // Price and lead time come from the customer's browser after the result is
+  // on screen, so the selection never waits on the network.
+  loadInfo(out);
 }
 
 // One capacity table. The Yes/No columns are colour-coded so a column can be
