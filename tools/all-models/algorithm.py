@@ -3753,7 +3753,7 @@ def find_first(table):
 
 # Computes regulator selection outputs
 # Returns dict with : model, body, orifice, seat, max_capacity
-def run_regulator_selection461(inlet_p, outlet_p, max_flow, min_flow, opp):
+def run_regulator_selection461(inlet_p, outlet_p, max_flow, min_flow, opp, vp_preference):
     
     if opp == "Monitor" or opp == "IRV":
         monitor = True
@@ -3770,9 +3770,13 @@ def run_regulator_selection461(inlet_p, outlet_p, max_flow, min_flow, opp):
     std_match = find_first(std)
     vp_match  = find_first(vp)
 
-    # Primary match: standard table; fallback: V-Port table
-    primary = std_match if std_match else vp_match
-    is_vport = std_match is None
+    # Primary match: V-Port table first if preferred, else standard table first
+    if vp_preference == "vport":
+        primary = vp_match if vp_match else std_match
+        is_vport = vp_match is not None
+    else:
+        primary = std_match if std_match else vp_match
+        is_vport = std_match is None
 
     if primary is None:
         match = {
@@ -3863,7 +3867,7 @@ def run_regulator_selection461(inlet_p, outlet_p, max_flow, min_flow, opp):
     monset = 0
     if monitor:
         if outlet_input < 1:
-            monset = 0.5
+            monset = outlet_input + 0.5
         elif outlet_input == 1:
             monset = 2
         elif outlet_input <= 2:
